@@ -1,2 +1,13 @@
 v0.0.1
 - Initial version
+
+v0.0.2
+- LibreELEC 10 beta dependencies corrected
+- changed line endings to UNIX
+- added ORTEK VRC-1100 lircd profile
+
+v0.0.3
+- Shutdown script added to safely cut the power
+
+v0.0.4
+- ORTEK VRC-1100 lircd profile removed

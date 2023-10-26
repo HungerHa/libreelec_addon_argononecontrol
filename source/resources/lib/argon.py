@@ -215,6 +215,23 @@ def copylircfile():
 		return()
 
 #
+# Copy Shutdown script to directory .config
+#
+def copyshutdownscript():
+	#xbmc.log("copyshutdownscript",level=xbmc.LOGNOTICE)
+	srcfile = "/storage/.kodi/addons/script.service.argonforty-device/resources/data/shutdown.sh"
+	dstfile = "/storage/.config/shutdown.sh"
+	if os.path.isfile(dstfile) == True:
+		tmpdsthash = getFileHash(dstfile)
+		tmpsrchash = getFileHash(srcfile)
+		if tmpdsthash == tmpsrchash:
+			return()
+	try:
+		copyfile(srcfile, dstfile)
+	except:
+		return()
+
+#
 # Check file hash
 #
 def getFileHash(fname):
@@ -247,4 +264,5 @@ if devbusid < 0:
 	checksetup()
 else:
 	copylircfile()
+	copyshutdownscript()
 
