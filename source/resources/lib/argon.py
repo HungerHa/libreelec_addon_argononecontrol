@@ -27,16 +27,21 @@ sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib')
 import smbus
 
 sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
-import RPi.GPIO as GPIO
+from gpiozero import Button
+from gpiozero import pi_info
 import os
 import time
 from shutil import copyfile
 
 import zlib
 
-rev = GPIO.RPI_REVISION
+# select the i2c device
+# 0 = /dev/i2c-0 (port I2C0) (EEPROM) GPIO pins 1,27,28,30 at RPi4
+# 1 = /dev/i2c-1 (port I2C1) GPIO pins 1,3,5,9 at RPi4
+pi = pi_info()
+model = pi.model
 devbusid = 0
-if rev == 2 or rev == 3:
+if model == '3B' or model == '4B':
 	devbusid = 1
 
 try:
@@ -46,8 +51,6 @@ except:
 
 
 fanaddress=0x1a
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
 
 fansettingupdate=False
 
@@ -65,13 +68,14 @@ class SettingMonitor(xbmc.Monitor):
 
 def shutdown_check():
 	shutdown_pin=4
-	GPIO.setup(shutdown_pin, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN)
+	# pull down the pin
+	btn = Button(shutdown_pin, pull_up = False)
 
 	while True:
 		pulsetime = 1
-		GPIO.wait_for_edge(shutdown_pin, GPIO.RISING)
+		btn.wait_for_press()
 		time.sleep(0.01)
-		while GPIO.input(shutdown_pin) == GPIO.HIGH:
+		while btn.is_pressed:
 			time.sleep(0.01)
 			pulsetime += 1
 		if pulsetime >=2 and pulsetime <=3:
@@ -257,12 +261,11 @@ def cleanup():
 		bus.write_byte(fanaddress,0)
 
 	# GPIO
-	GPIO.cleanup()
-
+	# GPIO.cleanup()
+	# gpiozero automatically restores the pin settings at the end of the script
 
 if devbusid < 0:
 	checksetup()
 else:
 	copylircfile()
 	copyshutdownscript()
-

@@ -11,3 +11,6 @@ v0.0.3
 
 v0.0.4
 - ORTEK VRC-1100 lircd profile removed
+
+v0.0.5
+- migration to gpiozero
