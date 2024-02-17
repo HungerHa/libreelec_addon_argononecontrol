@@ -37,7 +37,7 @@ from shutil import copyfile
 
 import zlib
 
-from argonregister import *
+from resources.lib.argonregister import *
 
 # Initialize I2C Bus
 bus = argonregister_initializebusobj()

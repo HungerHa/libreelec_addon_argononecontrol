@@ -3,7 +3,7 @@
 #
 # Argon Register Helper methods
 #
-import os
+import os, sys
 if os.path.exists('/storage/.kodi/addons/virtual.system-tools/lib'):
 	sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib')
 if os.path.exists('/storage/.kodi/addons/virtual.system-tools/lib.private'):
