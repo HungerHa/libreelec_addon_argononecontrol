@@ -21,3 +21,8 @@ v0.0.6
 
 v0.0.6a
 - set gpiozero pin factory to NativeFactory
+
+v0.0.6b
+- rolled back pin factory enforcing
+- add workaround for lgpio pipe issue
+  https://github.com/gpiozero/gpiozero/issues/1106
