@@ -27,6 +27,7 @@ sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib.private')
 import smbus
 
 sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
+from gpiozero.pins.native import NativeFactory
 from gpiozero import Button
 from gpiozero import pi_info
 import os
@@ -34,6 +35,8 @@ import time
 from shutil import copyfile
 
 import zlib
+
+Device.pin_factory = NativeFactory()
 
 # select the i2c device
 # 0 = /dev/i2c-0 (port I2C0) (EEPROM) GPIO pins 1,27,28,30 at RPi4

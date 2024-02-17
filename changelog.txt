@@ -18,3 +18,6 @@ v0.0.5
 v0.0.6
 - added RPi5 support
 - changed to the new LE12 System Tools Add-on lib paths
+
+v0.0.6a
+- set gpiozero pin factory to NativeFactory
