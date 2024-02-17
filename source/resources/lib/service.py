@@ -42,4 +42,3 @@ def run():
 		#logger.debug("ArgonForty Device addon! %s" % time.time())
 
 	argon.cleanup()
-
