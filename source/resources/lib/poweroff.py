@@ -1,13 +1,13 @@
 #!/usr/bin/python
 import sys
-sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib')
+sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib.private')
 import smbus
 sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
 from gpiozero import pi_info
 
 pi = pi_info()
 model = pi.model
-if model == '3B' or model == '4B':
+if model == '3B' or model == '4B' or model == '5B':
 	bus = smbus.SMBus(1)
 else:
 	bus = smbus.SMBus(0)

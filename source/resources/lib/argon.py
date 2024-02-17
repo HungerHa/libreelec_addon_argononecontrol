@@ -23,7 +23,7 @@ import xbmcaddon
 # For Libreelec/Lakka, note that we need to add system paths
 import sys
 
-sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib')
+sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib.private')
 import smbus
 
 sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
@@ -41,7 +41,7 @@ import zlib
 pi = pi_info()
 model = pi.model
 devbusid = 0
-if model == '3B' or model == '4B':
+if model == '3B' or model == '4B' or model == '5B':
 	devbusid = 1
 
 try:
