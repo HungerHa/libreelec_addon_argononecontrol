@@ -13,6 +13,6 @@ else:
 	bus = smbus.SMBus(0)
 try:
 	bus.write_byte_data(0x1a,0x80,0)
-	bus.write_byte(0x1a,0xFF)
+	bus.write_byte_data(0x1a,0x86,1)
 except:
 	model='Zero'

@@ -29,3 +29,6 @@ v0.0.6b
 
 v.0.0.6c
 - hotfix for Argon40 One new fan control/firmware
+
+v.0.0.6d
+- switched to new power off command
