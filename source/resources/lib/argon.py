@@ -20,16 +20,26 @@
 import xbmc
 import xbmcaddon
 
+# workaround for lgpio issue
+# https://github.com/gpiozero/gpiozero/issues/1106
+import os
+pid = os.getpid()
+import tempfile
+tmp_lgpio_work_dir = tempfile.TemporaryDirectory()
+os.environ["LG_WD"] = tmp_lgpio_work_dir.name
+
 # For Libreelec/Lakka, note that we need to add system paths
 import sys
 
-sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib')
+if os.path.exists('/storage/.kodi/addons/virtual.system-tools/lib'):
+	sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib')
+if os.path.exists('/storage/.kodi/addons/virtual.system-tools/lib.private'):
+	sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib.private')
 import smbus
 
 sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
 from gpiozero import Button
 from gpiozero import pi_info
-import os
 import time
 from shutil import copyfile
 
@@ -41,7 +51,7 @@ import zlib
 pi = pi_info()
 model = pi.model
 devbusid = 0
-if model == '3B' or model == '4B':
+if model == '3B' or model == '4B' or model == '5B':
 	devbusid = 1
 
 try:
@@ -49,8 +59,15 @@ try:
 except:
 	devbusid = -1
 
+# I2C Addresses
+ADDR_ARGONONEFAN=0x1a
+ADDR_ARGONONEREG=ADDR_ARGONONEFAN
 
-fanaddress=0x1a
+# ARGONONEREG Addresses
+ADDR_ARGONONEREG_DUTYCYCLE=0x80
+ADDR_ARGONONEREG_FW=0x81
+ADDR_ARGONONEREG_IR=0x82
+ADDR_ARGONONEREG_CTRL=0x86
 
 fansettingupdate=False
 
@@ -134,7 +151,7 @@ def load_config():
 def temp_check():
 	global devbusid
 	global bus
-	global fanaddress
+	global ADDR_ARGONONEFAN
 	global fansettingupdate
 
 	if devbusid < 0:
@@ -162,7 +179,7 @@ def temp_check():
 				time.sleep(30)
 			prevblock = block
 			try:
-				bus.write_byte(fanaddress,block)
+				bus.write_byte_data(ADDR_ARGONONEREG,ADDR_ARGONONEREG_DUTYCYCLE,block)
 			except IOError:
 				temp=""
 			time.sleep(30)
@@ -176,7 +193,7 @@ def checksetup():
 	configfile = "/flash/config.txt"
 
 	# Update LIRC Codes
-	copylircfile()
+	# copylircfile()
 
 	# Check if i2c exists
 	isenabled = False
@@ -255,17 +272,18 @@ def cleanup():
 	# Turn off Fan
 	global devbusid
 	global bus
-	global fanaddress
+	global ADDR_ARGONONEFAN
 
 	if devbusid >= 0:
-		bus.write_byte(fanaddress,0)
+		bus.write_byte(ADDR_ARGONONEFAN,0) # stop the fan
 
 	# GPIO
 	# GPIO.cleanup()
 	# gpiozero automatically restores the pin settings at the end of the script
+	tmp_lgpio_work_dir.cleanup()
 
 if devbusid < 0:
 	checksetup()
 else:
-	copylircfile()
+	# copylircfile()
 	copyshutdownscript()

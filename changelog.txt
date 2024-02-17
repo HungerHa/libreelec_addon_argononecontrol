@@ -14,3 +14,25 @@ v0.0.4
 
 v0.0.5
 - migration to gpiozero
+
+v0.0.6
+- added RPi5 support
+- changed to the new LE12 System Tools Add-on lib paths
+
+v0.0.6a
+- set gpiozero pin factory to NativeFactory
+
+v0.0.6b
+- rolled back pin factory enforcing
+- workaround for lgpio pipe issue
+  https://github.com/gpiozero/gpiozero/issues/1106
+
+v.0.0.6c
+- hotfix for Argon40 One new fan control/firmware
+
+v.0.0.6d
+- switched to new power off command
+
+v.0.0.7
+- refactoring to support LE11/LE12 to the same time
+- refactoring to support old and new case firmware versions
