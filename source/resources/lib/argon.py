@@ -165,7 +165,7 @@ def temp_check():
 				time.sleep(30)
 			prevblock = block
 			try:
-				bus.write_byte(fanaddress,block)
+				bus.write_byte_data(fanaddress,0x80,block)
 			except IOError:
 				temp=""
 			time.sleep(30)

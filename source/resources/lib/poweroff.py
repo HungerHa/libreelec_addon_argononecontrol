@@ -12,7 +12,7 @@ if model == '3B' or model == '4B' or model == '5B':
 else:
 	bus = smbus.SMBus(0)
 try:
-	bus.write_byte(0x1a,0)
+	bus.write_byte_data(0x1a,0x80,0)
 	bus.write_byte(0x1a,0xFF)
 except:
 	model='Zero'

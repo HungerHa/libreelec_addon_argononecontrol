@@ -26,3 +26,6 @@ v0.0.6b
 - rolled back pin factory enforcing
 - add workaround for lgpio pipe issue
   https://github.com/gpiozero/gpiozero/issues/1106
+
+v.0.0.6c
+- hotfix for Argon40 One new fan control/firmware
