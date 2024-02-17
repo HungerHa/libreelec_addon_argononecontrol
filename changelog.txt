@@ -24,7 +24,7 @@ v0.0.6a
 
 v0.0.6b
 - rolled back pin factory enforcing
-- workaround for lgpio pipe issue
+- add workaround for lgpio pipe issue
   https://github.com/gpiozero/gpiozero/issues/1106
 
 v.0.0.6c
