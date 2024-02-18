@@ -85,8 +85,8 @@ def get_fanspeed(tempval, configlist):
 		if tempval >= tempcfg:
 			if fancfg < 1:
 				return 0
-			elif fancfg < 25:
-				return 25
+			elif fancfg < 10:
+				return 10
 			return fancfg
 	return 0
 
@@ -128,6 +128,8 @@ def load_config():
 def temp_check():
 	global fansettingupdate
 
+	argonregsupport = argonregister_checksupport(bus)
+
 	fanconfig = ["65=100", "60=55", "55=10"]
 	prevblock=0
 
@@ -150,10 +152,11 @@ def temp_check():
 				time.sleep(30)
 			prevblock = block
 			try:
-				argonregister_setfanspeed(bus, block)
+				argonregister_setfanspeed(bus, block, argonregsupport)
+				time.sleep(30)
 			except IOError:
 				temp=""
-			time.sleep(30)
+				time.sleep(60)
 
 
 #
