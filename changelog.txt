@@ -36,3 +36,12 @@ v.0.0.6d
 v.0.0.7
 - refactoring to support LE11/LE12 to the same time
 - refactoring to support old and new case firmware versions
+
+v.0.0.8
+- fixed fan fluctuation with the new firmware
+
+v.0.0.9
+- fixed power button recognition for RPi5 with LE12
+
+v.0.0.9a
+- fixed typo

@@ -31,13 +31,24 @@ os.environ["LG_WD"] = tmp_lgpio_work_dir.name
 # For Libreelec/Lakka, note that we need to add system paths
 import sys
 sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
-from gpiozero import Button
+from gpiozero import Device, Button
+from gpiozero import pi_info
+
 import time
 from shutil import copyfile
 
 import zlib
 
 from resources.lib.argonregister import *
+
+# Detect the RPi5 to initialize the RP1 chip
+pi = pi_info()
+if pi.model == '5B':
+	import importlib.util
+	lgpio_spec = importlib.util.find_spec("lgpio")
+	if lgpio_spec is not None:
+		from gpiozero.pins.lgpio import LGPIOFactory
+		Device.pin_factory = LGPIOFactory(chip=4)
 
 # Initialize I2C Bus
 bus = argonregister_initializebusobj()
