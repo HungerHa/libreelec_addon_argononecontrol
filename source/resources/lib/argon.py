@@ -54,6 +54,7 @@ if pi.model == '5B':
 bus = argonregister_initializebusobj()
 
 fansettingupdate=False
+power_btn_triggered=False
 
 # Detect Settings Change
 
@@ -62,28 +63,45 @@ class SettingMonitor(xbmc.Monitor):
 		global fansettingupdate
 		fansettingupdate = True
 
+# quick interruptible sleep
 
+def thread_sleep(sleep_sec, event):
+	for i in range(sleep_sec):
+		if event.is_set():
+			break
+		time.sleep(1)
 
 # This function is the thread that monitors activity in our shutdown pin
 # The pulse width is measured, and the corresponding shell command will be issued
 
-def shutdown_check():
+def power_btn_pressed():
+	global power_btn_triggered
+	power_btn_triggered = True
+
+def shutdown_check(event):
+	global power_btn_triggered
+	power_btn_triggered = False
 	shutdown_pin=4
 	# pull down the pin
 	btn = Button(shutdown_pin, pull_up = False)
+	btn.when_pressed = power_btn_pressed
 
 	while True:
 		pulsetime = 1
-		btn.wait_for_press()
-		time.sleep(0.01)
-		while btn.is_pressed:
+		time.sleep(0.001)
+		if power_btn_triggered:
 			time.sleep(0.01)
-			pulsetime += 1
-		if pulsetime >=2 and pulsetime <=3:
-			xbmc.restart()
-		elif pulsetime >=4 and pulsetime <=5:
-			xbmc.shutdown()
-
+			while btn.is_pressed:
+				time.sleep(0.01)
+				pulsetime += 1
+				if event.is_set():
+					break
+			if pulsetime >=2 and pulsetime <=3:
+				xbmc.restart()
+			elif pulsetime >=4 and pulsetime <=5:
+				xbmc.shutdown()
+		if event.is_set():
+			break
 
 # This function converts the corresponding fanspeed for the given temperature
 # The configuration data is a list of strings in the form "<temperature>=<speed>"
@@ -136,7 +154,7 @@ def load_config():
 #
 # Location of config file varies based on OS
 #
-def temp_check():
+def temp_check(event):
 	global fansettingupdate
 
 	argonregsupport = argonregister_checksupport(bus)
@@ -160,15 +178,18 @@ def temp_check():
 
 			block = get_fanspeed(val, fanconfig)
 			if block < prevblock:
-				time.sleep(30)
+				thread_sleep(30, event)
 			prevblock = block
 			try:
 				argonregister_setfanspeed(bus, block, argonregsupport)
-				time.sleep(30)
+				thread_sleep(30, event)
 			except IOError:
 				temp=""
-				time.sleep(60)
-
+				thread_sleep(60, event)
+			if event.is_set():
+				break
+		if event.is_set():
+			break
 
 #
 # Used to enabled i2c and UART
@@ -177,8 +198,12 @@ def temp_check():
 def checksetup():
 	configfile = "/flash/config.txt"
 
-	# Update LIRC Codes
-	copylircfile()
+	# Add argon remote control
+	lockfile = "/storage/.config/argon40_rc.lock"
+	if os.path.exists(lockfile) == False:
+		copykeymapfile()
+		copyrcmapsfile()
+		removelircfile()
 
 	# Check if i2c exists
 	isenabled = False
@@ -204,12 +229,11 @@ def checksetup():
 
 
 #
-# Copy LIRC conf file to LIRC default
+# Copy RC keytable file to rc_keymaps directory
 #
-def copylircfile():
-	#xbmc.log("copylircfile",level=xbmc.LOGNOTICE)
-	srcfile = "/storage/.kodi/addons/script.service.argonforty-device/resources/data/argon.lircd.conf"
-	dstfile = "/storage/.config/lircd.conf"
+def copykeymapfile():
+	srcfile = "/storage/.kodi/addons/script.service.argonforty-device/resources/data/argon40.toml"
+	dstfile = "/storage/.config/rc_keymaps/argon40.toml"
 	if os.path.isfile(dstfile) == True:
 		tmpdsthash = getFileHash(dstfile)
 		tmpsrchash = getFileHash(srcfile)
@@ -219,6 +243,34 @@ def copylircfile():
 		copyfile(srcfile, dstfile)
 	except:
 		return()
+	
+#
+# Copy RC maps conf file to directory .config
+#
+def copyrcmapsfile():
+	srcfile = "/storage/.kodi/addons/script.service.argonforty-device/resources/data/rc_maps.cfg"
+	dstfile = "/storage/.config/rc_maps.cfg"
+	if os.path.isfile(dstfile) == True:
+		tmpdsthash = getFileHash(dstfile)
+		tmpsrchash = getFileHash(srcfile)
+		if tmpdsthash == tmpsrchash:
+			return()
+	try:
+		copyfile(srcfile, dstfile)
+	except:
+		return()
+
+#
+# Remove old argon remote LIRC conf file
+#
+def removelircfile():
+	#xbmc.log("copylircfile",level=xbmc.LOGNOTICE)
+	dstfile = "/storage/.config/lircd.conf"
+	if os.path.isfile(dstfile) == True:
+		try:
+			os.remove(dstfile)
+		except:
+			return()
 
 #
 # Copy Shutdown script to directory .config
@@ -265,5 +317,10 @@ def cleanup():
 if bus == None:
 	checksetup()
 else:
-	copylircfile()
+	# Respect user-specific remote control settings
+	lockfile = "/storage/.config/argon40_rc.lock"
+	if os.path.exists(lockfile) == False:
+		copykeymapfile()
+		copyrcmapsfile()
+		removelircfile()
 	copyshutdownscript()

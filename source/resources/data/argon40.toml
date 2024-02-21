@@ -1,0 +1,16 @@
+# table argon40, type: nec
+[[protocols]]
+name = "argon40"
+protocol = "nec"
+[protocols.scancodes]
+0x9c = "KEY_POWER"
+0xca = "KEY_UP"
+0xd2 = "KEY_DOWN"
+0x99 = "KEY_LEFT"
+0xc1 = "KEY_RIGHT"
+0xce = "KEY_SELECT"
+0x9d = "KEY_MENU"
+0xcb = "KEY_HOME"
+0x90 = "KEY_BACK"
+0x80 = "KEY_VOLUMEUP"
+0x81 = "KEY_VOLUMEDOWN"

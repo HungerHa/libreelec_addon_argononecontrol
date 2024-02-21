@@ -45,3 +45,9 @@ v.0.0.9
 
 v.0.0.9a
 - fixed typo
+
+v.0.0.10
+- switched to event based power button detection
+- shutdown process refactored
+- workaround for remote control shutdown
+- switched from lircd to rc_maps for argon remote control
