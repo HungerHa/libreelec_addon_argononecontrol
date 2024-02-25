@@ -23,10 +23,8 @@ import xbmcaddon
 
 # workaround for lgpio issue
 # https://github.com/gpiozero/gpiozero/issues/1106
-import os, tempfile
-pid = os.getpid()
-tmp_lgpio_work_dir = tempfile.TemporaryDirectory()
-os.environ["LG_WD"] = tmp_lgpio_work_dir.name
+import os
+os.environ["LG_WD"] = '/tmp'
 
 # For Libreelec/Lakka, note that we need to add system paths
 import sys

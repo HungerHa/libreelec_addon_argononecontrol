@@ -6,6 +6,9 @@ from argonregister import *
 # Initialize I2C Bus
 bus = argonregister_initializebusobj()
 
+# check if it's the new firmware and supports control registers
+argonregsupport = argonregister_checksupport(bus)
+
 # stop the fan and power off
-argonregister_setfanspeed(bus, 0)
-argonregister_signalpoweroff(bus)
+argonregister_setfanspeed(bus, 0, argonregsupport)
+argonregister_signalpoweroff(bus, argonregsupport)
