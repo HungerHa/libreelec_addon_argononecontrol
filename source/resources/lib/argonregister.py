@@ -3,13 +3,14 @@
 #
 # Argon Register Helper methods
 #
-import os, sys
+import os
+import sys
+import time
+
 if os.path.exists('/storage/.kodi/addons/virtual.system-tools/lib'):
     sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib')
 if os.path.exists('/storage/.kodi/addons/virtual.system-tools/lib.private'):
     sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib.private')
-
-import time
 import smbus
 
 # I2C Addresses
@@ -31,7 +32,7 @@ def argonregister_initializebusobj():
             # Older version
             return smbus.SMBus(0)
         except Exception:
-            print("Unable to detect i2c")
+            print('Unable to detect i2c')
             return None
 
 
@@ -69,12 +70,12 @@ def argonregister_setfanspeed(busobj, newspeed, regsupport=None):
         newspeed = 100
     elif newspeed < 0:
         newspeed = 0
-    usereg=False
+    usereg = False
     if regsupport is None:
         usereg=argonregister_checksupport(busobj)
     else:
         usereg=regsupport
-    if usereg == True:
+    if usereg:
         argonregister_setbyte(busobj, ADDR_ARGONONEREG_DUTYCYCLE, newspeed)
     else:
         busobj.write_byte(ADDR_ARGONONEFAN,newspeed)

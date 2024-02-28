@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 
-#from resources.lib import kodiutils
-#from resources.lib import kodilogging
-#import logging
-import time
+from threading import Thread
+from threading import Event
+
 import xbmc
 import xbmcaddon
 
-from threading import Thread
-from threading import Event
 from resources.lib import argon
 
 
@@ -28,13 +25,13 @@ def run():
     monitor = argon.SettingMonitor()
 
     event = Event()
-    xbmc.log("Argon40: fan control started",level=xbmc.LOGDEBUG)
+    xbmc.log(msg='Argon40: fan control started', level=xbmc.LOGDEBUG)
     t1 = Thread(target = thread_fan, args=(event,))
     t1.start()
 
     powerbutton = ADDON.getSettingBool('powerbutton')
-    if powerbutton == True:
-        xbmc.log("Argon40: power button detection started",level=xbmc.LOGDEBUG)
+    if powerbutton:
+        xbmc.log(msg='Argon40: power button detection started', level=xbmc.LOGDEBUG)
         t2 = Thread(target = thread_powerbutton, args=(event,))
         t2.start()
 
@@ -48,5 +45,5 @@ def run():
     t1.join()
     if 't2' in locals():
         t2.join()
-    xbmc.log("Argon40: workerthreads stopped",level=xbmc.LOGDEBUG)
+    xbmc.log(msg='Argon40: workerthreads stopped', level=xbmc.LOGDEBUG)
     argon.cleanup()

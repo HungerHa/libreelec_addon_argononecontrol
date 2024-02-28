@@ -17,72 +17,70 @@
 #  * recalbox: Runs as service via /etc/init.d/
 #
 
-
-import xbmc
-import xbmcaddon
+import importlib.util
+import os
+import sys
+from shutil import copyfile
+import time
+import zlib
 
 # workaround for lgpio issue
 # https://github.com/gpiozero/gpiozero/issues/1106
-import os
-os.environ["LG_WD"] = '/tmp'
-
+os.environ['LG_WD'] = '/tmp'
 # For Libreelec/Lakka, note that we need to add system paths
-import sys
 sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
 from gpiozero import Device, Button
 from gpiozero import pi_info
-
-import time
-from shutil import copyfile
-
-import zlib
+import xbmc
+import xbmcaddon
 
 from resources.lib.argonregister import *
 
 # Detect the RPi5 to initialize the RP1 chip
 pi = pi_info()
 if pi.model == '5B':
-    import importlib.util
-    lgpio_spec = importlib.util.find_spec("lgpio")
+    lgpio_spec = importlib.util.find_spec('lgpio')
     if lgpio_spec is not None:
         from gpiozero.pins.lgpio import LGPIOFactory
         Device.pin_factory = LGPIOFactory(chip=4)
-        xbmc.log("Argon40: lgpio forced to RP1",level=xbmc.LOGDEBUG)
+        xbmc.log(msg='Argon40: lgpio forced to RP1', level=xbmc.LOGDEBUG)
 
 # Initialize I2C Bus
 bus = argonregister_initializebusobj()
+fansettingupdate = False
+power_btn_triggered = False
 
-fansettingupdate=False
-power_btn_triggered=False
-
-# Detect Settings Change
 
 class SettingMonitor(xbmc.Monitor):
+    """Detect Settings Change"""
     def onSettingsChanged(self):
         global fansettingupdate
         fansettingupdate = True
 
-# quick interruptible sleep
 
 def thread_sleep(sleep_sec, event):
+    """quick interruptible sleep"""
     for i in range(sleep_sec):
         if event.is_set():
             break
         time.sleep(1)
 
-# This function is the thread that monitors activity in our shutdown pin
-# The pulse width is measured, and the corresponding shell command will be issued
 
 def power_btn_pressed():
     global power_btn_triggered
     power_btn_triggered = True
 
+
 def shutdown_check(event):
+    """
+    This function is the thread that monitors activity in our shutdown pin.
+    The pulse width is measured, and the corresponding shell command will be issued.
+    """
     global power_btn_triggered
     power_btn_triggered = False
     shutdown_pin=4
     # pull down the pin
-    btn = Button(shutdown_pin, pull_up = False)
+    btn = Button(shutdown_pin, pull_up=False)
     btn.when_pressed = power_btn_pressed
 
     while True:
@@ -94,25 +92,27 @@ def shutdown_check(event):
                 time.sleep(0.01)
                 pulsetime += 1
                 if event.is_set():
-                    xbmc.log("Argon40: button monitoring loop 2 aborted",level=xbmc.LOGDEBUG)
+                    xbmc.log(msg='Argon40: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
                     break
-            if pulsetime >=2 and pulsetime <=3:
+            if pulsetime >= 2 and pulsetime <= 3:
                 xbmc.restart()
-            elif pulsetime >=4 and pulsetime <=5:
+            elif pulsetime >= 4 and pulsetime <= 5:
                 xbmc.shutdown()
         if event.is_set():
-            xbmc.log("Argon40: button monitoring loop 1 aborted",level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon40: button monitoring loop 1 aborted', level=xbmc.LOGDEBUG)
             break
     # force to freeing GPIO pin
     btn.close()
-    xbmc.log("Argon40: power button detection stopped",level=xbmc.LOGDEBUG)
+    xbmc.log(msg='Argon40: power button detection stopped', level=xbmc.LOGDEBUG)
 
-# This function converts the corresponding fanspeed for the given temperature
-# The configuration data is a list of strings in the form "<temperature>=<speed>"
 
 def get_fanspeed(tempval, configlist):
+    """
+    This function converts the corresponding fanspeed for the given temperature
+    The configuration data is a list of strings in the form "<temperature>=<speed>"
+    """
     for curconfig in configlist:
-        curpair = curconfig.split("=")
+        curpair = curconfig.split('=')
         tempcfg = float(curpair[0])
         fancfg = int(float(curpair[1]))
         if tempval >= tempcfg:
@@ -123,19 +123,21 @@ def get_fanspeed(tempval, configlist):
             return fancfg
     return 0
 
-# This function retrieves the fanspeed configuration list from a file, arranged by temperature
-# It ignores lines beginning with "#" and checks if the line is a valid temperature-speed pair
-# The temperature values are formatted to uniform length, so the lines can be sorted properly
 
 def load_config():
+    """
+    This function retrieves the fanspeed configuration list from a file, arranged by temperature.
+    It ignores lines beginning with "#" and checks if the line is a valid temperature-speed pair.
+    The temperature values are formatted to uniform length, so the lines can be sorted properly.
+    """
     ADDON = xbmcaddon.Addon()
 
     fanspeed_disable = ADDON.getSettingBool('fanspeed_disable')
-    if fanspeed_disable == True:
-        return ["90=100"]
+    if fanspeed_disable:
+        return ['90=100']
     fanspeed_alwayson = ADDON.getSettingBool('fanspeed_alwayson')
-    if fanspeed_alwayson == True:
-        return ["1=100"]
+    if fanspeed_alwayson:
+        return ['1=100']
 
     newconfig = []
 
@@ -149,21 +151,22 @@ def load_config():
     if len(newconfig) > 0:
         newconfig.sort(reverse=True)
 
-
     return newconfig
 
-# This function is the thread that monitors temperature and sets the fan speed
-# The value is fed to get_fanspeed to get the new fan speed
-# To prevent unnecessary fluctuations, lowering fan speed is delayed by 30 seconds
-#
-# Location of config file varies based on OS
-#
+
 def temp_check(event):
+    """
+    This function is the thread that monitors temperature and sets the fan speed.
+    The value is fed to get_fanspeed to get the new fan speed.
+    To prevent unnecessary fluctuations, lowering fan speed is delayed by 30 seconds.
+
+    Location of config file varies based on OS
+    """
     global fansettingupdate
 
     argonregsupport = argonregister_checksupport(bus)
 
-    fanconfig = ["65=100", "60=55", "55=10"]
+    fanconfig = ['65=100', '60=55', '55=10']
     prevblock=0
 
     while True:
@@ -171,9 +174,9 @@ def temp_check(event):
         if len(tmpconfig) > 0:
             fanconfig = tmpconfig
         fansettingupdate = False
-        while fansettingupdate == False:
+        while not fansettingupdate:
             try:
-                tempfp = open("/sys/class/thermal/thermal_zone0/temp", "r")
+                tempfp = open('/sys/class/thermal/thermal_zone0/temp', 'r')
                 temp = tempfp.readline()
                 tempfp.close()
                 val = float(int(temp)/1000)
@@ -188,57 +191,53 @@ def temp_check(event):
                 argonregister_setfanspeed(bus, block, argonregsupport)
                 thread_sleep(30, event)
             except IOError:
-                temp=""
+                temp = ''
                 thread_sleep(60, event)
             if event.is_set():
                 break
         if event.is_set():
             break
 
-#
-# Used to enabled i2c and UART
-#
 
 def checksetup():
-    configfile = "/flash/config.txt"
+    """Used to enabled i2c and UART"""
+    configfile = '/flash/config.txt'
 
     # Add argon remote control
-    lockfile = "/storage/.config/argon40_rc.lock"
-    if os.path.exists(lockfile) == False:
+    lockfile = '/storage/.config/argon40_rc.lock'
+    if not os.path.exists(lockfile):
         copykeymapfile()
         copyrcmapsfile()
         removelircfile()
 
     # Check if i2c exists
     isenabled = False
-    with open(configfile, "r") as fp:
+    with open(configfile, 'r') as fp:
         for curline in fp:
             if not curline:
                 continue
             tmpline = curline.strip()
             if not tmpline:
                 continue
-            if tmpline == "dtparam=i2c=on":
+            if tmpline == 'dtparam=i2c=on':
                 isenabled = True
                 break
-    if isenabled == True:
+    if isenabled:
         return()
 
     os.system("mount -o remount,rw /flash")
-    with open(configfile, "a") as fp:
-        fp.write("dtparam=i2c=on\n")
-        fp.write("enable_uart=1\n")
-        fp.write("dtoverlay=gpio-ir,gpio_pin=23\n")
-    os.system("mount -o remount,ro /flash")
+    with open(configfile, 'a') as fp:
+        fp.write('dtparam=i2c=on\n')
+        fp.write('enable_uart=1\n')
+        fp.write('dtoverlay=gpio-ir,gpio_pin=23\n')
+    os.system('mount -o remount,ro /flash')
 
 
-#
-# Copy RC keytable file to rc_keymaps directory
-#
 def copykeymapfile():
-    srcfile = "/storage/.kodi/addons/script.service.argonforty-device/resources/data/argon40.toml"
-    dstfile = "/storage/.config/rc_keymaps/argon40.toml"
-    if os.path.isfile(dstfile) == True:
+    """Copy RC keytable file to rc_keymaps directory"""
+    srcfile = '/storage/.kodi/addons/script.service.argonforty-device/resources/data/argon40.toml'
+    dstfile = '/storage/.config/rc_keymaps/argon40.toml'
+    if os.path.isfile(dstfile):
         tmpdsthash = getFileHash(dstfile)
         tmpsrchash = getFileHash(srcfile)
         if tmpdsthash == tmpsrchash:
@@ -248,13 +247,12 @@ def copykeymapfile():
     except:
         return()
     
-#
-# Copy RC maps conf file to directory .config
-#
+
 def copyrcmapsfile():
-    srcfile = "/storage/.kodi/addons/script.service.argonforty-device/resources/data/rc_maps.cfg"
-    dstfile = "/storage/.config/rc_maps.cfg"
-    if os.path.isfile(dstfile) == True:
+    """Copy RC maps conf file to directory .config"""
+    srcfile = '/storage/.kodi/addons/script.service.argonforty-device/resources/data/rc_maps.cfg'
+    dstfile = '/storage/.config/rc_maps.cfg'
+    if os.path.isfile(dstfile):
         tmpdsthash = getFileHash(dstfile)
         tmpsrchash = getFileHash(srcfile)
         if tmpdsthash == tmpsrchash:
@@ -264,26 +262,22 @@ def copyrcmapsfile():
     except:
         return()
 
-#
-# Remove old argon remote LIRC conf file
-#
+
 def removelircfile():
-    #xbmc.log("copylircfile",level=xbmc.LOGNOTICE)
-    dstfile = "/storage/.config/lircd.conf"
-    if os.path.isfile(dstfile) == True:
+    """Remove old argon remote LIRC conf file"""
+    dstfile = '/storage/.config/lircd.conf'
+    if os.path.isfile(dstfile):
         try:
             os.remove(dstfile)
         except:
             return()
 
-#
-# Copy Shutdown script to directory .config
-#
+
 def copyshutdownscript():
-    #xbmc.log("copyshutdownscript",level=xbmc.LOGNOTICE)
-    srcfile = "/storage/.kodi/addons/script.service.argonforty-device/resources/data/shutdown.sh"
-    dstfile = "/storage/.config/shutdown.sh"
-    if os.path.isfile(dstfile) == True:
+    """Copy Shutdown script to directory .config"""
+    srcfile = '/storage/.kodi/addons/script.service.argonforty-device/resources/data/shutdown.sh'
+    dstfile = '/storage/.config/shutdown.sh'
+    if os.path.isfile(dstfile):
         tmpdsthash = getFileHash(dstfile)
         tmpsrchash = getFileHash(srcfile)
         if tmpdsthash == tmpsrchash:
@@ -293,35 +287,33 @@ def copyshutdownscript():
     except:
         return()
 
-#
-# Check file hash
-#
+
 def getFileHash(fname):
+    """Check file hash"""
     try:
-        fp = open(fname,"rb")
+        fp = open(fname, 'rb')
         content = fp.read()
         fp.close()
         return zlib.crc32(content)
     except:
         return 0
 
-#	
-# Cleanup
-#
 
 def cleanup():
+    """Cleanup"""	
     # Turn off Fan
     argonregister_setfanspeed(bus, 0)
 
     # GPIO
     # gpiozero automatically restores the pin settings at the end of the script
 
-if bus == None:
+
+if bus is None:
     checksetup()
 else:
     # Respect user-specific remote control settings
-    lockfile = "/storage/.config/argon40_rc.lock"
-    if os.path.exists(lockfile) == False:
+    lockfile = '/storage/.config/argon40_rc.lock'
+    if not os.path.exists(lockfile):
         copykeymapfile()
         copyrcmapsfile()
         removelircfile()
