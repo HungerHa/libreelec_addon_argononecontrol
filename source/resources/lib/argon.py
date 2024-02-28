@@ -47,6 +47,7 @@ if pi.model == '5B':
 	if lgpio_spec is not None:
 		from gpiozero.pins.lgpio import LGPIOFactory
 		Device.pin_factory = LGPIOFactory(chip=4)
+		xbmc.log("Argon40: lgpio forced to RP1",level=xbmc.LOGDEBUG)
 
 # Initialize I2C Bus
 bus = argonregister_initializebusobj()
@@ -93,13 +94,18 @@ def shutdown_check(event):
 				time.sleep(0.01)
 				pulsetime += 1
 				if event.is_set():
+					xbmc.log("Argon40: button monitoring loop 2 aborted",level=xbmc.LOGDEBUG)
 					break
 			if pulsetime >=2 and pulsetime <=3:
 				xbmc.restart()
 			elif pulsetime >=4 and pulsetime <=5:
 				xbmc.shutdown()
 		if event.is_set():
+			xbmc.log("Argon40: button monitoring loop 1 aborted",level=xbmc.LOGDEBUG)
 			break
+	# force to freeing GPIO pin
+	btn.close()
+	xbmc.log("Argon40: power button detection stopped",level=xbmc.LOGDEBUG)
 
 # This function converts the corresponding fanspeed for the given temperature
 # The configuration data is a list of strings in the form "<temperature>=<speed>"

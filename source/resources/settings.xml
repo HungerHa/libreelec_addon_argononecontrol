@@ -23,4 +23,3 @@
 		<setting id="debug" type="bool" label="32001" default="false" visible="false"/>
 	</category>
 </settings>
-

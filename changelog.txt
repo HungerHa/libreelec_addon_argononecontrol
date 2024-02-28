@@ -1,3 +1,7 @@
+v.0.0.11c (2024-02-28)
+- added debug messages
+- freeing of power button detection GPIO pin forced
+
 v.0.0.11b (2024-02-26)
 - rolled back: "use the firmware check during power off"
 
