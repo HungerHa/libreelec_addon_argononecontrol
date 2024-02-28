@@ -310,7 +310,6 @@ def cleanup():
 	# GPIO
 	# GPIO.cleanup()
 	# gpiozero automatically restores the pin settings at the end of the script
-	tmp_lgpio_work_dir.cleanup()
 
 if bus == None:
 	checksetup()

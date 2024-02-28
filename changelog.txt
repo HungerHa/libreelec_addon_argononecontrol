@@ -55,3 +55,6 @@ v.0.0.10
 v.0.0.11
 - use the firmware check during power off
 - changed to /tmp directory for lgpio workaround due to permission issues with TempDirectory function
+
+v.0.0.11a
+- forgotten function call removed
