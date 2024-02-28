@@ -58,3 +58,6 @@ v.0.0.11
 
 v.0.0.11a
 - forgotten function call removed
+
+v.0.0.11b
+- rolled back: "use the firmware check during power off"
