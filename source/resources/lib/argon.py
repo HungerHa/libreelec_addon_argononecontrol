@@ -21,6 +21,7 @@ import importlib.util
 import os
 import sys
 from shutil import copyfile
+from threading import Event
 import time
 import zlib
 
@@ -49,7 +50,7 @@ if pi.model == '5B':
 bus = argonregister_initializebusobj()
 fansettingupdate = False
 power_btn_triggered = False
-
+power_button_mon = Event()
 
 class SettingMonitor(xbmc.Monitor):
     """Detect Settings Change"""
@@ -58,10 +59,11 @@ class SettingMonitor(xbmc.Monitor):
         fansettingupdate = True
 
 
-def thread_sleep(sleep_sec, event):
+def thread_sleep(sleep_sec, abort_flag):
     """quick interruptible sleep"""
+    global fansettingupdate
     for i in range(sleep_sec):
-        if event.is_set():
+        if abort_flag.is_set() or fansettingupdate:
             break
         time.sleep(1)
 
@@ -71,11 +73,18 @@ def power_btn_pressed():
     power_btn_triggered = True
 
 
-def shutdown_check(event):
+def shutdown_check(abort_flag, power_button):
     """
     This function is the thread that monitors activity in our shutdown pin.
     The pulse width is measured, and the corresponding shell command will be issued.
     """
+    global power_button_mon
+    power_button_mon = power_button
+    power_button_mon.wait()
+    if abort_flag.is_set():
+        xbmc.log(msg='Argon40: power button monitoring was not running', level=xbmc.LOGDEBUG)
+        return
+
     global power_btn_triggered
     power_btn_triggered = False
     shutdown_pin=4
@@ -84,26 +93,36 @@ def shutdown_check(event):
     btn.when_pressed = power_btn_pressed
 
     while True:
+        if not power_button_mon.is_set():
+            xbmc.log(msg='Argon40: power button monitoring has been disabled', level=xbmc.LOGDEBUG)
+        power_button_mon.wait()
+        if abort_flag.is_set():
+            break
         pulsetime = 1
         time.sleep(0.001)
         if power_btn_triggered:
+            power_btn_triggered = False
+            xbmc.log(msg='Argon40: power button was pressed', level=xbmc.LOGDEBUG)
             time.sleep(0.01)
             while btn.is_pressed:
                 time.sleep(0.01)
                 pulsetime += 1
-                if event.is_set():
+                if abort_flag.is_set() or not power_button_mon.is_set():
                     xbmc.log(msg='Argon40: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
                     break
+            xbmc.log(msg='Argon40: power button was released', level=xbmc.LOGDEBUG)
             if pulsetime >= 2 and pulsetime <= 3:
                 xbmc.restart()
             elif pulsetime >= 4 and pulsetime <= 5:
                 xbmc.shutdown()
-        if event.is_set():
+        if abort_flag.is_set():
             xbmc.log(msg='Argon40: button monitoring loop 1 aborted', level=xbmc.LOGDEBUG)
             break
     # force to freeing GPIO pin
     btn.close()
-    xbmc.log(msg='Argon40: power button detection stopped', level=xbmc.LOGDEBUG)
+    if btn.closed:
+        xbmc.log(msg='Argon40: power button pin freed', level=xbmc.LOGDEBUG)
+    xbmc.log(msg='Argon40: power button monitoring stopped', level=xbmc.LOGDEBUG)
 
 
 def get_fanspeed(tempval, configlist):
@@ -132,6 +151,15 @@ def load_config():
     """
     ADDON = xbmcaddon.Addon()
 
+    global power_button_mon
+    powerbutton = ADDON.getSettingBool('powerbutton')
+    if powerbutton:
+        if not power_button_mon.is_set():
+            xbmc.log(msg='Argon40: power button monitoring has been enabled', level=xbmc.LOGDEBUG)
+        power_button_mon.set()
+    else:
+        power_button_mon.clear()
+
     fanspeed_disable = ADDON.getSettingBool('fanspeed_disable')
     if fanspeed_disable:
         return ['90=100']
@@ -154,7 +182,7 @@ def load_config():
     return newconfig
 
 
-def temp_check(event):
+def temp_check(abort_flag):
     """
     This function is the thread that monitors temperature and sets the fan speed.
     The value is fed to get_fanspeed to get the new fan speed.
@@ -185,17 +213,17 @@ def temp_check(event):
 
             block = get_fanspeed(val, fanconfig)
             if block < prevblock:
-                thread_sleep(30, event)
+                thread_sleep(30, abort_flag)
             prevblock = block
             try:
                 argonregister_setfanspeed(bus, block, argonregsupport)
-                thread_sleep(30, event)
+                thread_sleep(30, abort_flag)
             except IOError:
                 temp = ''
-                thread_sleep(60, event)
-            if event.is_set():
+                thread_sleep(60, abort_flag)
+            if abort_flag.is_set():
                 break
-        if event.is_set():
+        if abort_flag.is_set():
             break
 
 
@@ -302,7 +330,8 @@ def getFileHash(fname):
 def cleanup():
     """Cleanup"""	
     # Turn off Fan
-    argonregister_setfanspeed(bus, 0)
+    # (2024-02-29) disabled, because throws TimeoutException during shutdown with remote control
+    # argonregister_setfanspeed(bus, 0)
 
     # GPIO
     # gpiozero automatically restores the pin settings at the end of the script

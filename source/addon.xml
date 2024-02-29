@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.service.argonforty-device" name="ArgonForty Device Configuration" version="0.0.11c" provider-name="ArgonForty">
+<addon id="script.service.argonforty-device" name="ArgonForty Device Configuration" version="0.0.11d" provider-name="ArgonForty">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="virtual.rpi-tools" version="9.80.11"/>
@@ -22,7 +22,12 @@
         <website>argon40.com</website>
         <email>cs@argon40.com</email>
         <source>https://github.com/HungerHa/libreelec_package_argonforty-device/tree/libreelec12</source>
-        <news>v.0.0.11c (2024-02-28)
+        <news>v.0.0.11d (2024-02-29)
+- “Handle power button events” is honored without reboot
+- remote control shutdown exception fixed
+- fan settings now adjustable in 1 degree steps
+
+v.0.0.11c (2024-02-28)
 - added debug messages
 - freeing of power button detection GPIO pin forced
 - code cleanup
