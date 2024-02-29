@@ -79,7 +79,7 @@ msgstr ""
 
 
 msgctxt "#80202"
-msgid "You need to reboot for changes to take effect"
+msgid "Also handles the remote control power off command"
 msgstr ""
 
 msgctxt "#80300"
