@@ -47,5 +47,7 @@ def run():
     power_button.set()
     t1.join()
     t2.join()
+    abort_flag.clear()
+    power_button.clear()
     xbmc.log(msg='Argon40: workerthreads stopped', level=xbmc.LOGDEBUG)
     argon.cleanup()

@@ -28,29 +28,27 @@ import zlib
 # workaround for lgpio issue
 # https://github.com/gpiozero/gpiozero/issues/1106
 os.environ['LG_WD'] = '/tmp'
+lgpio_spec = importlib.util.find_spec('lgpio')
+if lgpio_spec is not None:
+    import lgpio
+else:
+    from gpiozero import Button
+
 # For Libreelec/Lakka, note that we need to add system paths
 sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
-from gpiozero import Device, Button
-from gpiozero import pi_info
 import xbmc
 import xbmcaddon
 
 from resources.lib.argonregister import *
 
-# Detect the RPi5 to initialize the RP1 chip
-pi = pi_info()
-if pi.model == '5B':
-    lgpio_spec = importlib.util.find_spec('lgpio')
-    if lgpio_spec is not None:
-        from gpiozero.pins.lgpio import LGPIOFactory
-        Device.pin_factory = LGPIOFactory(chip=4)
-        xbmc.log(msg='Argon40: lgpio forced to RP1', level=xbmc.LOGDEBUG)
+SHUTDOWN_PIN = 4
 
 # Initialize I2C Bus
 bus = argonregister_initializebusobj()
 fansettingupdate = False
 power_btn_triggered = False
 power_button_mon = Event()
+lgpio.exceptions = False
 
 class SettingMonitor(xbmc.Monitor):
     """Detect Settings Change"""
@@ -68,9 +66,11 @@ def thread_sleep(sleep_sec, abort_flag):
         time.sleep(1)
 
 
-def power_btn_pressed():
+def power_btn_pressed(chip=None, gpio=None, level=None, timestamp=None):
     global power_btn_triggered
     power_btn_triggered = True
+    if timestamp is not None:
+        xbmc.log(msg='Argon40: power button pressed event -> {}, {}, {}, {}'.format(chip, gpio, level, timestamp), level=xbmc.LOGDEBUG)
 
 
 def shutdown_check(abort_flag, power_button):
@@ -78,6 +78,7 @@ def shutdown_check(abort_flag, power_button):
     This function is the thread that monitors activity in our shutdown pin.
     The pulse width is measured, and the corresponding shell command will be issued.
     """
+    global lgpio_spec
     global power_button_mon
     power_button_mon = power_button
     power_button_mon.wait()
@@ -87,10 +88,26 @@ def shutdown_check(abort_flag, power_button):
 
     global power_btn_triggered
     power_btn_triggered = False
-    shutdown_pin=4
-    # pull down the pin
-    btn = Button(shutdown_pin, pull_up=False)
-    btn.when_pressed = power_btn_pressed
+    if lgpio_spec is not None:
+        #Initialize GPIO
+        # open the gpio chip and set the pin 4 as input (pull down)
+        h = lgpio.gpiochip_open(4)
+        if h >= 0:
+            # Pi5 mapping
+            chip = 4
+        else:
+            # Old mapping
+            chip = 0
+            h = lgpio.gpiochip_open(0)
+        #lgpio.gpio_claim_input(h, SHUTDOWN_PIN, lFlags=lgpio.SET_PULL_DOWN)
+        err = lgpio.gpio_claim_alert(h, SHUTDOWN_PIN, eFlags=lgpio.RISING_EDGE, lFlags=lgpio.SET_PULL_DOWN)
+        if err < 0:
+            xbmc.log(msg="GPIO in use {}:{} ({})".format(chip, SHUTDOWN_PIN, lgpio.error_text(err)), level=xbmc.LOGDEBUG)
+        cb_power_btn = lgpio.callback(h, SHUTDOWN_PIN, edge=lgpio.RISING_EDGE, func=power_btn_pressed)
+    else:
+        # pull down the pin
+        btn = Button(SHUTDOWN_PIN, pull_up=False)
+        btn.when_pressed = power_btn_pressed
 
     while True:
         if not power_button_mon.is_set():
@@ -104,12 +121,24 @@ def shutdown_check(abort_flag, power_button):
             power_btn_triggered = False
             xbmc.log(msg='Argon40: power button was pressed', level=xbmc.LOGDEBUG)
             time.sleep(0.01)
-            while btn.is_pressed:
-                time.sleep(0.01)
-                pulsetime += 1
-                if abort_flag.is_set() or not power_button_mon.is_set():
-                    xbmc.log(msg='Argon40: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
-                    break
+            # wait until the button is released
+            if lgpio_spec is not None: 
+                # lgpio in use
+                while lgpio.gpio_read(h, SHUTDOWN_PIN) == 1:
+                    time.sleep(0.01)
+                    pulsetime += 1
+                    if abort_flag.is_set() or not power_button_mon.is_set():
+                        xbmc.log(msg='Argon40: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
+                        break
+            else:
+                # gpiozero in use
+                while btn.is_pressed:
+                    time.sleep(0.01)
+                    pulsetime += 1
+                    if abort_flag.is_set() or not power_button_mon.is_set():
+                        xbmc.log(msg='Argon40: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
+                        break
+
             xbmc.log(msg='Argon40: power button was released', level=xbmc.LOGDEBUG)
             if pulsetime >= 2 and pulsetime <= 3:
                 xbmc.restart()
@@ -118,10 +147,22 @@ def shutdown_check(abort_flag, power_button):
         if abort_flag.is_set():
             xbmc.log(msg='Argon40: button monitoring loop 1 aborted', level=xbmc.LOGDEBUG)
             break
-    # force to freeing GPIO pin
-    btn.close()
-    if btn.closed:
-        xbmc.log(msg='Argon40: power button pin freed', level=xbmc.LOGDEBUG)
+    # freeing the GPIO resources
+    if lgpio_spec is not None:
+        # lgpio in use
+        cb_power_btn.cancel()
+        cb_power_btn = None
+        free_pin = lgpio.gpio_free(h, SHUTDOWN_PIN)
+        if free_pin == 0:
+            xbmc.log(msg='Argon40: power button GPIO pin freed', level=xbmc.LOGDEBUG)
+        close_chip = lgpio.gpiochip_close(h)
+        if close_chip < 0:
+            xbmc.log(msg='Argon40: GPIO chip could not be closed', level=xbmc.LOGDEBUG)
+    else:
+        # gpiozero in use
+        btn.close()
+        if btn.closed:
+            xbmc.log(msg='Argon40: power button pin freed', level=xbmc.LOGDEBUG)
     xbmc.log(msg='Argon40: power button monitoring stopped', level=xbmc.LOGDEBUG)
 
 
@@ -332,7 +373,7 @@ def cleanup():
     # Turn off Fan
     # (2024-02-29) disabled, because throws TimeoutException during shutdown with remote control
     # argonregister_setfanspeed(bus, 0)
-
+    pass
     # GPIO
     # gpiozero automatically restores the pin settings at the end of the script
 

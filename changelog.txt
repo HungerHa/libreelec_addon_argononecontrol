@@ -1,3 +1,6 @@
+v.0.0.12 (2024-03-02)
+- switches from gpiozero to pure lgpio if available (workaround for lgpio GPIO busy error message)
+
 v.0.0.11d (2024-02-29)
 - “Handle power button events” is honored without reboot
 - remote control shutdown exception fixed
