@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.service.argonforty-device" name="ArgonForty Device Configuration" version="0.0.12" provider-name="ArgonForty">
+<addon id="script.service.argonforty-device" name="ArgonForty Device Configuration" version="0.0.12a" provider-name="ArgonForty">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="virtual.rpi-tools" version="9.80.11"/>
@@ -11,7 +11,7 @@
     <extension point="xbmc.service" library="main.py" start="startup"/>
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">ArgonForty Device Configuration</summary>
-        <description lang="en_GB">Install services to manage ArgonForty Devices such as power button and fan speed. This will also enable i2c and UART.
+        <description lang="en_GB">Install services to manage ArgonForty Devices such as power button and fan speed. This will also enable I2C, IR receiver and UART.
 
         * Disable then Enable Service for settings to take effect (or reboot) 
         </description>
@@ -22,7 +22,10 @@
         <website>argon40.com</website>
         <email>cs@argon40.com</email>
         <source>https://github.com/HungerHa/libreelec_package_argonforty-device/tree/libreelec12</source>
-        <news>v.0.0.12 (2024-03-02)
+        <news>v.0.0.12a (2024-03-15)
+- removed lgpio exceptions setting line, which was preventing v.0.0.12 from working at LibreELEC 11
+
+v.0.0.12 (2024-03-02)
 - switches from gpiozero to pure lgpio if available (workaround for lgpio GPIO busy error message)
 
 v.0.0.11d (2024-02-29)

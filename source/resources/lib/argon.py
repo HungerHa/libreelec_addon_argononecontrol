@@ -31,6 +31,7 @@ os.environ['LG_WD'] = '/tmp'
 lgpio_spec = importlib.util.find_spec('lgpio')
 if lgpio_spec is not None:
     import lgpio
+    lgpio.exceptions = False
 else:
     from gpiozero import Button
 
@@ -48,7 +49,6 @@ bus = argonregister_initializebusobj()
 fansettingupdate = False
 power_btn_triggered = False
 power_button_mon = Event()
-lgpio.exceptions = False
 
 class SettingMonitor(xbmc.Monitor):
     """Detect Settings Change"""
