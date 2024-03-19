@@ -39,12 +39,20 @@ msgctxt "#80100"
 msgid "Fan Configuration"
 msgstr ""
 
+msgctxt "#80103"
+msgid "Fan Always On"
+msgstr ""
+
 msgctxt "#80104"
 msgid "Fan Disabled"
 msgstr ""
 
-msgctxt "#80103"
-msgid "Fan Always On"
+msgctxt "#80105"
+msgid "Temperature in Fahrenheit"
+msgstr ""
+
+msgctxt "#80106"
+msgid "Device Temperature (Fahrenheit)"
 msgstr ""
 
 msgctxt "#80101"

@@ -212,7 +212,10 @@ def load_config():
 
     configtype = ['a', 'b', 'c']
     for typekey in configtype:
-        tempval = float(ADDON.getSetting('devtemp_'+typekey))
+        if ADDON.getSettingBool('temperature_fahrenheit'):
+            tempval = (float(ADDON.getSetting('devtempf_'+typekey))-32.0) * 5.0/9.0
+        else:
+            tempval = float(ADDON.getSetting('devtemp_'+typekey))
         fanval = int(ADDON.getSetting('fanspeed_'+typekey))
 
         newconfig.append( "{:5.1f}={}".format(tempval,fanval))
