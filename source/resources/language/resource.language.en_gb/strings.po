@@ -52,11 +52,23 @@ msgid "Temperature in Fahrenheit"
 msgstr ""
 
 msgctxt "#80106"
-msgid "Device Temperature (Fahrenheit)"
+msgid "CPU Temperature (Fahrenheit)"
+msgstr ""
+
+msgctxt "#80107"
+msgid "Include SSD/NVMe temperature for fan control"
+msgstr ""
+
+msgctxt "#80108"
+msgid "SSD/NVMe Temperature (Celsius)"
+msgstr ""
+
+msgctxt "#80109"
+msgid "SSD/NVMe Temperature (Fahrenheit)"
 msgstr ""
 
 msgctxt "#80101"
-msgid "Device Temperature (Celsius)"
+msgid "CPU Temperature (Celsius)"
 msgstr ""
 
 msgctxt "#80102"
@@ -98,3 +110,6 @@ msgctxt "#80301"
 msgid "Setup Argon Remote Control"
 msgstr ""
 
+msgctxt "#80400"
+msgid "SSD/NVMe Fan Configuration"
+msgstr ""

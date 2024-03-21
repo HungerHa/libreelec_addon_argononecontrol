@@ -41,6 +41,7 @@ import xbmc
 import xbmcaddon
 
 from resources.lib.argonregister import *
+from resources.lib.argonsysinfo import *
 
 SHUTDOWN_PIN = 4
 
@@ -122,7 +123,7 @@ def shutdown_check(abort_flag, power_button):
             xbmc.log(msg='Argon40: power button was pressed', level=xbmc.LOGDEBUG)
             time.sleep(0.01)
             # wait until the button is released
-            if lgpio_spec is not None: 
+            if lgpio_spec is not None:
                 # lgpio in use
                 while lgpio.gpio_read(h, SHUTDOWN_PIN) == 1:
                     time.sleep(0.01)
@@ -207,23 +208,33 @@ def load_config():
     fanspeed_alwayson = ADDON.getSettingBool('fanspeed_alwayson')
     if fanspeed_alwayson:
         return ['1=100']
+    fanspeed_hdd = ADDON.getSettingBool('fanspeed_hdd')
+    temperature_fahrenheit = ADDON.getSettingBool('temperature_fahrenheit')
 
     newconfig = []
+    newhddconfig = []
 
     configtype = ['a', 'b', 'c']
     for typekey in configtype:
-        if ADDON.getSettingBool('temperature_fahrenheit'):
-            tempval = (float(ADDON.getSetting('devtempf_'+typekey))-32.0) * 5.0/9.0
+        if temperature_fahrenheit:
+            tempval = (float(ADDON.getSetting('cputempf_'+typekey))-32.0) * 5.0/9.0
+            hddtempval = (float(ADDON.getSetting('hddtempf_'+typekey))-32.0) * 5.0/9.0
         else:
-            tempval = float(ADDON.getSetting('devtemp_'+typekey))
+            tempval = float(ADDON.getSetting('cputemp_'+typekey))
+            hddtempval = float(ADDON.getSetting('hddtemp_'+typekey))
         fanval = int(ADDON.getSetting('fanspeed_'+typekey))
+        hddfanval = int(ADDON.getSetting('fanspeed_hdd_'+typekey))
 
         newconfig.append( "{:5.1f}={}".format(tempval,fanval))
+        if fanspeed_hdd:
+            newhddconfig.append( "{:5.1f}={}".format(hddtempval,hddfanval))
 
     if len(newconfig) > 0:
         newconfig.sort(reverse=True)
+    if len(newhddconfig) > 0:
+        newhddconfig.sort(reverse=True)
 
-    return newconfig
+    return [ newconfig, newhddconfig ]
 
 
 def temp_check(abort_flag):
@@ -239,28 +250,43 @@ def temp_check(abort_flag):
     argonregsupport = argonregister_checksupport(bus)
 
     fanconfig = ['65=100', '60=55', '55=10']
-    prevblock=0
+    fanhddconfig = ['50=100', '40=55', '30=30']
+
+    prevspeed=0
 
     while True:
         tmpconfig = load_config()
-        if len(tmpconfig) > 0:
-            fanconfig = tmpconfig
+        # CPU fan settings
+        if len(tmpconfig[0]) > 0:
+            fanconfig = tmpconfig[0]
+        # HDD fan settings
+        if len(tmpconfig[1]) > 0:
+            fanhddconfig = tmpconfig[1]
+        else:
+            fanhddconfig = []
+
         fansettingupdate = False
         while not fansettingupdate:
-            try:
-                tempfp = open('/sys/class/thermal/thermal_zone0/temp', 'r')
-                temp = tempfp.readline()
-                tempfp.close()
-                val = float(int(temp)/1000)
-            except IOError:
-                val = 0
+            # Speed based on CPU Temp
+            val = argonsysinfo_getcputemp()
+            xbmc.log(msg='Argon40: current CPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
+            newspeed = get_fanspeed(val, fanconfig)
+            # Speed based on SSD/NVMe Temp
+            val = argonsysinfo_getmaxhddtemp()
+            xbmc.log(msg='Argon40: current SSD/NVMe temperature : ' + str(val), level=xbmc.LOGDEBUG)
+            hddspeed = get_fanspeed(val, fanhddconfig)
+            xbmc.log(msg='Argon40: CPU fan speed value : ' + str(newspeed), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon40: SSD/NVMe fan speed value : ' + str(hddspeed), level=xbmc.LOGDEBUG)
 
-            block = get_fanspeed(val, fanconfig)
-            if block < prevblock:
+            # Use faster fan speed
+            if hddspeed > newspeed:
+                newspeed = hddspeed
+
+            if newspeed < prevspeed:
                 thread_sleep(30, abort_flag)
-            prevblock = block
+            prevspeed = newspeed
             try:
-                argonregister_setfanspeed(bus, block, argonregsupport)
+                argonregister_setfanspeed(bus, newspeed, argonregsupport)
                 thread_sleep(30, abort_flag)
             except IOError:
                 temp = ''
@@ -318,7 +344,7 @@ def copykeymapfile():
         copyfile(srcfile, dstfile)
     except:
         return()
-    
+
 
 def copyrcmapsfile():
     """Copy RC maps conf file to directory .config"""
@@ -372,7 +398,7 @@ def getFileHash(fname):
 
 
 def cleanup():
-    """Cleanup"""	
+    """Cleanup"""
     # Turn off Fan
     # (2024-02-29) disabled, because throws TimeoutException during shutdown with remote control
     # argonregister_setfanspeed(bus, 0)

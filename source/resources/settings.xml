@@ -26,7 +26,7 @@
 				</setting>
 			</group>
 			<group id="2" label="80110">
-				<setting id="devtemp_a" type="integer" label="80101" help="">
+				<setting id="cputemp_a" type="integer" label="80101" help="">
 					<level>0</level>
 					<default>55</default>
 					<constraints>
@@ -48,7 +48,7 @@
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="devtempf_a" type="integer" label="80106" help="">
+				<setting id="cputempf_a" type="integer" label="80106" help="">
 					<level>0</level>
 					<default>131</default>
 					<constraints>
@@ -92,7 +92,7 @@
 				</setting>
 			</group>
 			<group id="3" label="80120">
-				<setting id="devtemp_b" type="integer" label="80101" help="">
+				<setting id="cputemp_b" type="integer" label="80101" help="">
 					<level>0</level>
 					<default>60</default>
 					<constraints>
@@ -114,7 +114,7 @@
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="devtempf_b" type="integer" label="80106" help="">
+				<setting id="cputempf_b" type="integer" label="80106" help="">
 					<level>0</level>
 					<default>140</default>
 					<constraints>
@@ -158,7 +158,7 @@
 				</setting>
 			</group>
 			<group id="4" label="80130">
-				<setting id="devtemp_c" type="integer" label="80101" help="">
+				<setting id="cputemp_c" type="integer" label="80101" help="">
 					<level>0</level>
 					<default>65</default>
 					<constraints>
@@ -180,7 +180,7 @@
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="devtempf_c" type="integer" label="80106" help="">
+				<setting id="cputempf_c" type="integer" label="80106" help="">
 					<level>0</level>
 					<default>149</default>
 					<constraints>
@@ -216,6 +216,226 @@
 					<dependencies>
 						<dependency type="enable">
 							<and>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+			</group>
+		</category>
+		<category id="hddtemp" label="80400" help="">
+			<group id="1" label="">
+				<setting id="fanspeed_hdd" type="boolean" label="80107" help="">
+					<level>2</level>
+					<default>false</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="enable" setting="fanspeed_disable">false</dependency>
+						<dependency type="enable" setting="fanspeed_alwayson">false</dependency>
+					</dependencies>
+				</setting>
+			</group>
+			<group id="2" label="80110">
+				<setting id="hddtemp_a" type="integer" label="80108" help="">
+					<level>2</level>
+					<default>30</default>
+					<constraints>
+						<minimum>20</minimum>
+						<step>1</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" setting="temperature_fahrenheit">false</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_hdd">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition setting="temperature_fahrenheit">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="hddtempf_a" type="integer" label="80109" help="">
+					<level>2</level>
+					<default>86</default>
+					<constraints>
+						<minimum>68</minimum>
+						<step>1</step>
+						<maximum>212</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" setting="temperature_fahrenheit">true</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_hdd">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition setting="temperature_fahrenheit">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_hdd_a" type="integer" label="80102" help="">
+					<level>2</level>
+					<default>10</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>5</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_hdd">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+			</group>
+			<group id="3" label="80120">
+				<setting id="hddtemp_b" type="integer" label="80108" help="">
+					<level>2</level>
+					<default>40</default>
+					<constraints>
+						<minimum>20</minimum>
+						<step>1</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" setting="temperature_fahrenheit">false</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_hdd">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition setting="temperature_fahrenheit">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="hddtempf_b" type="integer" label="80109" help="">
+					<level>2</level>
+					<default>104</default>
+					<constraints>
+						<minimum>68</minimum>
+						<step>1</step>
+						<maximum>212</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" setting="temperature_fahrenheit">true</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_hdd">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition setting="temperature_fahrenheit">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_hdd_b" type="integer" label="80102" help="">
+					<level>2</level>
+					<default>50</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>5</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_hdd">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+			</group>
+			<group id="4" label="80130">
+				<setting id="hddtemp_c" type="integer" label="80108" help="">
+					<level>2</level>
+					<default>50</default>
+					<constraints>
+						<minimum>20</minimum>
+						<step>1</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" setting="temperature_fahrenheit">false</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_hdd">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition setting="temperature_fahrenheit">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="hddtempf_c" type="integer" label="80109" help="">
+					<level>2</level>
+					<default>122</default>
+					<constraints>
+						<minimum>68</minimum>
+						<step>1</step>
+						<maximum>212</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" setting="temperature_fahrenheit">true</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_hdd">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition setting="temperature_fahrenheit">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_hdd_c" type="integer" label="80102" help="">
+					<level>2</level>
+					<default>100</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>5</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_hdd">true</condition>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
 							</and>

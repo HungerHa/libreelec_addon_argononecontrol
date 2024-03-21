@@ -1,3 +1,6 @@
+v.0.0.13 (2024-03-21)
+- added HDD/SSD/NVMe temperature support
+
 v.0.0.12b (2024-03-19)
 - migrated to Matrix addon settings format
 - support for temperature in Fahrenheit added
