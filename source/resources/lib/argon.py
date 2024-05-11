@@ -202,21 +202,21 @@ def load_config():
     else:
         power_button_mon.clear()
 
-    fanspeed_disable = ADDON.getSettingBool('fanspeed_disable')
-    if fanspeed_disable:
-        return ['90=100']
-    fanspeed_alwayson = ADDON.getSettingBool('fanspeed_alwayson')
-    if fanspeed_alwayson:
-        return ['1=100']
-    fanspeed_hdd = ADDON.getSettingBool('fanspeed_hdd')
-    temperature_fahrenheit = ADDON.getSettingBool('temperature_fahrenheit')
-
     newconfig = []
     newhddconfig = []
 
+    fanspeed_disable = ADDON.getSettingBool('fanspeed_disable')
+    if fanspeed_disable:
+        return [['90=100'], newhddconfig]
+    fanspeed_alwayson = ADDON.getSettingBool('fanspeed_alwayson')
+    if fanspeed_alwayson:
+        return [['1=100'], newhddconfig]
+    fanspeed_hdd = ADDON.getSettingBool('fanspeed_hdd')
+    temperature_unit = xbmc.getInfoLabel('System.TemperatureUnits')
+
     configtype = ['a', 'b', 'c']
     for typekey in configtype:
-        if temperature_fahrenheit:
+        if temperature_unit == '°F':
             tempval = (float(ADDON.getSetting('cputempf_'+typekey))-32.0) * 5.0/9.0
             hddtempval = (float(ADDON.getSetting('hddtempf_'+typekey))-32.0) * 5.0/9.0
         else:

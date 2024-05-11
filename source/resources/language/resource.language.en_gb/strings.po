@@ -1,5 +1,5 @@
 # Kodi Media Center language file
-# Addon Name: Argon Forty Device Configuration
+# Addon Name: ArgonForty Device Configuration
 # Addon id: script.service.argonforty-device
 # Addon Provider: ArgonForty
 msgid ""
@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2024-05-11 17:15+0000\n"
 "Last-Translator: Kodi Translation Team\n"
 "Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -16,100 +16,139 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#This is a comment
-
 msgctxt "#32000"
-msgid "Argon Forty Device Configuration"
-msgstr ""
-
-msgctxt "#32001"
 msgid "Debug"
 msgstr ""
 
-
-msgctxt "#80000"
+msgctxt "#32001"
 msgid "Disabled"
 msgstr ""
 
-msgctxt "#80001"
+msgctxt "#32002"
 msgid "Enabled"
 msgstr ""
 
-msgctxt "#80100"
-msgid "Fan Configuration"
+# empty strings from id 32004 to 32099
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: Fan
+msgctxt "#32100"
+msgid "Fan configuration"
 msgstr ""
 
-msgctxt "#80103"
-msgid "Fan Always On"
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: CPU temperature °C
+msgctxt "#32101"
+msgid "CPU temperature (Celsius)"
 msgstr ""
 
-msgctxt "#80104"
-msgid "Fan Disabled"
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: fan speed (dutycycle)
+msgctxt "#32102"
+msgid "Fan speed (Percent)"
 msgstr ""
 
-msgctxt "#80105"
-msgid "Temperature in Fahrenheit"
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: force fan speed to 100 percent
+msgctxt "#32103"
+msgid "Fan always on"
 msgstr ""
 
-msgctxt "#80106"
-msgid "CPU Temperature (Fahrenheit)"
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: enable/disable fan control global
+msgctxt "#32104"
+msgid "Fan disabled"
 msgstr ""
 
-msgctxt "#80107"
+#empty string with id 32105
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: CPU temperature °F
+msgctxt "#32106"
+msgid "CPU temperature (Fahrenheit)"
+msgstr ""
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: switch to enable observing of SSD/NVMe temperature
+msgctxt "#32107"
 msgid "Include SSD/NVMe temperature for fan control"
 msgstr ""
 
-msgctxt "#80108"
-msgid "SSD/NVMe Temperature (Celsius)"
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: SSD/NVMe temperature °C
+msgctxt "#32108"
+msgid "SSD/NVMe temperature (Celsius)"
 msgstr ""
 
-msgctxt "#80109"
-msgid "SSD/NVMe Temperature (Fahrenheit)"
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: SSD/NVMe temperature °F
+msgctxt "#32109"
+msgid "SSD/NVMe temperature (Fahrenheit)"
 msgstr ""
 
-msgctxt "#80101"
-msgid "CPU Temperature (Celsius)"
+#: addons/script.service.argonforty-device/resources/settings.xml
+#, threshold group labels
+#. label-group: threshold 1
+msgctxt "#32110"
+msgid "Temperature threshold 1"
 msgstr ""
 
-msgctxt "#80102"
-msgid "Fan Speed (Percent)"
+# empty strings from id 32111 to 32119
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-group: threshold 2
+msgctxt "#32120"
+msgid "Temperature threshold 2"
 msgstr ""
 
-msgctxt "#80110"
-msgid "Temperature Threshold 1"
+# empty strings from id 32121 to 32129
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-group: threshold 3
+msgctxt "#32130"
+msgid "Temperature threshold 3"
 msgstr ""
 
-msgctxt "#80120"
-msgid "Temperature Threshold 2"
+# empty strings from id 32131 to 32199
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: Power button
+msgctxt "#32200"
+msgid "Power button"
 msgstr ""
 
-msgctxt "#80130"
-msgid "Temperature Threshold 3"
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: for switch on/off the power button monitoring
+msgctxt "#32201"
+msgid "Handle power button events"
 msgstr ""
 
-
-
-msgctxt "#80200"
-msgid "Power Button"
-msgstr ""
-
-msgctxt "#80201"
-msgid "Handle Power Button Events"
-msgstr ""
-
-
-msgctxt "#80202"
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label: debug info a line below of the switch
+msgctxt "#32202"
 msgid "Also handles the remote control power off command"
 msgstr ""
 
-msgctxt "#80300"
+# empty strings from id 32203 to 32299
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: Remote control
+msgctxt "#32300"
 msgid "Argon Remote"
 msgstr ""
 
-msgctxt "#80301"
-msgid "Setup Argon Remote Control"
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label:
+msgctxt "#32301"
+msgid "Setup Argon remote control"
 msgstr ""
 
-msgctxt "#80400"
-msgid "SSD/NVMe Fan Configuration"
+# empty strings from id 32302 to 32399
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: SSD/NVMe
+msgctxt "#32400"
+msgid "SSD/NVMe fan configuration"
 msgstr ""
+
+# empty strings from id 32401 to 32999

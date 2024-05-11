@@ -1,3 +1,9 @@
+v.0.0.14~beta1 (2024-05-11)
+- automatically switch between Celsius/Fahrenheit, depending on regional/temperature setting
+- language file refactored
+- regression: fan always-on setting and emergency fan (90°) doesn't worked
+- switched to official add-on versioning
+
 v.0.0.13 (2024-03-21)
 - added HDD/SSD/NVMe temperature support
 

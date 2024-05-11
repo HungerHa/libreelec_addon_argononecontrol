@@ -1,22 +1,14 @@
 <?xml version="1.0" ?>
 <settings version="1">
 	<section id="script.service.argonforty-device">
-		<category id="fan" label="80100" help="">
+		<category id="fan" label="32100" help="">
 			<group id="1" label="">
-				<setting id="fanspeed_disable" type="boolean" label="80104" help="">
+				<setting id="fanspeed_disable" type="boolean" label="32104" help="">
 					<level>0</level>
 					<default>false</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="fanspeed_alwayson" type="boolean" label="80103" help="">
-					<level>0</level>
-					<default>false</default>
-					<control type="toggle"/>
-					<dependencies>
-						<dependency type="enable" setting="fanspeed_disable">false</dependency>
-					</dependencies>
-				</setting>
-				<setting id="temperature_fahrenheit" type="boolean" label="80105" help="">
+				<setting id="fanspeed_alwayson" type="boolean" label="32103" help="">
 					<level>0</level>
 					<default>false</default>
 					<control type="toggle"/>
@@ -25,8 +17,8 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="2" label="80110">
-				<setting id="cputemp_a" type="integer" label="80101" help="">
+			<group id="2" label="32110">
+				<setting id="cputemp_a" type="integer" label="32101" help="">
 					<level>0</level>
 					<default>55</default>
 					<constraints>
@@ -38,17 +30,17 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">false</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="cputempf_a" type="integer" label="80106" help="">
+				<setting id="cputempf_a" type="integer" label="32106" help="">
 					<level>0</level>
 					<default>131</default>
 					<constraints>
@@ -60,17 +52,17 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">true</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">true</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="fanspeed_a" type="integer" label="80102" help="">
+				<setting id="fanspeed_a" type="integer" label="32102" help="">
 					<level>0</level>
 					<default>10</default>
 					<constraints>
@@ -91,8 +83,8 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="3" label="80120">
-				<setting id="cputemp_b" type="integer" label="80101" help="">
+			<group id="3" label="32120">
+				<setting id="cputemp_b" type="integer" label="32101" help="">
 					<level>0</level>
 					<default>60</default>
 					<constraints>
@@ -104,17 +96,17 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">false</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="cputempf_b" type="integer" label="80106" help="">
+				<setting id="cputempf_b" type="integer" label="32106" help="">
 					<level>0</level>
 					<default>140</default>
 					<constraints>
@@ -126,17 +118,17 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">true</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">true</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="fanspeed_b" type="integer" label="80102" help="">
+				<setting id="fanspeed_b" type="integer" label="32102" help="">
 					<level>0</level>
 					<default>50</default>
 					<constraints>
@@ -157,8 +149,8 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="4" label="80130">
-				<setting id="cputemp_c" type="integer" label="80101" help="">
+			<group id="4" label="32130">
+				<setting id="cputemp_c" type="integer" label="32101" help="">
 					<level>0</level>
 					<default>65</default>
 					<constraints>
@@ -170,17 +162,17 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">false</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="cputempf_c" type="integer" label="80106" help="">
+				<setting id="cputempf_c" type="integer" label="32106" help="">
 					<level>0</level>
 					<default>149</default>
 					<constraints>
@@ -192,17 +184,17 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">true</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">true</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="fanspeed_c" type="integer" label="80102" help="">
+				<setting id="fanspeed_c" type="integer" label="32102" help="">
 					<level>0</level>
 					<default>100</default>
 					<constraints>
@@ -224,9 +216,9 @@
 				</setting>
 			</group>
 		</category>
-		<category id="hddtemp" label="80400" help="">
+		<category id="hddtemp" label="32400" help="">
 			<group id="1" label="">
-				<setting id="fanspeed_hdd" type="boolean" label="80107" help="">
+				<setting id="fanspeed_hdd" type="boolean" label="32107" help="">
 					<level>2</level>
 					<default>false</default>
 					<control type="toggle"/>
@@ -236,8 +228,8 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="2" label="80110">
-				<setting id="hddtemp_a" type="integer" label="80108" help="">
+			<group id="2" label="32110">
+				<setting id="hddtemp_a" type="integer" label="32108" help="">
 					<level>2</level>
 					<default>30</default>
 					<constraints>
@@ -249,18 +241,18 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">false</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_hdd">true</condition>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="hddtempf_a" type="integer" label="80109" help="">
+				<setting id="hddtempf_a" type="integer" label="32109" help="">
 					<level>2</level>
 					<default>86</default>
 					<constraints>
@@ -272,18 +264,18 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">true</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_hdd">true</condition>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">true</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="fanspeed_hdd_a" type="integer" label="80102" help="">
+				<setting id="fanspeed_hdd_a" type="integer" label="32102" help="">
 					<level>2</level>
 					<default>10</default>
 					<constraints>
@@ -305,8 +297,8 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="3" label="80120">
-				<setting id="hddtemp_b" type="integer" label="80108" help="">
+			<group id="3" label="32120">
+				<setting id="hddtemp_b" type="integer" label="32108" help="">
 					<level>2</level>
 					<default>40</default>
 					<constraints>
@@ -318,18 +310,18 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">false</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_hdd">true</condition>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="hddtempf_b" type="integer" label="80109" help="">
+				<setting id="hddtempf_b" type="integer" label="32109" help="">
 					<level>2</level>
 					<default>104</default>
 					<constraints>
@@ -341,18 +333,18 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">true</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_hdd">true</condition>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">true</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="fanspeed_hdd_b" type="integer" label="80102" help="">
+				<setting id="fanspeed_hdd_b" type="integer" label="32102" help="">
 					<level>2</level>
 					<default>50</default>
 					<constraints>
@@ -374,8 +366,8 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="4" label="80130">
-				<setting id="hddtemp_c" type="integer" label="80108" help="">
+			<group id="4" label="32130">
+				<setting id="hddtemp_c" type="integer" label="32108" help="">
 					<level>2</level>
 					<default>50</default>
 					<constraints>
@@ -387,18 +379,18 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">false</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_hdd">true</condition>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="hddtempf_c" type="integer" label="80109" help="">
+				<setting id="hddtempf_c" type="integer" label="32109" help="">
 					<level>2</level>
 					<default>122</default>
 					<constraints>
@@ -410,18 +402,18 @@
 						<popup>false</popup>
 					</control>
 					<dependencies>
-						<dependency type="visible" setting="temperature_fahrenheit">true</dependency>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_hdd">true</condition>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
-								<condition setting="temperature_fahrenheit">true</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
 							</and>
 						</dependency>
 					</dependencies>
 				</setting>
-				<setting id="fanspeed_hdd_c" type="integer" label="80102" help="">
+				<setting id="fanspeed_hdd_c" type="integer" label="32102" help="">
 					<level>2</level>
 					<default>100</default>
 					<constraints>
@@ -444,16 +436,16 @@
 				</setting>
 			</group>
 		</category>
-		<category id="button" label="80200" help="">
+		<category id="button" label="32200" help="">
 			<group id="1" label="">
-				<setting id="powerbutton" type="boolean" label="80201" help="80202">
+				<setting id="powerbutton" type="boolean" label="32201" help="32202">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
 			</group>
-			<group id="2" label="80202">
-				<setting id="debug" type="boolean" label="32001" help="">
+			<group id="2" label="32202">
+				<setting id="debug" type="boolean" label="32000" help="">
 					<level>0</level>
 					<default>false</default>
 					<control type="toggle"/>
