@@ -305,7 +305,7 @@ def checksetup():
     lockfile = '/storage/.config/argon40_rc.lock'
     if not os.path.exists(lockfile):
         copykeymapfile()
-        copyrcmapsfile()
+        mergercmapsfile()
         removelircfile()
 
     # Check if i2c exists
@@ -361,6 +361,38 @@ def copyrcmapsfile():
         return()
 
 
+def mergercmapsfile():
+    """
+    Copy the the default RC maps conf file to directory .config and add the line for the Argon REMOTE
+    If rc_maps.cfg file already exists, just add the reference to argon40.toml file if the line is missing.
+    """
+    srcfile = '/etc/rc_maps.cfg'
+    dstfile = '/storage/.config/rc_maps.cfg'
+    # Check if argon40 toml is already included
+    if os.path.isfile(dstfile):
+        isincluded = False
+        with open(dstfile, 'r') as fp:
+            for curline in fp:
+                if not curline:
+                    continue
+                tmpline = curline.strip()
+                if not tmpline:
+                    continue
+                if tmpline == 'gpio_ir_recv\t*\targon40.toml' or tmpline == '*\t*\targon40.toml':
+                    isincluded = True
+                    break
+        if isincluded:
+            return()
+    else:
+        try:
+            copyfile(srcfile, dstfile)
+        except:
+            return()
+
+    with open(dstfile, 'a') as fp:
+        fp.write('gpio_ir_recv\t*\targon40.toml\n')
+
+
 def removelircfile():
     """Remove old argon remote LIRC conf file"""
     dstfile = '/storage/.config/lircd.conf'
@@ -414,6 +446,6 @@ else:
     lockfile = '/storage/.config/argon40_rc.lock'
     if not os.path.exists(lockfile):
         copykeymapfile()
-        copyrcmapsfile()
+        mergercmapsfile()
         removelircfile()
     copyshutdownscript()

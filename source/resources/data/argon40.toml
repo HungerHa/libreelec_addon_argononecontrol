@@ -1,6 +1,5 @@
-# table argon40, type: nec
 [[protocols]]
-name = "argon40"
+name = "Argon REMOTE"
 protocol = "nec"
 [protocols.scancodes]
 0x9c = "KEY_POWER"

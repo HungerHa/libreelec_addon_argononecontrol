@@ -1,3 +1,6 @@
+v.0.0.14~beta2 (2024-05-11)
+- avoid overwriting the existing rc_maps configuration, just add Argon REMOTE
+
 v.0.0.14~beta1 (2024-05-11)
 - automatically switch between Celsius/Fahrenheit, depending on regional/temperature setting
 - language file refactored
