@@ -16,8 +16,37 @@
 						<dependency type="enable" setting="fanspeed_disable">false</dependency>
 					</dependencies>
 				</setting>
+				<setting id="fanspeed_gpu" type="boolean" label="32407" help="">
+					<level>2</level>
+					<default>false</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="enable" setting="fanspeed_disable">false</dependency>
+						<dependency type="enable" setting="fanspeed_alwayson">false</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_hdd" type="boolean" label="32107" help="">
+					<level>1</level>
+					<default>false</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="enable" setting="fanspeed_disable">false</dependency>
+						<dependency type="enable" setting="fanspeed_alwayson">false</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_pmic" type="boolean" label="32408" help="">
+					<level>2</level>
+					<default>false</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="enable" setting="fanspeed_disable">false</dependency>
+						<dependency type="enable" setting="fanspeed_alwayson">false</dependency>
+					</dependencies>
+				</setting>
 			</group>
-			<group id="2" label="32110">
+		</category>
+		<category id="cputemp" label="32409" help="">
+			<group id="1" label="32110">
 				<setting id="cputemp_a" type="integer" label="32101" help="">
 					<level>1</level>
 					<default>55</default>
@@ -83,7 +112,7 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="3" label="32120">
+			<group id="2" label="32120">
 				<setting id="cputemp_b" type="integer" label="32101" help="">
 					<level>1</level>
 					<default>60</default>
@@ -149,7 +178,7 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="4" label="32130">
+			<group id="3" label="32130">
 				<setting id="cputemp_c" type="integer" label="32101" help="">
 					<level>1</level>
 					<default>65</default>
@@ -217,18 +246,7 @@
 			</group>
 		</category>
 		<category id="hddtemp" label="32400" help="">
-			<group id="1" label="">
-				<setting id="fanspeed_hdd" type="boolean" label="32107" help="">
-					<level>1</level>
-					<default>false</default>
-					<control type="toggle"/>
-					<dependencies>
-						<dependency type="enable" setting="fanspeed_disable">false</dependency>
-						<dependency type="enable" setting="fanspeed_alwayson">false</dependency>
-					</dependencies>
-				</setting>
-			</group>
-			<group id="2" label="32110">
+			<group id="1" label="32110">
 				<setting id="hddtemp_a" type="integer" label="32108" help="">
 					<level>2</level>
 					<default>30</default>
@@ -297,7 +315,7 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="3" label="32120">
+			<group id="2" label="32120">
 				<setting id="hddtemp_b" type="integer" label="32108" help="">
 					<level>2</level>
 					<default>40</default>
@@ -366,7 +384,7 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="4" label="32130">
+			<group id="3" label="32130">
 				<setting id="hddtemp_c" type="integer" label="32108" help="">
 					<level>2</level>
 					<default>50</default>
@@ -437,18 +455,7 @@
 			</group>
 		</category>
 		<category id="gputemp" label="32401" help="">
-			<group id="1" label="">
-				<setting id="fanspeed_gpu" type="boolean" label="32407" help="">
-					<level>2</level>
-					<default>false</default>
-					<control type="toggle"/>
-					<dependencies>
-						<dependency type="enable" setting="fanspeed_disable">false</dependency>
-						<dependency type="enable" setting="fanspeed_alwayson">false</dependency>
-					</dependencies>
-				</setting>
-			</group>
-			<group id="2" label="32110">
+			<group id="1" label="32110">
 				<setting id="gputemp_a" type="integer" label="32402" help="">
 					<level>3</level>
 					<default>53</default>
@@ -517,7 +524,7 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="3" label="32120">
+			<group id="2" label="32120">
 				<setting id="gputemp_b" type="integer" label="32402" help="">
 					<level>3</level>
 					<default>60</default>
@@ -586,7 +593,7 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="4" label="32130">
+			<group id="3" label="32130">
 				<setting id="gputemp_c" type="integer" label="32402" help="">
 					<level>3</level>
 					<default>70</default>
@@ -657,21 +664,10 @@
 			</group>
 		</category>
 		<category id="pmictemp" label="32404" help="">
-			<group id="1" label="">
-				<setting id="fanspeed_pmic" type="boolean" label="32408" help="">
-					<level>2</level>
-					<default>false</default>
-					<control type="toggle"/>
-					<dependencies>
-						<dependency type="enable" setting="fanspeed_disable">false</dependency>
-						<dependency type="enable" setting="fanspeed_alwayson">false</dependency>
-					</dependencies>
-				</setting>
-			</group>
-			<group id="2" label="32110">
+			<group id="1" label="32110">
 				<setting id="pmictemp_a" type="integer" label="32405" help="">
 					<level>3</level>
-					<default>50</default>
+					<default>54</default>
 					<constraints>
 						<minimum>20</minimum>
 						<step>1</step>
@@ -694,7 +690,7 @@
 				</setting>
 				<setting id="pmictempf_a" type="integer" label="32406" help="">
 					<level>3</level>
-					<default>122</default>
+					<default>129</default>
 					<constraints>
 						<minimum>68</minimum>
 						<step>1</step>
@@ -717,7 +713,7 @@
 				</setting>
 				<setting id="fanspeed_pmic_a" type="integer" label="32102" help="">
 					<level>3</level>
-					<default>10</default>
+					<default>20</default>
 					<constraints>
 						<minimum>10</minimum>
 						<step>5</step>
@@ -737,7 +733,7 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="3" label="32120">
+			<group id="2" label="32120">
 				<setting id="pmictemp_b" type="integer" label="32405" help="">
 					<level>3</level>
 					<default>60</default>
@@ -806,7 +802,7 @@
 					</dependencies>
 				</setting>
 			</group>
-			<group id="4" label="32130">
+			<group id="3" label="32130">
 				<setting id="pmictemp_c" type="integer" label="32405" help="">
 					<level>3</level>
 					<default>70</default>

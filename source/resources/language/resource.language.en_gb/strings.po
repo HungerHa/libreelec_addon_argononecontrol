@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2024-05-13 18:51+0000\n"
+"PO-Revision-Date: 2024-05-19 10:18+0000\n"
 "Last-Translator: Kodi Translation Team\n"
 "Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-category: Fan
 msgctxt "#32100"
-msgid "Fan configuration"
+msgid "Fan control"
 msgstr ""
 
 #: addons/script.service.argonforty-device/resources/settings.xml
@@ -148,13 +148,13 @@ msgstr ""
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-category: SSD/NVMe
 msgctxt "#32400"
-msgid "SSD/NVMe fan configuration"
+msgid "SSD/NVMe fan curve"
 msgstr ""
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-category: GPU
 msgctxt "#32401"
-msgid "GPU fan configuration"
+msgid "GPU fan curve"
 msgstr ""
 
 #: addons/script.service.argonforty-device/resources/settings.xml
@@ -172,7 +172,7 @@ msgstr ""
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-category: PMIC
 msgctxt "#32404"
-msgid "PMIC fan configuration"
+msgid "PMIC fan curve"
 msgstr ""
 
 #: addons/script.service.argonforty-device/resources/settings.xml
@@ -199,4 +199,10 @@ msgctxt "#32408"
 msgid "Include PMIC temperature for fan control"
 msgstr ""
 
-# empty strings from id 32409 to 32999
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: CPU
+msgctxt "#32409"
+msgid "CPU fan curve"
+msgstr ""
+
+# empty strings from id 32410 to 32999

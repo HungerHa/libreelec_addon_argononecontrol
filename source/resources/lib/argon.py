@@ -209,10 +209,10 @@ def load_config():
 
     fanspeed_disable = ADDON.getSettingBool('fanspeed_disable')
     if fanspeed_disable:
-        return [['90=100'], newhddconfig]
+        return [['90=100'], newgpuconfig, newhddconfig, newpmicconfig]
     fanspeed_alwayson = ADDON.getSettingBool('fanspeed_alwayson')
     if fanspeed_alwayson:
-        return [['1=100'], newhddconfig]
+        return [['1=100'], newgpuconfig, newhddconfig, newpmicconfig]
     fanspeed_gpu = ADDON.getSettingBool('fanspeed_gpu')
     fanspeed_hdd = ADDON.getSettingBool('fanspeed_hdd')
     fanspeed_pmic = ADDON.getSettingBool('fanspeed_pmic')
