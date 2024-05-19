@@ -10,11 +10,11 @@ package_dir=${addon_id}
 
 mkdir -p ${package_dir}
 cp changelog.txt ${package_dir}
+cp README.md ${package_dir}
 cp source/addon.xml ${package_dir}
 cp source/default.py ${package_dir}
 cp source/main.py ${package_dir}
 cp source/LICENSE ${package_dir}
-cp source/README.md ${package_dir}
 cp -r source/resources ${package_dir}
 if [ -f ${archive_dir}/${archive_name} ]; then
     echo "Add-on archive for this version already exists."
