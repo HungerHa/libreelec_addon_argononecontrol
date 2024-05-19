@@ -27,9 +27,9 @@ Paste the link to the log only.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Raspberry (please complete the following information):**
+**LibreELEC (please complete the following information):**
  - Device: [e.g. RPi4]
- - LibreELEC Version [e.g. 12.0.0]
+ - Version [e.g. 12.0.0]
 
 **Additional context**
 Add any other context about the problem here.
