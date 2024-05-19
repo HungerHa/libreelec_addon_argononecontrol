@@ -46,7 +46,7 @@ v0.0.12b (2024-03-19)
 - support for temperature in Fahrenheit added
 
 v0.0.12a (2024-03-15)
-- removed lgpio exceptions setting line, which was preventing v.0.0.12 from working at LibreELEC 11
+- removed lgpio exceptions setting line, which was preventing v0.0.12 from working at LibreELEC 11
 
 v0.0.12 (2024-03-02)
 - switches from gpiozero to pure lgpio if available (workaround for lgpio GPIO busy error message)
