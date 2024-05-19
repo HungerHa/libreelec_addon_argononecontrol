@@ -27,7 +27,7 @@ To compensate that, I have optimized v0.0.10+ as far I currently could to decrea
 
 The safety way: If the power menu of KODI is used to shutdown, the power cut is initiated just at the end (+10 seconds).
 
-### Workaround after unproperly shutdown
+### Workaround after improperly shutdown
 
 Situation: Remote control power button pressed → 10 seconds timer starts -> shutdown is initiated → red LED turns off, but it seems that it doesn't respond to the power button on the remote to get it on again.
 
