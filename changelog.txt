@@ -1,13 +1,109 @@
-v0.0.1
-- Initial version
+v1.0.0 (2024-05-19)
+- renumbering to better follow semantic versioning
 
-v0.0.2
+v0.0.15 (2024-05-19)
+- menu structure reorganized
+- regression: fan always-on setting and emergency fan (90°) doesn't worked (again)
+
+v0.0.15 (2024-05-19)
+- menu structure reorganized
+- regression: fan always-on setting and emergency fan (90°) doesn't worked (again)
+
+v0.0.14~beta3 (2024-05-14)
+- added fan curve for GPU and PMIC temperature
+
+v0.0.14~beta2 (2024-05-11)
+- avoid overwriting the existing rc_maps configuration, just add Argon REMOTE
+
+v0.0.14~beta1 (2024-05-11)
+- automatically switch between Celsius/Fahrenheit, depending on regional/temperature setting
+- language file refactored
+- regression: fan always-on setting and emergency fan (90°) doesn't worked
+- switched to official add-on versioning
+
+v0.0.13 (2024-03-21)
+- added HDD/SSD/NVMe temperature support
+
+v0.0.12b (2024-03-19)
+- migrated to Matrix addon settings format
+- support for temperature in Fahrenheit added
+
+v0.0.12a (2024-03-15)
+- removed lgpio exceptions setting line, which was preventing v0.0.12 from working at LibreELEC 11
+
+v0.0.12 (2024-03-02)
+- switches from gpiozero to pure lgpio if available (workaround for lgpio GPIO busy error message)
+
+v0.0.11d (2024-02-29)
+- “Handle power button events” is honored without reboot
+- remote control shutdown exception fixed
+- fan settings now adjustable in 1 degree steps
+
+v0.0.11c (2024-02-28)
+- added debug messages
+- freeing of power button detection GPIO pin forced
+- code cleanup
+
+v0.0.11b (2024-02-26)
+- rolled back: "use the firmware check during power off"
+
+v0.0.11a (2024-02-26)
+- forgotten function call removed
+
+v0.0.11 (2024-02-25)
+- use the firmware check during power off
+- changed to /tmp directory for lgpio workaround due to permission issues with TempDirectory function
+
+v0.0.10 (2024-02-21)
+- switched to event based power button detection
+- shutdown process refactored
+- workaround for remote control shutdown
+- switched from lircd to rc_maps for argon remote control
+
+v0.0.9a (2024-02-18)
+- fixed typo
+
+v0.0.9 (2024-02-18)
+- fixed power button recognition for RPi5 with LE12
+
+v0.0.8 (2024-02-18)
+- fixed fan fluctuation with the new firmware
+
+v0.0.7 (2024-02-17)
+- refactoring to support LE11/LE12 to the same time
+- refactoring to support old and new case firmware versions
+
+v0.0.6d (2024-02-15)
+- switched to new power off command
+
+v0.0.6c (2024-02-15)
+- hotfix for Argon40 One new fan control/firmware
+
+v0.0.6b (2024-02-14)
+- rolled back pin factory enforcing
+- add workaround for lgpio pipe issue
+  https://github.com/gpiozero/gpiozero/issues/1106
+
+v0.0.6a (2024-02-14)
+- set gpiozero pin factory to NativeFactory
+
+v0.0.6 (2024-02-14)
+- added RPi5 support
+- changed to the new LE12 System Tools Add-on lib paths
+
+v0.0.5 (2023-10-24)
+- migration to gpiozero
+
+v0.0.4 (2023-08-02)
+- ORTEK VRC-1100 lircd profile removed
+
+v0.0.3 (2021-06-27)
+- Shutdown script added to safely cut the power
+
+v0.0.2 (2021-05-22)
 - LibreELEC 10 beta dependencies corrected
 - changed line endings to UNIX
 - added ORTEK VRC-1100 lircd profile
 
-v0.0.3
-- Shutdown script added to safely cut the power
-
-v0.0.4
-- ORTEK VRC-1100 lircd profile removed
+v0.0.1 (2021-01-26)
+- Initial version
