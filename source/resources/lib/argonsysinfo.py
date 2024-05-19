@@ -140,6 +140,31 @@ def argonsysinfo_getcputemp():
 	except IOError:
 		return 0
 
+def argonsysinfo_getgputemp():
+	cmdstr = "/usr/bin/vcgencmd measure_temp | sed -e \"s/temp=//\" -e \"s/\.*'C/ /\""
+
+	tempval = 0
+	if len(cmdstr) > 0:
+		try:
+			temperaturestr = os.popen(cmdstr+" 2>&1").read()
+			tempval = float(temperaturestr)
+		except:
+			tempval = -1
+
+	return tempval
+
+def argonsysinfo_getpmictemp():
+	cmdstr = "/usr/bin/vcgencmd measure_temp pmic | sed -e \"s/temp=//\" -e \"s/\.*'C/ /\""
+
+	tempval = 0
+	if len(cmdstr) > 0:
+		try:
+			temperaturestr = os.popen(cmdstr+" 2>&1").read()
+			tempval = float(temperaturestr)
+		except:
+			tempval = -1
+
+	return tempval
 
 def argonsysinfo_getmaxhddtemp():
 	maxtempval = 0

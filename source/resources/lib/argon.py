@@ -204,6 +204,8 @@ def load_config():
 
     newconfig = []
     newhddconfig = []
+    newgpuconfig = []
+    newpmicconfig = []
 
     fanspeed_disable = ADDON.getSettingBool('fanspeed_disable')
     if fanspeed_disable:
@@ -211,30 +213,46 @@ def load_config():
     fanspeed_alwayson = ADDON.getSettingBool('fanspeed_alwayson')
     if fanspeed_alwayson:
         return [['1=100'], newhddconfig]
+    fanspeed_gpu = ADDON.getSettingBool('fanspeed_gpu')
     fanspeed_hdd = ADDON.getSettingBool('fanspeed_hdd')
+    fanspeed_pmic = ADDON.getSettingBool('fanspeed_pmic')
     temperature_unit = xbmc.getInfoLabel('System.TemperatureUnits')
 
     configtype = ['a', 'b', 'c']
     for typekey in configtype:
         if temperature_unit == '°F':
             tempval = (float(ADDON.getSetting('cputempf_'+typekey))-32.0) * 5.0/9.0
+            gputempval = (float(ADDON.getSetting('gputempf_'+typekey))-32.0) * 5.0/9.0
             hddtempval = (float(ADDON.getSetting('hddtempf_'+typekey))-32.0) * 5.0/9.0
+            pmictempval = (float(ADDON.getSetting('pmictempf_'+typekey))-32.0) * 5.0/9.0
         else:
             tempval = float(ADDON.getSetting('cputemp_'+typekey))
+            gputempval = float(ADDON.getSetting('gputemp_'+typekey))
             hddtempval = float(ADDON.getSetting('hddtemp_'+typekey))
+            pmictempval = float(ADDON.getSetting('pmictemp_'+typekey))
         fanval = int(ADDON.getSetting('fanspeed_'+typekey))
+        gpufanval = int(ADDON.getSetting('fanspeed_gpu_'+typekey))
         hddfanval = int(ADDON.getSetting('fanspeed_hdd_'+typekey))
+        pmicfanval = int(ADDON.getSetting('fanspeed_pmic_'+typekey))
 
         newconfig.append( "{:5.1f}={}".format(tempval,fanval))
+        if fanspeed_gpu:
+            newgpuconfig.append( "{:5.1f}={}".format(gputempval,gpufanval))
         if fanspeed_hdd:
             newhddconfig.append( "{:5.1f}={}".format(hddtempval,hddfanval))
+        if fanspeed_pmic:
+            newpmicconfig.append( "{:5.1f}={}".format(pmictempval,pmicfanval))
 
     if len(newconfig) > 0:
         newconfig.sort(reverse=True)
+    if len(newgpuconfig) > 0:
+        newgpuconfig.sort(reverse=True)
     if len(newhddconfig) > 0:
         newhddconfig.sort(reverse=True)
+    if len(newpmicconfig) > 0:
+        newpmicconfig.sort(reverse=True)
 
-    return [ newconfig, newhddconfig ]
+    return [ newconfig, newgpuconfig, newhddconfig, newpmicconfig ]
 
 
 def temp_check(abort_flag):
@@ -259,11 +277,21 @@ def temp_check(abort_flag):
         # CPU fan settings
         if len(tmpconfig[0]) > 0:
             fanconfig = tmpconfig[0]
-        # HDD fan settings
+        # GPU fan settings
         if len(tmpconfig[1]) > 0:
-            fanhddconfig = tmpconfig[1]
+            fangpuconfig = tmpconfig[1]
+        else:
+            fangpuconfig = []
+        # HDD fan settings
+        if len(tmpconfig[2]) > 0:
+            fanhddconfig = tmpconfig[2]
         else:
             fanhddconfig = []
+        # PMIC fan settings
+        if len(tmpconfig[3]) > 0:
+            fanpmicconfig = tmpconfig[3]
+        else:
+            fanpmicconfig = []
 
         fansettingupdate = False
         while not fansettingupdate:
@@ -271,16 +299,30 @@ def temp_check(abort_flag):
             val = argonsysinfo_getcputemp()
             xbmc.log(msg='Argon40: current CPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
             newspeed = get_fanspeed(val, fanconfig)
+            # Speed based on GPU Temp
+            val = argonsysinfo_getgputemp()
+            xbmc.log(msg='Argon40: current GPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
+            gpuspeed = get_fanspeed(val, fangpuconfig)
             # Speed based on SSD/NVMe Temp
             val = argonsysinfo_getmaxhddtemp()
             xbmc.log(msg='Argon40: current SSD/NVMe temperature : ' + str(val), level=xbmc.LOGDEBUG)
             hddspeed = get_fanspeed(val, fanhddconfig)
+            # Speed based on PMIC Temp
+            val = argonsysinfo_getpmictemp()
+            xbmc.log(msg='Argon40: current PMIC temperature : ' + str(val), level=xbmc.LOGDEBUG)
+            pmicspeed = get_fanspeed(val, fanpmicconfig)
             xbmc.log(msg='Argon40: CPU fan speed value : ' + str(newspeed), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon40: GPU fan speed value : ' + str(gpuspeed), level=xbmc.LOGDEBUG)
             xbmc.log(msg='Argon40: SSD/NVMe fan speed value : ' + str(hddspeed), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon40: PMIC fan speed value : ' + str(pmicspeed), level=xbmc.LOGDEBUG)
 
             # Use faster fan speed
+            if gpuspeed > newspeed:
+                newspeed = gpuspeed
             if hddspeed > newspeed:
                 newspeed = hddspeed
+            if pmicspeed > newspeed:
+                newspeed = pmicspeed
 
             if newspeed < prevspeed:
                 thread_sleep(30, abort_flag)

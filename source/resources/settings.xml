@@ -19,7 +19,7 @@
 			</group>
 			<group id="2" label="32110">
 				<setting id="cputemp_a" type="integer" label="32101" help="">
-					<level>0</level>
+					<level>1</level>
 					<default>55</default>
 					<constraints>
 						<minimum>20</minimum>
@@ -41,7 +41,7 @@
 					</dependencies>
 				</setting>
 				<setting id="cputempf_a" type="integer" label="32106" help="">
-					<level>0</level>
+					<level>1</level>
 					<default>131</default>
 					<constraints>
 						<minimum>68</minimum>
@@ -63,7 +63,7 @@
 					</dependencies>
 				</setting>
 				<setting id="fanspeed_a" type="integer" label="32102" help="">
-					<level>0</level>
+					<level>1</level>
 					<default>10</default>
 					<constraints>
 						<minimum>10</minimum>
@@ -85,7 +85,7 @@
 			</group>
 			<group id="3" label="32120">
 				<setting id="cputemp_b" type="integer" label="32101" help="">
-					<level>0</level>
+					<level>1</level>
 					<default>60</default>
 					<constraints>
 						<minimum>20</minimum>
@@ -107,7 +107,7 @@
 					</dependencies>
 				</setting>
 				<setting id="cputempf_b" type="integer" label="32106" help="">
-					<level>0</level>
+					<level>1</level>
 					<default>140</default>
 					<constraints>
 						<minimum>68</minimum>
@@ -129,7 +129,7 @@
 					</dependencies>
 				</setting>
 				<setting id="fanspeed_b" type="integer" label="32102" help="">
-					<level>0</level>
+					<level>1</level>
 					<default>50</default>
 					<constraints>
 						<minimum>10</minimum>
@@ -151,7 +151,7 @@
 			</group>
 			<group id="4" label="32130">
 				<setting id="cputemp_c" type="integer" label="32101" help="">
-					<level>0</level>
+					<level>1</level>
 					<default>65</default>
 					<constraints>
 						<minimum>20</minimum>
@@ -173,7 +173,7 @@
 					</dependencies>
 				</setting>
 				<setting id="cputempf_c" type="integer" label="32106" help="">
-					<level>0</level>
+					<level>1</level>
 					<default>149</default>
 					<constraints>
 						<minimum>68</minimum>
@@ -195,7 +195,7 @@
 					</dependencies>
 				</setting>
 				<setting id="fanspeed_c" type="integer" label="32102" help="">
-					<level>0</level>
+					<level>1</level>
 					<default>100</default>
 					<constraints>
 						<minimum>10</minimum>
@@ -219,7 +219,7 @@
 		<category id="hddtemp" label="32400" help="">
 			<group id="1" label="">
 				<setting id="fanspeed_hdd" type="boolean" label="32107" help="">
-					<level>2</level>
+					<level>1</level>
 					<default>false</default>
 					<control type="toggle"/>
 					<dependencies>
@@ -428,6 +428,446 @@
 						<dependency type="enable">
 							<and>
 								<condition setting="fanspeed_hdd">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+			</group>
+		</category>
+		<category id="gputemp" label="32401" help="">
+			<group id="1" label="">
+				<setting id="fanspeed_gpu" type="boolean" label="32407" help="">
+					<level>2</level>
+					<default>false</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="enable" setting="fanspeed_disable">false</dependency>
+						<dependency type="enable" setting="fanspeed_alwayson">false</dependency>
+					</dependencies>
+				</setting>
+			</group>
+			<group id="2" label="32110">
+				<setting id="gputemp_a" type="integer" label="32402" help="">
+					<level>3</level>
+					<default>53</default>
+					<constraints>
+						<minimum>20</minimum>
+						<step>1</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_gpu">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="gputempf_a" type="integer" label="32403" help="">
+					<level>3</level>
+					<default>128</default>
+					<constraints>
+						<minimum>68</minimum>
+						<step>1</step>
+						<maximum>212</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_gpu">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_gpu_a" type="integer" label="32102" help="">
+					<level>3</level>
+					<default>10</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>5</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_gpu">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+			</group>
+			<group id="3" label="32120">
+				<setting id="gputemp_b" type="integer" label="32402" help="">
+					<level>3</level>
+					<default>60</default>
+					<constraints>
+						<minimum>20</minimum>
+						<step>1</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_gpu">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="gputempf_b" type="integer" label="32403" help="">
+					<level>3</level>
+					<default>140</default>
+					<constraints>
+						<minimum>68</minimum>
+						<step>1</step>
+						<maximum>212</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_gpu">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_gpu_b" type="integer" label="32102" help="">
+					<level>3</level>
+					<default>50</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>5</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_gpu">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+			</group>
+			<group id="4" label="32130">
+				<setting id="gputemp_c" type="integer" label="32402" help="">
+					<level>3</level>
+					<default>70</default>
+					<constraints>
+						<minimum>20</minimum>
+						<step>1</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_gpu">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="gputempf_c" type="integer" label="32403" help="">
+					<level>3</level>
+					<default>158</default>
+					<constraints>
+						<minimum>68</minimum>
+						<step>1</step>
+						<maximum>212</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_gpu">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_gpu_c" type="integer" label="32102" help="">
+					<level>3</level>
+					<default>100</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>5</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_gpu">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+			</group>
+		</category>
+		<category id="pmictemp" label="32404" help="">
+			<group id="1" label="">
+				<setting id="fanspeed_pmic" type="boolean" label="32408" help="">
+					<level>2</level>
+					<default>false</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="enable" setting="fanspeed_disable">false</dependency>
+						<dependency type="enable" setting="fanspeed_alwayson">false</dependency>
+					</dependencies>
+				</setting>
+			</group>
+			<group id="2" label="32110">
+				<setting id="pmictemp_a" type="integer" label="32405" help="">
+					<level>3</level>
+					<default>50</default>
+					<constraints>
+						<minimum>20</minimum>
+						<step>1</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_pmic">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="pmictempf_a" type="integer" label="32406" help="">
+					<level>3</level>
+					<default>122</default>
+					<constraints>
+						<minimum>68</minimum>
+						<step>1</step>
+						<maximum>212</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_pmic">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_pmic_a" type="integer" label="32102" help="">
+					<level>3</level>
+					<default>10</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>5</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_pmic">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+			</group>
+			<group id="3" label="32120">
+				<setting id="pmictemp_b" type="integer" label="32405" help="">
+					<level>3</level>
+					<default>60</default>
+					<constraints>
+						<minimum>20</minimum>
+						<step>1</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_pmic">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="pmictempf_b" type="integer" label="32406" help="">
+					<level>3</level>
+					<default>140</default>
+					<constraints>
+						<minimum>68</minimum>
+						<step>1</step>
+						<maximum>212</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_pmic">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_pmic_b" type="integer" label="32102" help="">
+					<level>3</level>
+					<default>50</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>5</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_pmic">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+			</group>
+			<group id="4" label="32130">
+				<setting id="pmictemp_c" type="integer" label="32405" help="">
+					<level>3</level>
+					<default>70</default>
+					<constraints>
+						<minimum>20</minimum>
+						<step>1</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_pmic">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="!is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="pmictempf_c" type="integer" label="32406" help="">
+					<level>3</level>
+					<default>158</default>
+					<constraints>
+						<minimum>68</minimum>
+						<step>1</step>
+						<maximum>212</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="visible" on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</dependency>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_pmic">true</condition>
+								<condition setting="fanspeed_disable">false</condition>
+								<condition setting="fanspeed_alwayson">false</condition>
+								<condition on="property" name="infobool" operator="is">String.IsEqual(System.TemperatureUnits,°F)</condition>
+							</and>
+						</dependency>
+					</dependencies>
+				</setting>
+				<setting id="fanspeed_pmic_c" type="integer" label="32102" help="">
+					<level>3</level>
+					<default>100</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>5</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition setting="fanspeed_pmic">true</condition>
 								<condition setting="fanspeed_disable">false</condition>
 								<condition setting="fanspeed_alwayson">false</condition>
 							</and>

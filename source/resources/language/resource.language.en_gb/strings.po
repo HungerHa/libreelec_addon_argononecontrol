@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2024-05-11 17:15+0000\n"
+"PO-Revision-Date: 2024-05-13 18:51+0000\n"
 "Last-Translator: Kodi Translation Team\n"
 "Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -151,4 +151,52 @@ msgctxt "#32400"
 msgid "SSD/NVMe fan configuration"
 msgstr ""
 
-# empty strings from id 32401 to 32999
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: GPU
+msgctxt "#32401"
+msgid "GPU fan configuration"
+msgstr ""
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: GPU temperature °C
+msgctxt "#32402"
+msgid "GPU temperature (Celsius)"
+msgstr ""
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: GPU temperature °F
+msgctxt "#32403"
+msgid "GPU temperature (Fahrenheit)"
+msgstr ""
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: PMIC
+msgctxt "#32404"
+msgid "PMIC fan configuration"
+msgstr ""
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: PMIC temperature °C
+msgctxt "#32405"
+msgid "PMIC temperature (Celsius)"
+msgstr ""
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: PMIC temperature °F
+msgctxt "#32406"
+msgid "PMIC temperature (Fahrenheit)"
+msgstr ""
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: switch to enable observing of GPU temperature
+msgctxt "#32407"
+msgid "Include GPU temperature for fan control"
+msgstr ""
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: switch to enable observing of PMIC temperature
+msgctxt "#32408"
+msgid "Include PMIC temperature for fan control"
+msgstr ""
+
+# empty strings from id 32409 to 32999
