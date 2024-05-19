@@ -1,6 +1,6 @@
 # ArgonForty Device Configuration add-on
 
-Installs services to manage ArgonForty devices such as power button,fan speed and Argon REMOTE.
+Installs services to manage ArgonForty devices such as power button, fan speed and Argon REMOTE.
 
 This will also enable I2C, IR and UART.
 
@@ -41,17 +41,17 @@ Please try in this situation (unsuccessful shutdown):
 ## 3rd party remote control
 I have switched from lircd to rc_maps/keymaps (thanks to adam.h. for providing the files) to use the modern way with ir-keytable. If you use a custom lircd.conf for your remote control, please make a backup of your remote control configuration and/or place a lock file **before** installation of the add-on to prevent overwriting.
 
-If there is already a rc_maps.cfg file in the ```/storage/.config``` directory, the add-on checks if the needed line to include the argon40.toml file exists. If necessary, it will try to append the need line.
+If there is already a rc_maps.cfg file in the ```/storage/.config``` directory, the add-on checks if the needed line to include the argon40.toml file exists. If necessary, an attempt is made to append the needed line.
 
-For the worst case, to prevent the add-on from change the IR configuration you just need to drop a empty lock file in ```/storage/.config``` directory.
+In the worst case scenario, to prevent the add-on from changing the IR configuration, all you need to do is place an empty lock file in the ```/storage/.config``` directory.
 ```
 touch /storage/.config/argon40_rc.lock
 ```
 
 ## Installation
-The installation process will try to add 3 configuration lines to the config.txt to enable the needed modules for I2C, IR and UART. This part is not bullet proofed, because it looks only for the first line. It skips the needed modification if the line "dtparam=i2c=on" is already there. Therefore it could be better to make a backup of /flash/config.txt before to see the different.
+The installation process will try to add 3 configuration lines to the config.txt to enable the needed modules for I2C, IR and UART. This part is not bullet proofed, because it looks only for the first line. It skips the needed modification if the line "dtparam=i2c=on" is already there. Therefore it could be better to make a backup of ```/flash/config.txt``` before to see the different.
 
-A few things to do (The first 3 steps in square brackets are optional, just needed if the dependencies cannot be resolved automatically):
+A few things to do. The first 3 steps in square brackets are optional and are only needed if the dependencies cannot be resolved automatically and can usually be skipped:
 
 - *[ install RPi Tools (LibreELEC Repo -> Program Add-ons) ]*
 - *[ install System Tools (LibreELEC Repo -> Program Add-ons) ]*
@@ -61,6 +61,6 @@ A few things to do (The first 3 steps in square brackets are optional, just need
 Enable "Settings->System->Addons->Unknown sources".
 - In the main menu within Add-ons select "Install from ZIP file", confirm the security question and switch to the folder where you uploaded the ZIP file
 - Select the ZIP file and press OK
-- after first installation: Ignore the "Device Configuration Error" teaser message and reboot, so that the modules for UART, IR and I2C are activated
+- After the first installation: Ignore the “Device Configuration Error” teaser message and reboot to enable the UART, IR and I2C modules
 
-Within Add-ons list, the ArgonForty Device Configuration add-on should be available now. There you can configure the fan control.The shutdown and reboot (double tab) should work now too. Please be patient, it will take a few seconds for the LED to turn off.
+Within Addons list, the ArgonForty Device Configuration add-on should be available now. There you can configure the fan control. The shutdown and reboot (double tab) should work now too. Please be patient, it will take a few seconds for the LED to turn off.
