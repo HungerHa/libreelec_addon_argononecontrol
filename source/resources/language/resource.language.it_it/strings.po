@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_package_argonforty-device/issues/\n"
 "POT-Creation-Date: 2024-05-19 21:00+0000\n"
-"PO-Revision-Date: 2024-05-20 12:44+0000\n"
+"PO-Revision-Date: 2024-05-22 21:10+0000\n"
 "Last-Translator: dga4130-renato\n"
 "Language-Team: Italian <https://github.com/HungerHa/libreelec_package_argonforty-device/issues/4>\n"
 "MIME-Version: 1.0\n"
@@ -34,31 +34,31 @@ msgstr "Abilitato"
 #. label-category: Fan
 msgctxt "#32100"
 msgid "Fan control"
-msgstr "Controllo della ventola"
+msgstr "Controllo ventola"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-slider: CPU temperature °C
 msgctxt "#32101"
 msgid "CPU temperature (Celsius)"
-msgstr "Temperatura della CPU (Celsius)"
+msgstr "Temperatura CPU (Celsius)"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-slider: fan speed (dutycycle)
 msgctxt "#32102"
 msgid "Fan speed (Percent)"
-msgstr "Velocità della ventola (percentuale)"
+msgstr "Velocità ventola (percentuale)"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-switch: force fan speed to 100 percent
 msgctxt "#32103"
 msgid "Fan always on"
-msgstr "Ventilatore sempre acceso"
+msgstr "Ventola sempre accesa"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-switch: enable/disable fan control global
 msgctxt "#32104"
 msgid "Fan disabled"
-msgstr "Ventilatore disabilitato"
+msgstr "Ventola disabilitata"
 
 #empty string with id 32105
 
@@ -66,7 +66,7 @@ msgstr "Ventilatore disabilitato"
 #. label-slider: CPU temperature °F
 msgctxt "#32106"
 msgid "CPU temperature (Fahrenheit)"
-msgstr "Temperatura della CPU (Fahrenheit)"
+msgstr "Temperatura CPU (Fahrenheit)"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-switch: switch to enable observing of SSD/NVMe temperature
@@ -91,7 +91,7 @@ msgstr "Temperatura SSD/NVMe (Fahrenheit)"
 #. label-group: threshold 1
 msgctxt "#32110"
 msgid "Temperature threshold 1"
-msgstr "Soglia di temperatura 1"
+msgstr "Soglia temperatura 1"
 
 # empty strings from id 32111 to 32119
 
@@ -99,7 +99,7 @@ msgstr "Soglia di temperatura 1"
 #. label-group: threshold 2
 msgctxt "#32120"
 msgid "Temperature threshold 2"
-msgstr "Soglia di temperatura 2"
+msgstr "Soglia temperatura 2"
 
 # empty strings from id 32121 to 32129
 
@@ -107,7 +107,7 @@ msgstr "Soglia di temperatura 2"
 #. label-group: threshold 3
 msgctxt "#32130"
 msgid "Temperature threshold 3"
-msgstr "Soglia di temperatura 3"
+msgstr "Soglia temperatura 3"
 
 # empty strings from id 32131 to 32199
 
@@ -121,7 +121,7 @@ msgstr "Pulsante di accensione"
 #. label-switch: for switch on/off the power button monitoring
 msgctxt "#32201"
 msgid "Handle power button events"
-msgstr "Gestire gli eventi del pulsante di accensione"
+msgstr "Gestione eventi del pulsante di accensione"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label: debug info a line below of the switch
@@ -141,7 +141,7 @@ msgstr "Telecomando Argon"
 #. label:
 msgctxt "#32301"
 msgid "Setup Argon remote control"
-msgstr "Configura il telecomando Argon"
+msgstr "Configura telecomando Argon"
 
 # empty strings from id 32302 to 32399
 
@@ -149,31 +149,31 @@ msgstr "Configura il telecomando Argon"
 #. label-category: SSD/NVMe
 msgctxt "#32400"
 msgid "SSD/NVMe fan curve"
-msgstr "Curva della ventola SSD/NVMe"
+msgstr "Curva ventola SSD/NVMe"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-category: GPU
 msgctxt "#32401"
 msgid "GPU fan curve"
-msgstr "Curva della ventola GPU"
+msgstr "Curva ventola GPU"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-slider: GPU temperature °C
 msgctxt "#32402"
 msgid "GPU temperature (Celsius)"
-msgstr "Temperatura della GPU (Celsius)"
+msgstr "Temperatura GPU (Celsius)"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-slider: GPU temperature °F
 msgctxt "#32403"
 msgid "GPU temperature (Fahrenheit)"
-msgstr "Temperatura della GPU (Fahrenheit)"
+msgstr "Temperatura GPU (Fahrenheit)"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-category: PMIC
 msgctxt "#32404"
 msgid "PMIC fan curve"
-msgstr "Curva del ventilatore PMIC"
+msgstr "Curva ventilatore PMIC"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-slider: PMIC temperature °C
@@ -191,18 +191,18 @@ msgstr "Temperatura PMIC (Fahrenheit)"
 #. label-switch: switch to enable observing of GPU temperature
 msgctxt "#32407"
 msgid "Include GPU temperature for fan control"
-msgstr "Includi la temperatura della GPU per il controllo della ventola"
+msgstr "Includi temperatura GPU per il controllo ventola"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-switch: switch to enable observing of PMIC temperature
 msgctxt "#32408"
 msgid "Include PMIC temperature for fan control"
-msgstr "Include la temperatura PMIC per il controllo della ventola"
+msgstr "Include temperatura PMIC per il controllo ventola"
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-category: CPU
 msgctxt "#32409"
 msgid "CPU fan curve"
-msgstr "Curva ventola della CPU"
+msgstr "Curva ventola CPU"
 
 # empty strings from id 32410 to 32999
