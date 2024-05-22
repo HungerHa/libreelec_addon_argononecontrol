@@ -4,10 +4,11 @@ Installs services to manage ArgonForty devices such as power button, fan speed a
 
 This will also enable I2C, IR and UART.
 
-## What it does:
+## What it does
+
 - supports LibreELEC 11 + 12
-- supports Argon One V1/2 (RPi4)
-- supports Argon One V3 (RPi5)
+- supports Argon ONE V1/2 (RPi4)
+- supports Argon ONE V3 (RPi5)
 - enables IR receiver (V2/V3, or if self added to V1 pcb)
 - enables Argon REMOTE support (rc_maps + keymap)
 - fan control with fan curves CPU, SSD/NVMe, GPU and PMIC
@@ -17,7 +18,7 @@ For full support of the power button commands with a RPi5, please use LE12.
 
 It might also work with LE10 (RPi4) but is untested. If someone is using LE10 and it doesn't work, they can try version v.0.0.4: [LibreELEC Thread](https://forum.libreelec.tv/thread/27360-rpi4b-argon-one-case-shutdown/?postID=182477#post182477)
 
-### Known issues:
+### Known issues
 
 There is a limitation in the Argon ONE case firmware.
 
@@ -39,16 +40,19 @@ Please try in this situation (unsuccessful shutdown):
 - Press the power button on the remote control again to boot
 
 ## 3rd party remote control
+
 I have switched from lircd to rc_maps/keymaps (thanks to adam.h. for providing the files) to use the modern way with ir-keytable. If you use a custom lircd.conf for your remote control, please make a backup of your remote control configuration and/or place a lock file **before** installation of the add-on to prevent overwriting.
 
 If there is already a rc_maps.cfg file in the ```/storage/.config``` directory, the add-on checks if the needed line to include the argon40.toml file exists. If necessary, an attempt is made to append the needed line.
 
 In the worst case scenario, to prevent the add-on from changing the IR configuration, all you need to do is place an empty lock file in the ```/storage/.config``` directory.
-```
+
+```bash
 touch /storage/.config/argon40_rc.lock
 ```
 
 ## Installation
+
 The installation process will try to add 3 configuration lines to the config.txt to enable the needed modules for I2C, IR and UART. This part is not bullet proofed, because it looks only for the first line. It skips the needed modification if the line "dtparam=i2c=on" is already there. Therefore it could be better to make a backup of ```/flash/config.txt``` before to see the different.
 
 A few things to do. The first 3 steps in square brackets are optional and are only needed if the dependencies cannot be resolved automatically and can usually be skipped:
