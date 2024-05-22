@@ -2,7 +2,7 @@
 
 Installs services to manage ArgonForty devices such as power button, fan speed and Argon REMOTE.
 
-This will also enable I2C, IR and UART.
+This will also enable I2C, IR receiver and UART.
 
 ## What it does
 

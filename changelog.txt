@@ -1,3 +1,6 @@
+v1.1.1 (2024-05-22)
+- some typos and translation errors fixed
+
 v1.1.0 (2024-05-21)
 - add-on icon changed to follow LE style (thanks chewitt for providing this)
 - issue #5: fan art modified to be more generic
