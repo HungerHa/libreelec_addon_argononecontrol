@@ -25,18 +25,17 @@ from threading import Event
 import time
 import zlib
 
+# For LibreELEC/Lakka, note that we need to add system paths
+sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
 # workaround for lgpio issue
 # https://github.com/gpiozero/gpiozero/issues/1106
 os.environ['LG_WD'] = '/tmp'
 lgpio_spec = importlib.util.find_spec('lgpio')
 if lgpio_spec is not None:
     import lgpio
-    lgpio.exceptions = False
 else:
     from gpiozero import Button
 
-# For Libreelec/Lakka, note that we need to add system paths
-sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
 import xbmc
 import xbmcaddon
 
@@ -50,6 +49,7 @@ bus = argonregister_initializebusobj()
 fansettingupdate = False
 power_btn_triggered = False
 power_button_mon = Event()
+powerbutton_remap = False
 
 class SettingMonitor(xbmc.Monitor):
     """Detect Settings Change"""
@@ -90,8 +90,10 @@ def shutdown_check(abort_flag, power_button):
     global power_btn_triggered
     power_btn_triggered = False
     if lgpio_spec is not None:
+        xbmc.log(msg='Argon40: power button monitoring via lgpio', level=xbmc.LOGDEBUG)
         #Initialize GPIO
         # open the gpio chip and set the pin 4 as input (pull down)
+        lgpio.exceptions = False
         h = lgpio.gpiochip_open(4)
         if h >= 0:
             # Pi5 mapping
@@ -100,12 +102,14 @@ def shutdown_check(abort_flag, power_button):
             # Old mapping
             chip = 0
             h = lgpio.gpiochip_open(0)
+        lgpio.exceptions = True
         #lgpio.gpio_claim_input(h, SHUTDOWN_PIN, lFlags=lgpio.SET_PULL_DOWN)
         err = lgpio.gpio_claim_alert(h, SHUTDOWN_PIN, eFlags=lgpio.RISING_EDGE, lFlags=lgpio.SET_PULL_DOWN)
         if err < 0:
             xbmc.log(msg="GPIO in use {}:{} ({})".format(chip, SHUTDOWN_PIN, lgpio.error_text(err)), level=xbmc.LOGDEBUG)
         cb_power_btn = lgpio.callback(h, SHUTDOWN_PIN, edge=lgpio.RISING_EDGE, func=power_btn_pressed)
     else:
+        xbmc.log(msg='Argon40: power button monitoring via gpiozero', level=xbmc.LOGDEBUG)
         # pull down the pin
         btn = Button(SHUTDOWN_PIN, pull_up=False)
         btn.when_pressed = power_btn_pressed
@@ -142,7 +146,10 @@ def shutdown_check(abort_flag, power_button):
 
             xbmc.log(msg='Argon40: power button was released', level=xbmc.LOGDEBUG)
             if pulsetime >= 2 and pulsetime <= 3:
-                xbmc.restart()
+                if powerbutton_remap:
+                    xbmc.shutdown()
+                else:
+                    xbmc.restart()
             elif pulsetime >= 4 and pulsetime <= 5:
                 xbmc.shutdown()
         if abort_flag.is_set():
@@ -194,7 +201,9 @@ def load_config():
     ADDON = xbmcaddon.Addon()
 
     global power_button_mon
+    global powerbutton_remap
     powerbutton = ADDON.getSettingBool('powerbutton')
+    powerbutton_remap = ADDON.getSettingBool('powerbutton_remap')
     if powerbutton:
         if not power_button_mon.is_set():
             xbmc.log(msg='Argon40: power button monitoring has been enabled', level=xbmc.LOGDEBUG)

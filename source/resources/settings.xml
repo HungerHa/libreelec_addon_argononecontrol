@@ -879,6 +879,14 @@
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
+				<setting id="powerbutton_remap" type="boolean" label="32203" help="">
+					<level>1</level>
+					<default>false</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="enable" setting="powerbutton">true</dependency>
+					</dependencies>
+				</setting>
 			</group>
 			<group id="2" label="32202">
 				<setting id="debug" type="boolean" label="32000" help="">
