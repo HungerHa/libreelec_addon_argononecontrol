@@ -129,7 +129,13 @@ msgctxt "#32202"
 msgid "Also handles the remote control power off command"
 msgstr ""
 
-# empty strings from id 32203 to 32299
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: to switch the reassignment of the double tap on and off
+msgctxt "#32203"
+msgid "Use the double tap to shut down (instead of reboot)"
+msgstr ""
+
+# empty strings from id 32204 to 32299
 
 #: addons/script.service.argonforty-device/resources/settings.xml
 #. label-category: Remote control
