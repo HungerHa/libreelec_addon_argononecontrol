@@ -53,6 +53,11 @@ touch /storage/.config/argon40_rc.lock
 
 ## Installation
 
+In the following installation instructions, the term "ZIP file" is used for simplicity.
+Because there seems to be room for misinterpretation and to avoid future confusion: It doesn't mean the code download button from GitHub, to download the whole source code repository content!
+
+Please use one of the ready to install add-on archives with the name pattern libreelec_argondevice_x.x.x.zip from the [releases](https://github.com/HungerHa/libreelec_package_argonforty-device/releases).
+
 The installation process will try to add 3 configuration lines to the config.txt to enable the needed modules for I2C, IR and UART. This part is not bullet proofed, because it looks only for the first line. It skips the needed modification if the line "dtparam=i2c=on" is already there. Therefore it could be better to make a backup of ```/flash/config.txt``` before to see the different.
 
 A few things to do. The first 3 steps in square brackets are optional and are only needed if the dependencies cannot be resolved automatically and can usually be skipped:
