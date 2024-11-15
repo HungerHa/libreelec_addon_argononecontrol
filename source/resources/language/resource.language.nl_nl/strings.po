@@ -1,0 +1,214 @@
+# Kodi Media Center language file
+# Addon Name: ArgonForty Device Configuration
+# Addon id: script.service.argonforty-device
+# Addon Provider: ArgonForty
+msgid ""
+msgstr ""
+"Project-Id-Version: KODI Addons\n"
+"Report-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_package_argonforty-device/issues/\n"
+"POT-Creation-Date: 2024-11-14 11:35+0100\n"
+"PO-Revision-Date: 2024-11-14 19:26+0100\n"
+"Last-Translator: Eric Vissers\n"
+"Language-Team: https://github.com/emv-nl/libreelec_package_argonforty-device\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#32000"
+msgid "Debug"
+msgstr ""
+
+msgctxt "#32001"
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+msgctxt "#32002"
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+# empty strings from id 32004 to 32099
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: Fan
+msgctxt "#32100"
+msgid "Fan control"
+msgstr "Ventilator instellingen"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: CPU temperature °C
+msgctxt "#32101"
+msgid "CPU temperature (Celsius)"
+msgstr "CPU temperatuur (Celsius)"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: fan speed (dutycycle)
+msgctxt "#32102"
+msgid "Fan speed (Percent)"
+msgstr "Ventilator snelheid (procenten)"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: force fan speed to 100 percent
+msgctxt "#32103"
+msgid "Fan always on"
+msgstr "Ventilator altijd aan"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: enable/disable fan control global
+msgctxt "#32104"
+msgid "Fan disabled"
+msgstr "Ventilator uitgeschakeld"
+
+#empty string with id 32105
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: CPU temperature °F
+msgctxt "#32106"
+msgid "CPU temperature (Fahrenheit)"
+msgstr "CPU temperatuur (Fahrenheit)"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: switch to enable observing of SSD/NVMe temperature
+msgctxt "#32107"
+msgid "Include SSD/NVMe temperature for fan control"
+msgstr "Ventilator instellingen inclusief SSD/NVMe temperatuur"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: SSD/NVMe temperature °C
+msgctxt "#32108"
+msgid "SSD/NVMe temperature (Celsius)"
+msgstr "SSD/NVMe temperatuur (Celsius)"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: SSD/NVMe temperature °F
+msgctxt "#32109"
+msgid "SSD/NVMe temperature (Fahrenheit)"
+msgstr "SSD/NVMe temperatuur (Fahrenheit)"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#, threshold group labels
+#. label-group: threshold 1
+msgctxt "#32110"
+msgid "Temperature threshold 1"
+msgstr "Temperatuur drempel 1"
+
+# empty strings from id 32111 to 32119
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-group: threshold 2
+msgctxt "#32120"
+msgid "Temperature threshold 2"
+msgstr "Temperatuur drempel 2"
+
+# empty strings from id 32121 to 32129
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-group: threshold 3
+msgctxt "#32130"
+msgid "Temperature threshold 3"
+msgstr "Temperatuur drempel 3"
+
+# empty strings from id 32131 to 32199
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: Power button
+msgctxt "#32200"
+msgid "Power button"
+msgstr "Aan- uitschakelaar"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: for switch on/off the power button monitoring
+msgctxt "#32201"
+msgid "Handle power button events"
+msgstr "Aan- uitschakelaar acties"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label: debug info a line below of the switch
+msgctxt "#32202"
+msgid "Also handles the remote control power off command"
+msgstr "Ook uitschakelaar van de afstandbediening gebruiken"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: to switch the reassignment of the double tap on and off
+msgctxt "#32203"
+msgid "Use the double tap to shut down (instead of reboot)"
+msgstr "Gebruik dubble drukken voor aflsuiten (in plaats van herstarten)"
+
+# empty strings from id 32204 to 32299
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: Remote control
+msgctxt "#32300"
+msgid "Argon Remote"
+msgstr "Argon afstandbediening"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label:
+msgctxt "#32301"
+msgid "Setup Argon remote control"
+msgstr "Argon afstandbediening instellen"
+
+# empty strings from id 32302 to 32399
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: SSD/NVMe
+msgctxt "#32400"
+msgid "SSD/NVMe fan curve"
+msgstr "SSD/NVMe ventilator curve"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: GPU
+msgctxt "#32401"
+msgid "GPU fan curve"
+msgstr "GPU ventilator curve"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: GPU temperature °C
+msgctxt "#32402"
+msgid "GPU temperature (Celsius)"
+msgstr "GPU temperatuur (Celcius)"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: GPU temperature °F
+msgctxt "#32403"
+msgid "GPU temperature (Fahrenheit)"
+msgstr "GPU Temperatuur (Fahrenheit)"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: PMIC
+msgctxt "#32404"
+msgid "PMIC fan curve"
+msgstr "PMIC ventilator curve"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: PMIC temperature °C
+msgctxt "#32405"
+msgid "PMIC temperature (Celsius)"
+msgstr "PMIC temperatuur (Celsius)"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-slider: PMIC temperature °F
+msgctxt "#32406"
+msgid "PMIC temperature (Fahrenheit)"
+msgstr "PMIC temperatuur (Fahrenheit)"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: switch to enable observing of GPU temperature
+msgctxt "#32407"
+msgid "Include GPU temperature for fan control"
+msgstr "Ventilator instellingen inclusief GPU temperatuur"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-switch: switch to enable observing of PMIC temperature
+msgctxt "#32408"
+msgid "Include PMIC temperature for fan control"
+msgstr "Ventilator instellingen inclusief PMIC temperatuur"
+
+#: addons/script.service.argonforty-device/resources/settings.xml
+#. label-category: CPU
+msgctxt "#32409"
+msgid "CPU fan curve"
+msgstr "CPU Ventilator curve"
+
+# empty strings from id 32410 to 32999
