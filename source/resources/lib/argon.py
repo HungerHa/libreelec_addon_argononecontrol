@@ -96,10 +96,10 @@ def shutdown_check(abort_flag, power_button):
         lgpio.exceptions = False
         h = lgpio.gpiochip_open(4)
         if h >= 0:
-            # Pi5 mapping
+            # RPi5 mapping until kernel 6.6.45
             chip = 4
         else:
-            # Old mapping
+            # common mapping / RPi5 kernel version >= 6.6.45
             chip = 0
             h = lgpio.gpiochip_open(0)
         lgpio.exceptions = True
@@ -279,7 +279,7 @@ def temp_check(abort_flag):
     fanconfig = ['65=100', '60=55', '55=10']
     fanhddconfig = ['50=100', '40=55', '30=30']
 
-    prevspeed=0
+    prevspeed=-1
 
     while True:
         tmpconfig = load_config()
@@ -333,12 +333,17 @@ def temp_check(abort_flag):
             if pmicspeed > newspeed:
                 newspeed = pmicspeed
 
-            if newspeed < prevspeed:
+            if newspeed == prevspeed:
                 thread_sleep(30, abort_flag)
-            prevspeed = newspeed
+                if abort_flag.is_set():
+                    break
+                continue
+            elif newspeed < prevspeed:
+                thread_sleep(30, abort_flag)
             try:
                 argonregister_setfanspeed(bus, newspeed, argonregsupport)
                 thread_sleep(30, abort_flag)
+                prevspeed = newspeed
             except IOError:
                 temp = ''
                 thread_sleep(60, abort_flag)
