@@ -30,8 +30,15 @@ sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
 # workaround for lgpio issue
 # https://github.com/gpiozero/gpiozero/issues/1106
 os.environ['LG_WD'] = '/tmp'
+gpiod_spec = importlib.util.find_spec('gpiod')
 lgpio_spec = importlib.util.find_spec('lgpio')
-if lgpio_spec is not None:
+
+if gpiod_spec is not None:
+    import gpiod
+    import select
+    import threading
+    from gpiod.line import Bias, Edge, Direction
+elif lgpio_spec is not None:
     import lgpio
 else:
     from gpiozero import Button
@@ -50,6 +57,7 @@ fansettingupdate = False
 power_btn_triggered = False
 power_button_mon = Event()
 powerbutton_remap = False
+pulse_signal = False
 
 class SettingMonitor(xbmc.Monitor):
     """Detect Settings Change"""
@@ -65,6 +73,57 @@ def thread_sleep(sleep_sec, abort_flag):
         if abort_flag.is_set() or fansettingupdate:
             break
         time.sleep(1)
+
+
+if gpiod_spec is not None:
+    """Translate the EdgeType to string"""
+    def edge_type_str(event):
+        if event.event_type is event.Type.RISING_EDGE:
+            return "Rising"
+        if event.event_type is event.Type.FALLING_EDGE:
+            return "Falling"
+        return "Unknown"
+
+
+    def async_watch_line_value(chip_path, line_offset, done_fd):
+        """Observe the pin edges"""
+        # Assume a button connecting the pin to ground,
+        # so pull it up and provide some debounce.
+        with gpiod.request_lines(
+            chip_path,
+            consumer="Argon40: async-watch-line-value",
+            config={
+                line_offset: gpiod.LineSettings(
+                    direction=Direction.INPUT,
+                    edge_detection=Edge.BOTH,
+                    bias=Bias.PULL_DOWN,
+                )
+            },
+        ) as request:
+            poll = select.poll()
+            poll.register(request.fd, select.POLLIN)
+            # Other fds could be registered with the poll and be handled
+            # separately using the return value (fd, event) from poll():
+            poll.register(done_fd, select.POLLIN)
+            global power_btn_triggered
+            global pulse_signal
+            while True:
+                for fd, _event in poll.poll():
+                    if fd == done_fd:
+                        # perform any cleanup before exiting...
+                        return
+                    # handle any edge events
+                    for event in request.read_edge_events():
+                        if event.event_type is event.Type.RISING_EDGE:
+                            power_btn_triggered = True
+                            pulse_signal = True
+                        if event.event_type is event.Type.FALLING_EDGE:
+                            pulse_signal = False
+                        xbmc.log(
+                            msg='Argon40: offset: {}  type: {:<7}  event #{}'.format(
+                                event.line_offset, edge_type_str(event), event.line_seqno
+                            ), level=xbmc.LOGDEBUG
+                        )
 
 
 def power_btn_pressed(chip=None, gpio=None, level=None, timestamp=None):
@@ -89,7 +148,31 @@ def shutdown_check(abort_flag, power_button):
 
     global power_btn_triggered
     power_btn_triggered = False
-    if lgpio_spec is not None:
+    if gpiod_spec is not None:
+        xbmc.log(msg='Argon40: power button monitoring via gpiod', level=xbmc.LOGDEBUG)
+        #Initialize GPIO
+        # open the gpio chip and set the pin 4 as input (pull down)
+        if gpiod.is_gpiochip_device('/dev/gpiochip4'):
+            # temporary RPi5 gpiochip assignment up to kernel 6.6.45
+            # https://github.com/raspberrypi/linux/pull/6144
+            gpiochip = '/dev/gpiochip4'
+        else:
+            # common
+            gpiochip = '/dev/gpiochip0'
+        
+        # run the async executor (select.poll) in a thread to demonstrate a graceful exit.
+        done_fd = os.eventfd(0)
+
+        def bg_thread():
+            try:
+                async_watch_line_value(gpiochip, SHUTDOWN_PIN, done_fd)
+            except OSError as ex:
+                xbmc.log(msg='Argon40: gpiod background thread failing', level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon40: gpiod background thread exiting...', level=xbmc.LOGDEBUG)
+
+        t = threading.Thread(target=bg_thread)
+        t.start()
+    elif lgpio_spec is not None:
         xbmc.log(msg='Argon40: power button monitoring via lgpio', level=xbmc.LOGDEBUG)
         #Initialize GPIO
         # open the gpio chip and set the pin 4 as input (pull down)
@@ -127,7 +210,15 @@ def shutdown_check(abort_flag, power_button):
             xbmc.log(msg='Argon40: power button was pressed', level=xbmc.LOGDEBUG)
             time.sleep(0.01)
             # wait until the button is released
-            if lgpio_spec is not None:
+            if gpiod_spec is not None:
+                # gpiod in use
+                while pulse_signal:
+                    time.sleep(0.01)
+                    pulsetime += 1
+                    if abort_flag.is_set() or not power_button_mon.is_set():
+                        xbmc.log(msg='Argon40: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
+                        break
+            elif lgpio_spec is not None:
                 # lgpio in use
                 while lgpio.gpio_read(h, SHUTDOWN_PIN) == 1:
                     time.sleep(0.01)
@@ -156,7 +247,15 @@ def shutdown_check(abort_flag, power_button):
             xbmc.log(msg='Argon40: button monitoring loop 1 aborted', level=xbmc.LOGDEBUG)
             break
     # freeing the GPIO resources
-    if lgpio_spec is not None:
+    if gpiod_spec is not None:
+        # gpiod in use
+        # stop background thread
+        t.join(0.2)
+        if t.is_alive():
+            os.eventfd_write(done_fd, 1)
+            t.join()
+        os.close(done_fd)
+    elif lgpio_spec is not None:
         # lgpio in use
         cb_power_btn.cancel()
         cb_power_btn = None
