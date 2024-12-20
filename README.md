@@ -6,7 +6,7 @@ This will also enable I2C, IR receiver and UART.
 
 ## What it does
 
-- supports LibreELEC 11 + 12
+- supports LibreELEC 11 / 12 / 13
 - supports Argon ONE V1/2 (RPi4)
 - supports Argon ONE V3 (RPi5)
 - enables IR receiver (V2/V3, or if self added to V1 pcb)
@@ -24,9 +24,24 @@ There is a limitation in the Argon ONE case firmware.
 
 After the power button at remote control or at back of the case (held for > 3 seconds, but < 5 seconds) is pressed, KODI (OS independent) has only ~10 seconds to shutdown properly! Once initiated, the 10 seconds power cut timeout can't be interrupted and is perhaps only with another case firmware correctable.
 
-To compensate that, I have optimized v0.0.10+ as far I currently could to decrease the shutdown time to below 8 seconds. But LibreELEC 12 takes much more time to shutdown the KODI process. Additional, depending whats currently installed and running in KODI it need sometimes longer, then the shutdown will not be graceful and data corruption is possible in the worst case.
+To compensate that, I have optimized v0.0.10+ as far I currently could to decrease the shutdown time to below 8 seconds. Since LibreELEC 12 it taked much more time to shutdown the KODI process. The cause of the delay seems the switch to lgpio / gpiozero as the default python modules to interact with the GPIO chip. A KODI addon thread with lgpio / gpiozero imported can't be terminated within 5 seconds. KODI tries to kill this thread and afterwards stucks until a timeout of 30 seconds.
 
-The safety way: If the power menu of KODI is used to shutdown, the power cut is initiated just at the end (+10 seconds).
+Starting with v1.1.4 the addon supports gpiod as an alternative way to interact with the GPIO pins. This may it possible to stop KODI within 5-6 seconds and properly shutdown via power button of the remote control again!
+2 pull requests to integrate gpiod officially into the rpi-tools package are currently pending:
+
+- <https://github.com/LibreELEC/LibreELEC.tv/pull/9592>
+- <https://github.com/LibreELEC/LibreELEC.tv/pull/9591>
+
+NOTE: The change will only take effect if KODI has already been started with the updated rpi-tools. Restart LibreELEC after updating the rpi tools.
+
+Until the PRs are applied, for the brave among you, there is an update version of rpi-tools in the release area, which already contains gpiod.
+
+- virtual.rpi-tools-12.0.0.1.zip for LE12
+- virtual.rpi-tools-12.80.1.1.zip for LE13 nightly builds
+
+**Note**: Depending on what is currently installed and running in KODI, it sometimes takes longer than 10 seconds (including the final processes of the underlying operating system), then the shutdown will not be graceful and in the worst case data corruption is possible.
+
+*The safety way*: If the power menu of KODI is used to shutdown, the power cut is initiated just at the end (+10 seconds).
 
 ### Workaround after improperly shutdown
 
@@ -73,3 +88,35 @@ Enable "Settings->System->Addons->Unknown sources".
 - After the first installation: Ignore the “Device Configuration Error” teaser message and reboot to enable the UART, IR and I2C modules
 
 Within Addons list, the ArgonForty Device Configuration add-on should be available now. There you can configure the fan control. The shutdown and reboot (double tab) should work now too. Please be patient, it will take a few seconds for the LED to turn off.
+
+## Integration into the LibreELEC build environment (for Developers)
+
+- Clone the LibreELEC.tv repo
+
+    ```bash
+    git clone git@github.com:LibreELEC/LibreELEC.tv.git
+    ```
+
+- Change into the LibreELEC.tv directory
+
+    ```bash
+    cd LibreELEC.tv
+    ```
+
+- Create the addon package directory
+
+    ```bash
+    mkdir -p packages/addons/script/argonforty-device
+    ```
+
+- Copy the package.mk into the addon directory
+
+    ```bash
+    wget -P packages/addons/script/argonforty-device https://raw.githubusercontent.com/HungerHa/libreelec_package_argonforty-device/refs/heads/master/package.mk
+    ```
+
+- Start the build process
+
+    ```bash
+    PROJECT=ARM ARCH=aarch64 DEVICE=ARMv8 scripts/create_addon argonforty-device
+    ```

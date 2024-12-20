@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.service.argonforty-device" name="ArgonForty Device Configuration" version="1.1.3" provider-name="ArgonForty">
+<addon id="script.service.argonforty-device" name="ArgonForty Device Configuration" version="1.1.4" provider-name="ArgonForty">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="virtual.rpi-tools" version="9.80.11"/>
@@ -23,7 +23,12 @@
         <website>argon40.com</website>
         <email>cs@argon40.com</email>
         <source>https://github.com/HungerHa/libreelec_package_argonforty-device/</source>
-        <news>v1.1.3 (2024-11-15)
+        <news>v1.1.4 (2024-12-20)
+- added gpiod support
+- use gpiod if available, as workaround against the delay on restart/stop of KODI with LE12+
+- regression: properly shutdown via power button of remote control possible again
+
+v1.1.3 (2024-11-15)
 - prevention of unnecessary I2C messages for updating the fan speed
 - localization for Dutch added (thanks to emv-nl)
 
@@ -50,7 +55,7 @@ v0.0.15 (2024-05-19)
 
 v0.0.14~beta3 (2024-05-14)
 - added fan curve for GPU and PMIC temperature
-        
+
 v0.0.14~beta2 (2024-05-11)
 - avoid overwriting the existing rc_maps configuration, just add Argon REMOTE
 
