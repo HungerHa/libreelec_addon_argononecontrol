@@ -27,14 +27,15 @@ After the power button at remote control or at back of the case (held for > 3 se
 To compensate that, I have optimized v0.0.10+ as far I currently could to decrease the shutdown time to below 8 seconds. Since LibreELEC 12 it taked much more time to shutdown the KODI process. The cause of the delay seems the switch to lgpio / gpiozero as the default python modules to interact with the GPIO chip. A KODI addon thread with lgpio / gpiozero imported can't be terminated within 5 seconds. KODI tries to kill this thread and afterwards stucks until a timeout of 30 seconds.
 
 Starting with v1.1.4 the addon supports gpiod as an alternative way to interact with the GPIO pins. This may it possible to stop KODI within 5-6 seconds and properly shutdown via power button of the remote control again!
+
 2 pull requests to integrate gpiod officially into the rpi-tools package are currently pending:
 
 - <https://github.com/LibreELEC/LibreELEC.tv/pull/9592>
 - <https://github.com/LibreELEC/LibreELEC.tv/pull/9591>
 
-NOTE: The change will only take effect if KODI has already been started with the updated rpi-tools. Restart LibreELEC after updating the rpi tools.
+NOTE: The change will only take effect if KODI has already been started with the updated rpi-tools. Restart LibreELEC after updating the rpi-tools.
 
-Until the PRs are applied, for the brave among you, there is an update version of rpi-tools in the release area, which already contains gpiod.
+Until the PRs are applied, there is an update version of rpi-tools in the release area for the brave among you, which already contains gpiod
 
 - virtual.rpi-tools-12.0.0.1.zip for LE12
 - virtual.rpi-tools-12.80.1.1.zip for LE13 nightly builds
@@ -112,7 +113,7 @@ Within Addons list, the ArgonForty Device Configuration add-on should be availab
 - Copy the package.mk into the addon directory
 
     ```bash
-    wget -P packages/addons/script/argonforty-device https://raw.githubusercontent.com/HungerHa/libreelec_package_argonforty-device/refs/heads/master/package.mk
+    wget -O packages/addons/script/argonforty-device/package.mk https://raw.githubusercontent.com/HungerHa/libreelec_package_argonforty-device/refs/heads/master/package.mk
     ```
 
 - Start the build process
