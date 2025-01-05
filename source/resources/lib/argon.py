@@ -27,6 +27,7 @@ import zlib
 
 # For LibreELEC/Lakka, note that we need to add system paths
 sys.path.append('/storage/.kodi/addons/virtual.rpi-tools/lib')
+sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib')
 # workaround for lgpio issue
 # https://github.com/gpiozero/gpiozero/issues/1106
 os.environ['LG_WD'] = '/tmp'
