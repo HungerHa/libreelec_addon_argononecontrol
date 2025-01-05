@@ -28,12 +28,12 @@ To compensate that, I have optimized v0.0.10+ as far I currently could to decrea
 
 Starting with v1.1.4 the addon supports gpiod as an alternative way to interact with the GPIO pins. This may it possible to stop KODI within 5-6 seconds and properly shutdown via power button of the remote control again!
 
-2 pull requests to integrate gpiod officially into the rpi-tools package are currently pending:
+2 pull requests for the official integration of gpiod into rpi-tools have been started. During the review phase, it was decided to integrate the Python bindings (gpiod) into the system-tools addon instead of the rpi-tools addon to make it available for all platforms, not just the RPi. A third pull request will follow to undo the already approved change of PR9591 and move gpiod to the system-tools addon. As of v1.1.5, both variants are supported.
 
 - <https://github.com/LibreELEC/LibreELEC.tv/pull/9592>
 - <https://github.com/LibreELEC/LibreELEC.tv/pull/9591>
 
-NOTE: The change will only take effect if KODI has already been started with the updated rpi-tools. Restart LibreELEC after updating the rpi-tools.
+NOTE: The change will only take effect if KODI has already been started with the updated rpi-tools/system-tools. Restart LibreELEC after updating the rpi-tools/system-tools.
 
 Until the PRs are applied, there is an update version of rpi-tools in the release area for the brave among you, which already contains gpiod
 
