@@ -1,4 +1,4 @@
-# Argon ONE Control add-on (also known as: ArgonForty Device Configuration)
+# Argon ONE Control add-on (formerly known as: ArgonForty Device Configuration)
 
 Installs services to manage ArgonForty devices such as power button, fan speed and Argon REMOTE.
 
@@ -119,7 +119,7 @@ Within Addons list, the ArgonForty Device Configuration add-on should be availab
 - Copy the package.mk into the add-on directory
 
     ```bash
-    wget -O packages/addons/service/argonforty-device/package.mk https://raw.githubusercontent.com/HungerHa/libreelec_addon_argononecontrol/refs/heads/master/package.mk
+    wget -O packages/addons/service/argononecontrol/package.mk https://raw.githubusercontent.com/HungerHa/libreelec_addon_argononecontrol/refs/heads/master/package.mk
     ```
 
 - Start the build process
