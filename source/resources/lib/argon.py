@@ -603,8 +603,8 @@ __icon__ = __addon__.getAddonInfo('icon')
 if bus is None:
     checksetup()
     # Send message to GUI about reboot required
-    msg_line = "Argon ONE Control add-on requires a reboot"
-    msg_time = 10000 #in miliseconds
+    msg_line = "I2C not enabled yet. Fan control requires a reboot."
+    msg_time = 15000 #in miliseconds
     xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__, msg_line, msg_time, __icon__))
 else:
     # Respect user-specific remote control settings
@@ -616,7 +616,7 @@ else:
     copyshutdownscript()
 
     # Send message to GUI about add-on start
-    msg_line = "Argon ONE Control add-on has been started"
+    msg_line = "Fan control/power button event monitoring has started."
     msg_time = 5000 #in miliseconds
     xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__, msg_line, msg_time, __icon__))
     addon_count = addon_count + 1
