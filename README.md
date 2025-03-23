@@ -82,7 +82,7 @@ Please use one of the ready to install add-on archives with the name pattern lib
 
 The installation process will try to add 3 configuration lines to the config.txt to enable the needed modules for I2C, IR and UART. This part is not bullet proofed, because it looks only for the first line. It skips the needed modification if the line "dtparam=i2c=on" is already there. Therefore it could be better to make a backup of ```/flash/config.txt``` before to see the different.
 
-A few things to do. The first 3 steps in square brackets are optional and are only needed if the dependencies cannot be resolved automatically and can usually be skipped:
+A few things to do. The first 3 steps in square brackets are optional and are only required if the dependencies cannot be resolved automatically and can usually be skipped. If they are needed they can be done manually within the add-ons menu section of the KODI GUI.:
 
 - *[ install RPi Tools (LibreELEC Repo -> Program Add-ons) ]*
 - *[ install System Tools (LibreELEC Repo -> Program Add-ons) ]*
@@ -94,7 +94,7 @@ Enable "Settings->System->Addons->Unknown sources".
 - Select the ZIP file and press OK
 - After the first installation: Ignore the “Device Configuration Error” teaser message and reboot to enable the UART, IR and I2C modules
 
-Within Addons list, the ArgonForty Device Configuration add-on should be available now. There you can configure the fan control. The shutdown and reboot (double tab) should work now too. Please be patient, it will take a few seconds for the LED to turn off.
+Within Add-ons list, the Argon ONE Control add-on should be available now. There you can configure the fan control. The shutdown and reboot (double tab) should work now too. Please be patient, it will take a few seconds for the LED to turn off.
 
 ## Integration into the LibreELEC build environment (for Developers)
 
