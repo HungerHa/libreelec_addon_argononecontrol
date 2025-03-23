@@ -53,13 +53,13 @@ from resources.lib.argonsysinfo import *
 SHUTDOWN_PIN = 4
 
 # Initialize I2C Bus
-if __name__ == '__main__':
-    bus = argonregister_initializebusobj()
+bus = argonregister_initializebusobj()
 fansettingupdate = False
 power_btn_triggered = False
 power_button_mon = Event()
 powerbutton_remap = False
 pulse_signal = False
+addon_count = 0
 
 class SettingMonitor(xbmc.Monitor):
     """Detect Settings Change"""
@@ -600,21 +600,24 @@ __addon__ = xbmcaddon.Addon()
 __addonname__ = __addon__.getAddonInfo('name')
 __icon__ = __addon__.getAddonInfo('icon')
 
-if __name__ == '__main__':
-    if bus is None:
-        checksetup()
-    else:
-        # Respect user-specific remote control settings
-        lockfile = '/storage/.config/argon40_rc.lock'
-        if not os.path.exists(lockfile):
-            copykeymapfile()
-            mergercmapsfile()
-            removelircfile()
-        copyshutdownscript()
+if bus is None:
+    checksetup()
+    # Send message to GUI about reboot required
+    msg_line = "Argon ONE Control add-on requires a reboot"
+    msg_time = 10000 #in miliseconds
+    xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__, msg_line, msg_time, __icon__))
+else:
+    # Respect user-specific remote control settings
+    lockfile = '/storage/.config/argon40_rc.lock'
+    if not os.path.exists(lockfile):
+        copykeymapfile()
+        mergercmapsfile()
+        removelircfile()
+    copyshutdownscript()
 
-        # Send message to GUI about add-on start
-        msg_line = "Argon ONE Control add-on has been started"
-        msg_time = 5000 #in miliseconds
-        xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__, msg_line, msg_time, __icon__))
-        addon_count = addon_count + 1
-        xbmc.log(msg='Argon ONE Control: Add-on started. ' + str(addon_count), level=xbmc.LOGDEBUG)
+    # Send message to GUI about add-on start
+    msg_line = "Argon ONE Control add-on has been started"
+    msg_time = 5000 #in miliseconds
+    xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__, msg_line, msg_time, __icon__))
+    addon_count = addon_count + 1
+    xbmc.log(msg='Argon ONE Control: Add-on started. ' + str(addon_count), level=xbmc.LOGDEBUG)

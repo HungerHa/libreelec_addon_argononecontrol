@@ -6,23 +6,21 @@ from threading import Event
 import xbmc
 import xbmcaddon
 
-from resources.lib.argon import cleanup, shutdown_check, temp_check, SettingMonitor
+from resources.lib import argon
 
 
 def thread_powerbutton(abort_flag, power_button):
-    shutdown_check(abort_flag, power_button)
+    argon.shutdown_check(abort_flag, power_button)
 
 
 def thread_fan(abort_flag):
-    temp_check(abort_flag)
+    argon.temp_check(abort_flag)
 
 
 def run():
     ADDON = xbmcaddon.Addon()
-    #logger = logging.getLogger(ADDON.getAddonInfo('id'))
 
-    #monitor = xbmc.Monitor()
-    monitor = SettingMonitor()
+    monitor = argon.SettingMonitor()
 
     abort_flag = Event()
     power_button = Event()
@@ -42,7 +40,6 @@ def run():
         if monitor.waitForAbort(1):
             # Abort was requested while waiting. We should exit
             break
-        #logger.debug("ArgonForty Device addon! %s" % time.time())
     abort_flag.set()
     power_button.set()
     t1.join()
@@ -50,4 +47,4 @@ def run():
     abort_flag.clear()
     power_button.clear()
     xbmc.log(msg='Argon ONE Control: workerthreads stopped', level=xbmc.LOGDEBUG)
-    cleanup()
+    argon.cleanup()
