@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <settings version="1">
-	<section id="script.service.argonforty-device">
+	<section id="service.argononecontrol">
 		<category id="fan" label="32100" help="">
 			<group id="1" label="">
 				<setting id="fanspeed_disable" type="boolean" label="32104" help="">

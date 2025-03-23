@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.service.argonforty-device" name="ArgonForty Device Configuration" version="1.1.5" provider-name="ArgonForty">
+<addon id="service.argononecontrol" name="Argon ONE Control" version="1.1.6" provider-name="HungerHa">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="virtual.rpi-tools" version="9.80.11"/>
@@ -13,17 +13,22 @@
         <summary lang="en_GB">ArgonForty Device Configuration</summary>
         <summary lang="de_DE">ArgonForty-Gerätekonfiguration</summary>
         <summary lang="it_IT">Configurazione del dispositivo ArgonForty</summary>
-        <description lang="en_GB">Installs services to manage ArgonForty devices such as power button, fan speed and Argon REMOTE.[CR][CR]This will also enable I2C, IR receiver and UART.</description>
-        <description lang="de_DE">Installiert Dienste zum Verwalten der ArgonForty Geräte z.B. Power-Taste, Lüfter und Argon REMOTE.[CR][CR]Es aktiviert den I2C-Bus, den IR-Empfänger und UART.</description>
-        <description lang="it_IT">Installa i servizi per gestire ArgonForty : Pulsante di accensione, velocità ventola e Argon REMOTE.[CR][CR]Verranno abilitati I2C, IR e UART.</description>
+        <description lang="en_GB">Support for the RPi4/5 Argon ONE cases. Installs services to manage ArgonForty devices such as power button, fan speed and Argon REMOTE.[CR][CR]This will also enable I2C, IR receiver and UART (requires a one-time reboot).</description>
+        <description lang="de_DE">Unterstützung für die RPi4/5 Argon ONE Gehäuse. Installiert Dienste zum Verwalten der ArgonForty Geräte z.B. Power-Taste, Lüfter und Argon REMOTE.[CR][CR]Es aktiviert den I2C-Bus, den IR-Empfänger und UART (erfordert einen einmaligen Neustart).</description>
+        <description lang="it_IT">Supporto per le custodie RPi4/5 Argon ONE. Installa i servizi per gestire ArgonForty : Pulsante di accensione, velocità ventola e Argon REMOTE.[CR][CR]Verranno abilitati I2C, IR e UART (richiede un riavvio una tantum).</description>
         <language></language>
         <platform>linux</platform>
         <license>MIT</license>
         <forum>https://forum.libreelec.tv/thread/27360-rpi4b-argon-one-case-shutdown/?postID=182477#post182477</forum>
-        <website>argon40.com</website>
-        <email>cs@argon40.com</email>
-        <source>https://github.com/HungerHa/libreelec_package_argonforty-device/</source>
-        <news>v1.1.5 (2025-01-05)
+        <website>https://github.com/HungerHa/libreelec_addon_argononecontrol/</website>
+        <email></email>
+        <source>https://github.com/HungerHa/libreelec_addon_argononecontrol/</source>
+        <news>v1.1.6 (2025-03-23)
+- Addon ID changed to be integrable into the LibreELEC repo
+- Copyright information updated
+- README updated
+
+v1.1.5 (2025-01-05)
 - added search path for system-tools lib (gpiod)
 
 v1.1.4 (2024-12-20)
@@ -117,7 +122,7 @@ v0.0.8 (2024-02-18)
 - fixed fan fluctuation with the new firmware
 ...
         </news>
-        <disclaimer>This add-on is based on version 0.0.1 of Argon40, but is currently maintained by HarryH only. If there are some issues with that, please leave a comment in the LibreELEC forum.</disclaimer>
+        <disclaimer>This add-on is a fork of "ArgonForty Device Configuration" version 0.0.1 of Argon40 and is maintained by HarryH. If there are some issues with that, please leave a comment in the LibreELEC forum.</disclaimer>
         <assets>
             <icon>resources/icon.png</icon>
             <fanart>resources/fanart.jpg</fanart>

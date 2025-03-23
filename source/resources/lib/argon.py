@@ -59,6 +59,7 @@ power_btn_triggered = False
 power_button_mon = Event()
 powerbutton_remap = False
 pulse_signal = False
+addon_count = 0
 
 class SettingMonitor(xbmc.Monitor):
     """Detect Settings Change"""
@@ -92,7 +93,7 @@ if gpiod_spec is not None:
         # so pull it up and provide some debounce.
         with gpiod.request_lines(
             chip_path,
-            consumer="Argon40: async-watch-line-value",
+            consumer="Argon ONE Control: async-watch-line-value",
             config={
                 line_offset: gpiod.LineSettings(
                     direction=Direction.INPUT,
@@ -121,7 +122,7 @@ if gpiod_spec is not None:
                         if event.event_type is event.Type.FALLING_EDGE:
                             pulse_signal = False
                         xbmc.log(
-                            msg='Argon40: offset: {}  type: {:<7}  event #{}'.format(
+                            msg='Argon ONE Control: offset: {}  type: {:<7}  event #{}'.format(
                                 event.line_offset, edge_type_str(event), event.line_seqno
                             ), level=xbmc.LOGDEBUG
                         )
@@ -131,7 +132,7 @@ def power_btn_pressed(chip=None, gpio=None, level=None, timestamp=None):
     global power_btn_triggered
     power_btn_triggered = True
     if timestamp is not None:
-        xbmc.log(msg='Argon40: power button pressed event -> {}, {}, {}, {}'.format(chip, gpio, level, timestamp), level=xbmc.LOGDEBUG)
+        xbmc.log(msg='Argon ONE Control: power button pressed event -> {}, {}, {}, {}'.format(chip, gpio, level, timestamp), level=xbmc.LOGDEBUG)
 
 
 def shutdown_check(abort_flag, power_button):
@@ -144,13 +145,13 @@ def shutdown_check(abort_flag, power_button):
     power_button_mon = power_button
     power_button_mon.wait()
     if abort_flag.is_set():
-        xbmc.log(msg='Argon40: power button monitoring was not running', level=xbmc.LOGDEBUG)
+        xbmc.log(msg='Argon ONE Control: power button monitoring was not running', level=xbmc.LOGDEBUG)
         return
 
     global power_btn_triggered
     power_btn_triggered = False
     if gpiod_spec is not None:
-        xbmc.log(msg='Argon40: power button monitoring via gpiod', level=xbmc.LOGDEBUG)
+        xbmc.log(msg='Argon ONE Control: power button monitoring via gpiod', level=xbmc.LOGDEBUG)
         #Initialize GPIO
         # open the gpio chip and set the pin 4 as input (pull down)
         if gpiod.is_gpiochip_device('/dev/gpiochip4'):
@@ -168,13 +169,13 @@ def shutdown_check(abort_flag, power_button):
             try:
                 async_watch_line_value(gpiochip, SHUTDOWN_PIN, done_fd)
             except OSError as ex:
-                xbmc.log(msg='Argon40: gpiod background thread failing', level=xbmc.LOGDEBUG)
-            xbmc.log(msg='Argon40: gpiod background thread exiting...', level=xbmc.LOGDEBUG)
+                xbmc.log(msg='Argon ONE Control: gpiod background thread failing', level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: gpiod background thread exiting...', level=xbmc.LOGDEBUG)
 
         t = threading.Thread(target=bg_thread)
         t.start()
     elif lgpio_spec is not None:
-        xbmc.log(msg='Argon40: power button monitoring via lgpio', level=xbmc.LOGDEBUG)
+        xbmc.log(msg='Argon ONE Control: power button monitoring via lgpio', level=xbmc.LOGDEBUG)
         #Initialize GPIO
         # open the gpio chip and set the pin 4 as input (pull down)
         lgpio.exceptions = False
@@ -193,14 +194,14 @@ def shutdown_check(abort_flag, power_button):
             xbmc.log(msg="GPIO in use {}:{} ({})".format(chip, SHUTDOWN_PIN, lgpio.error_text(err)), level=xbmc.LOGDEBUG)
         cb_power_btn = lgpio.callback(h, SHUTDOWN_PIN, edge=lgpio.RISING_EDGE, func=power_btn_pressed)
     else:
-        xbmc.log(msg='Argon40: power button monitoring via gpiozero', level=xbmc.LOGDEBUG)
+        xbmc.log(msg='Argon ONE Control: power button monitoring via gpiozero', level=xbmc.LOGDEBUG)
         # pull down the pin
         btn = Button(SHUTDOWN_PIN, pull_up=False)
         btn.when_pressed = power_btn_pressed
 
     while True:
         if not power_button_mon.is_set():
-            xbmc.log(msg='Argon40: power button monitoring has been disabled', level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: power button monitoring has been disabled', level=xbmc.LOGDEBUG)
         power_button_mon.wait()
         if abort_flag.is_set():
             break
@@ -208,7 +209,7 @@ def shutdown_check(abort_flag, power_button):
         time.sleep(0.001)
         if power_btn_triggered:
             power_btn_triggered = False
-            xbmc.log(msg='Argon40: power button was pressed', level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: power button was pressed', level=xbmc.LOGDEBUG)
             time.sleep(0.01)
             # wait until the button is released
             if gpiod_spec is not None:
@@ -217,7 +218,7 @@ def shutdown_check(abort_flag, power_button):
                     time.sleep(0.01)
                     pulsetime += 1
                     if abort_flag.is_set() or not power_button_mon.is_set():
-                        xbmc.log(msg='Argon40: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
+                        xbmc.log(msg='Argon ONE Control: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
                         break
             elif lgpio_spec is not None:
                 # lgpio in use
@@ -225,7 +226,7 @@ def shutdown_check(abort_flag, power_button):
                     time.sleep(0.01)
                     pulsetime += 1
                     if abort_flag.is_set() or not power_button_mon.is_set():
-                        xbmc.log(msg='Argon40: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
+                        xbmc.log(msg='Argon ONE Control: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
                         break
             else:
                 # gpiozero in use
@@ -233,10 +234,10 @@ def shutdown_check(abort_flag, power_button):
                     time.sleep(0.01)
                     pulsetime += 1
                     if abort_flag.is_set() or not power_button_mon.is_set():
-                        xbmc.log(msg='Argon40: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
+                        xbmc.log(msg='Argon ONE Control: button monitoring loop 2 aborted', level=xbmc.LOGDEBUG)
                         break
 
-            xbmc.log(msg='Argon40: power button was released', level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: power button was released', level=xbmc.LOGDEBUG)
             if pulsetime >= 2 and pulsetime <= 3:
                 if powerbutton_remap:
                     xbmc.shutdown()
@@ -245,7 +246,7 @@ def shutdown_check(abort_flag, power_button):
             elif pulsetime >= 4 and pulsetime <= 5:
                 xbmc.shutdown()
         if abort_flag.is_set():
-            xbmc.log(msg='Argon40: button monitoring loop 1 aborted', level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: button monitoring loop 1 aborted', level=xbmc.LOGDEBUG)
             break
     # freeing the GPIO resources
     if gpiod_spec is not None:
@@ -262,16 +263,16 @@ def shutdown_check(abort_flag, power_button):
         cb_power_btn = None
         free_pin = lgpio.gpio_free(h, SHUTDOWN_PIN)
         if free_pin == 0:
-            xbmc.log(msg='Argon40: power button GPIO pin freed', level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: power button GPIO pin freed', level=xbmc.LOGDEBUG)
         close_chip = lgpio.gpiochip_close(h)
         if close_chip < 0:
-            xbmc.log(msg='Argon40: GPIO chip could not be closed', level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: GPIO chip could not be closed', level=xbmc.LOGDEBUG)
     else:
         # gpiozero in use
         btn.close()
         if btn.closed:
-            xbmc.log(msg='Argon40: power button pin freed', level=xbmc.LOGDEBUG)
-    xbmc.log(msg='Argon40: power button monitoring stopped', level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: power button pin freed', level=xbmc.LOGDEBUG)
+    xbmc.log(msg='Argon ONE Control: power button monitoring stopped', level=xbmc.LOGDEBUG)
 
 
 def get_fanspeed(tempval, configlist):
@@ -306,7 +307,7 @@ def load_config():
     powerbutton_remap = ADDON.getSettingBool('powerbutton_remap')
     if powerbutton:
         if not power_button_mon.is_set():
-            xbmc.log(msg='Argon40: power button monitoring has been enabled', level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: power button monitoring has been enabled', level=xbmc.LOGDEBUG)
         power_button_mon.set()
     else:
         power_button_mon.clear()
@@ -406,24 +407,24 @@ def temp_check(abort_flag):
         while not fansettingupdate:
             # Speed based on CPU Temp
             val = argonsysinfo_getcputemp()
-            xbmc.log(msg='Argon40: current CPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: current CPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
             newspeed = get_fanspeed(val, fanconfig)
             # Speed based on GPU Temp
             val = argonsysinfo_getgputemp()
-            xbmc.log(msg='Argon40: current GPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: current GPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
             gpuspeed = get_fanspeed(val, fangpuconfig)
             # Speed based on SSD/NVMe Temp
             val = argonsysinfo_getmaxhddtemp()
-            xbmc.log(msg='Argon40: current SSD/NVMe temperature : ' + str(val), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: current SSD/NVMe temperature : ' + str(val), level=xbmc.LOGDEBUG)
             hddspeed = get_fanspeed(val, fanhddconfig)
             # Speed based on PMIC Temp
             val = argonsysinfo_getpmictemp()
-            xbmc.log(msg='Argon40: current PMIC temperature : ' + str(val), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: current PMIC temperature : ' + str(val), level=xbmc.LOGDEBUG)
             pmicspeed = get_fanspeed(val, fanpmicconfig)
-            xbmc.log(msg='Argon40: CPU fan speed value : ' + str(newspeed), level=xbmc.LOGDEBUG)
-            xbmc.log(msg='Argon40: GPU fan speed value : ' + str(gpuspeed), level=xbmc.LOGDEBUG)
-            xbmc.log(msg='Argon40: SSD/NVMe fan speed value : ' + str(hddspeed), level=xbmc.LOGDEBUG)
-            xbmc.log(msg='Argon40: PMIC fan speed value : ' + str(pmicspeed), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: CPU fan speed value : ' + str(newspeed), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: GPU fan speed value : ' + str(gpuspeed), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: SSD/NVMe fan speed value : ' + str(hddspeed), level=xbmc.LOGDEBUG)
+            xbmc.log(msg='Argon ONE Control: PMIC fan speed value : ' + str(pmicspeed), level=xbmc.LOGDEBUG)
 
             # Use faster fan speed
             if gpuspeed > newspeed:
@@ -489,7 +490,7 @@ def checksetup():
 
 def copykeymapfile():
     """Copy RC keytable file to rc_keymaps directory"""
-    srcfile = '/storage/.kodi/addons/script.service.argonforty-device/resources/data/argon40.toml'
+    srcfile = '/storage/.kodi/addons/service.argononecontrol/resources/data/argon40.toml'
     dstfile = '/storage/.config/rc_keymaps/argon40.toml'
     if os.path.isfile(dstfile):
         tmpdsthash = getFileHash(dstfile)
@@ -504,7 +505,7 @@ def copykeymapfile():
 
 def copyrcmapsfile():
     """Copy RC maps conf file to directory .config"""
-    srcfile = '/storage/.kodi/addons/script.service.argonforty-device/resources/data/rc_maps.cfg'
+    srcfile = '/storage/.kodi/addons/service.argononecontrol/resources/data/rc_maps.cfg'
     dstfile = '/storage/.config/rc_maps.cfg'
     if os.path.isfile(dstfile):
         tmpdsthash = getFileHash(dstfile)
@@ -561,7 +562,7 @@ def removelircfile():
 
 def copyshutdownscript():
     """Copy Shutdown script to directory .config"""
-    srcfile = '/storage/.kodi/addons/script.service.argonforty-device/resources/data/shutdown.sh'
+    srcfile = '/storage/.kodi/addons/service.argononecontrol/resources/data/shutdown.sh'
     dstfile = '/storage/.config/shutdown.sh'
     if os.path.isfile(dstfile):
         tmpdsthash = getFileHash(dstfile)
@@ -595,8 +596,16 @@ def cleanup():
     # gpiozero automatically restores the pin settings at the end of the script
 
 
+__addon__ = xbmcaddon.Addon()
+__addonname__ = __addon__.getAddonInfo('name')
+__icon__ = __addon__.getAddonInfo('icon')
+
 if bus is None:
     checksetup()
+    # Send message to GUI about reboot required
+    msg_line = "I2C not enabled yet. Fan control requires a reboot."
+    msg_time = 15000 #in miliseconds
+    xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__, msg_line, msg_time, __icon__))
 else:
     # Respect user-specific remote control settings
     lockfile = '/storage/.config/argon40_rc.lock'
@@ -605,3 +614,10 @@ else:
         mergercmapsfile()
         removelircfile()
     copyshutdownscript()
+
+    # Send message to GUI about add-on start
+    msg_line = "Fan control/power button event monitoring has started."
+    msg_time = 5000 #in miliseconds
+    xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__, msg_line, msg_time, __icon__))
+    addon_count = addon_count + 1
+    xbmc.log(msg='Argon ONE Control: Add-on started. ' + str(addon_count), level=xbmc.LOGDEBUG)

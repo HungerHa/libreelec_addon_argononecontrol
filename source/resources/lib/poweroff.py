@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import sys
 
-sys.path.append('/storage/.kodi/addons/script.service.argonforty-device/resources/lib')
+sys.path.append('/storage/.kodi/addons/service.argononecontrol/resources/lib')
 from argonregister import *
 
 # Initialize I2C Bus
