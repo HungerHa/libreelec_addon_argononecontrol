@@ -1,24 +1,23 @@
 # SPDX-License-Identifier: GPL-2.0
-# Copyright (C) 2024-present Team LibreELEC (https://libreelec.tv)
+# Copyright (C) 2025-present Team LibreELEC (https://libreelec.tv)
 
-PKG_NAME="argonforty-device"
-PKG_VERSION="1.1.3"
-PKG_SHA256="592677527ada7413ce446a7411a4666b1e7c94a43d1b51abd3e3bc942571eee5"
+PKG_NAME="argononecontrol"
+PKG_VERSION="1.1.6"
+PKG_SHA256="c8741aa97ae5f9ef3159d03f1e2a5e6ea886eb8dec5797aeee1c68a247734f09"
 PKG_REV="0"
 PKG_ARCH="arm aarch64"
 PKG_LICENSE="MIT"
-PKG_SITE="https://github.com/HungerHa/libreelec_package_argonforty-device"
-PKG_URL="https://github.com/HungerHa/libreelec_package_argonforty-device/archive/refs/tags/v$PKG_VERSION.tar.gz"
-PKG_SECTION="script.service"
-PKG_SHORTDESC="ArgonForty Device Configuration"
-PKG_LONGDESC="Installs services to manage ArgonForty devices such as power button, fan speed and Argon REMOTE.\
-\
-This will also enable I2C, IR receiver and UART."
+PKG_SITE="https://github.com/HungerHa/libreelec_addon_argononecontrol"
+PKG_URL="https://github.com/HungerHa/libreelec_addon_argononecontrol/archive/refs/tags/v$PKG_VERSION.tar.gz"
+PKG_SECTION="service"
+PKG_SHORTDESC="Argon ONE Control"
+PKG_LONGDESC="Support for the RPi4/5 Argon ONE cases. Installs services to manage ArgonForty devices, such as power button, fan speed and Argon REMOTE. This also activates I2C, IR receiver and UART (requires a one-time restart)."
 PKG_TOOLCHAIN="manual"
+PKG_DEPENDS_TARGET="xmlstarlet:host 7-zip:host"
 PKG_IS_ADDON="yes"
-PKG_ADDON_NAME="ArgonForty Device Configuration"
+PKG_ADDON_NAME="Argon ONE Control"
 PKG_ADDON_TYPE="xbmc.service"
-PKG_ADDON_PROJECTS="ARM"
+PKG_ADDON_PROJECTS="RPi ARM"
 
 addon() {
   mkdir -p ${ADDON_BUILD}/${PKG_ADDON_ID}

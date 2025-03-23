@@ -4,7 +4,7 @@
 #
 addon_id="$(sed -n 's:<addon id=\"\(.*\)\" name.*:\1:p' source/addon.xml)"
 addon_version="$(sed -n 's:<addon id.*version=\"\(.*\)\" .*:\1:p' source/addon.xml)"
-archive_name="libreelec_argondevice_${addon_version}.zip"
+archive_name="libreelec_argononecontrol_${addon_version}.zip"
 archive_dir=~/Documents/Argon40
 package_dir=${addon_id}
 

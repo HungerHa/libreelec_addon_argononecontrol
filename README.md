@@ -1,14 +1,17 @@
-# ArgonForty Device Configuration add-on
+# Argon ONE Control add-on (also known as: ArgonForty Device Configuration)
 
 Installs services to manage ArgonForty devices such as power button, fan speed and Argon REMOTE.
 
 This will also enable I2C, IR receiver and UART.
+
+**Important:** Starting with version 1.1.6 the add-on has been renamed to "Argon ONE Control". The add-on ID has been changed as well. This was a prerequisite for the integration of this add-on into the LibreELEC add-on repo. For better user experience if beginning from scratch, its now possible to install it from there directly. To distinguish my fork of the add-on from the official, currently outdated version 0.0.1 of Argon40, I have also changed the name of the add-on. Unfortunately, as a one-off event, this change requires the removal of an existing version in advance so as not to collide with running background processes.
 
 ## What it does
 
 - supports LibreELEC 11 / 12 / 13
 - supports Argon ONE V1/2 (RPi4)
 - supports Argon ONE V3 (RPi5)
+- probably also supports Argon Fan HAT, but untested (feedback is welcome)
 - enables IR receiver (V2/V3, or if self added to V1 pcb)
 - enables Argon REMOTE support (rc_maps + keymap)
 - fan control with fan curves CPU, SSD/NVMe, GPU and PMIC
@@ -22,20 +25,17 @@ It might also work with LE10 (RPi4) but is untested. If someone is using LE10 an
 
 There is a limitation in the Argon ONE case firmware.
 
-After the power button at remote control or at back of the case (held for > 3 seconds, but < 5 seconds) is pressed, KODI (OS independent) has only ~10 seconds to shutdown properly! Once initiated, the 10 seconds power cut timeout can't be interrupted and is perhaps only with another case firmware correctable.
+After the power button at remote control or the button (held for > 3 seconds, but < 5 seconds) on the back of the case was pressed, KODI including all OS processes only has ~10 seconds to shutdown properly! Once initiated, the 10 seconds power cut timeout can't be interrupted and is perhaps only with another case firmware correctable.
 
-To compensate that, I have optimized v0.0.10+ as far I currently could to decrease the shutdown time to below 8 seconds. Since LibreELEC 12 it taked much more time to shutdown the KODI process. The cause of the delay seems the switch to lgpio / gpiozero as the default python modules to interact with the GPIO chip. A KODI addon thread with lgpio / gpiozero imported can't be terminated within 5 seconds. KODI tries to kill this thread and afterwards stucks until a timeout of 30 seconds.
+To compensate that, I have optimized v0.0.10+ as far I currently could to decrease the shutdown time to below 8 seconds. Since LibreELEC 12 it taked much more time to shutdown the KODI process. The cause of the delay seems the switch to lgpio / gpiozero as the default python modules to interact with the GPIO chip. A KODI add-on thread with lgpio / gpiozero imported can't be terminated within 5 seconds. KODI tries to kill this thread and afterwards stucks until a timeout of 30 seconds.
 
-Starting with v1.1.4 the addon supports gpiod as an alternative way to interact with the GPIO pins. This may it possible to stop KODI within 5-6 seconds and properly shutdown via power button of the remote control again!
+Starting with v1.1.4 the add-on supports gpiod as an alternative way to interact with the GPIO pins. This may it possible to stop KODI within 5-6 seconds and properly shutdown via power button of the remote control again!
 
-2 pull requests for the official integration of gpiod into rpi-tools have been started. During the review phase, it was decided to integrate the Python bindings (gpiod) into the system-tools addon instead of the rpi-tools addon to make it available for all platforms, not just the RPi. A third pull request will follow to undo the already approved change of PR9591 and move gpiod to the system-tools addon. As of v1.1.5, both variants are supported.
-
-- <https://github.com/LibreELEC/LibreELEC.tv/pull/9592>
-- <https://github.com/LibreELEC/LibreELEC.tv/pull/9591>
+During the review phase of the integration of this library into the official LibreELEC add-ons, it was decided to integrate the Python bindings (gpiod) into the system-tools add-on instead of the rpi-tools add-on to make it available for all platforms, not just the RPi. As of v1.1.5, both variants are supported.
 
 NOTE: The change will only take effect if KODI has already been started with the updated rpi-tools/system-tools. Restart LibreELEC after updating the rpi-tools/system-tools.
 
-Until the PRs are applied, there is an update version of rpi-tools in the release area for the brave among you, which already contains gpiod
+The PRs for system tools have been applied and manual installation is no longer required. Only for historical reason you can find an update version of rpi-tools in the release area of version 1.1.4. which already contains gpiod.
 
 - virtual.rpi-tools-12.0.0.1.zip for LE12
 - virtual.rpi-tools-12.80.1.1.zip for LE13 nightly builds
@@ -67,12 +67,18 @@ In the worst case scenario, to prevent the add-on from changing the IR configura
 touch /storage/.config/argon40_rc.lock
 ```
 
-## Installation
+## Quick installation (not implemented yet)
+
+Search for "Argon ONE control" within the LibreELEC add-on area and install the add-on. All requirements will be downloaded and installed automatically. If you install this add-on the first time, a reboot is required afterwards to activate all interfaces like I2C, UART and IR. Due to the versioning of the automatically created LibreELEC add-ons, a package revision number starting with 0 is also added - for example 1.1.6.**0**. The first 3 digits correspond to the version of the add-on.
+
+**ATTENTION:** If you have already installed a version older than 1.1.6, it is necessary to remove the older version first. If you have customised the settings to your personal requirements, these will unfortunately be lost in this way. This is a one time event and neccessary because of the required change of the add-on id. The simultaneous installation of both add-on versions will otherwise lead to malfunctions or non-functioning add-ons!
+
+## Manual installation
 
 In the following installation instructions, the term "ZIP file" is used for simplicity.
 Because there seems to be room for misinterpretation and to avoid future confusion: It doesn't mean the code download button from GitHub, to download the whole source code repository content!
 
-Please use one of the ready to install add-on archives with the name pattern libreelec_argondevice_x.x.x.zip from the [releases](https://github.com/HungerHa/libreelec_package_argonforty-device/releases).
+Please use one of the ready to install add-on archives with the name pattern libreelec_argondevice_x.x.x.zip from the [releases](https://github.com/HungerHa/libreelec_addon_argononecontrol/releases).
 
 The installation process will try to add 3 configuration lines to the config.txt to enable the needed modules for I2C, IR and UART. This part is not bullet proofed, because it looks only for the first line. It skips the needed modification if the line "dtparam=i2c=on" is already there. Therefore it could be better to make a backup of ```/flash/config.txt``` before to see the different.
 
@@ -104,20 +110,20 @@ Within Addons list, the ArgonForty Device Configuration add-on should be availab
     cd LibreELEC.tv
     ```
 
-- Create the addon package directory
+- Create the add-on package directory
 
     ```bash
-    mkdir -p packages/addons/script/argonforty-device
+    mkdir -p packages/addons/service/argononecontrol
     ```
 
-- Copy the package.mk into the addon directory
+- Copy the package.mk into the add-on directory
 
     ```bash
-    wget -O packages/addons/script/argonforty-device/package.mk https://raw.githubusercontent.com/HungerHa/libreelec_package_argonforty-device/refs/heads/master/package.mk
+    wget -O packages/addons/service/argonforty-device/package.mk https://raw.githubusercontent.com/HungerHa/libreelec_addon_argononecontrol/refs/heads/master/package.mk
     ```
 
 - Start the build process
 
     ```bash
-    PROJECT=ARM ARCH=aarch64 DEVICE=ARMv8 scripts/create_addon argonforty-device
+    PROJECT=ARM ARCH=aarch64 DEVICE=ARMv8 scripts/create_addon argononecontrol
     ```

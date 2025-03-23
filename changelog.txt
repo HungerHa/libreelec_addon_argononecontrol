@@ -1,3 +1,8 @@
+v1.1.6 (2025-03-23)
+- Add-on ID changed to be integrable into the LibreELEC repo
+- Copyright information updated
+- README updated
+
 v1.1.5 (2025-01-05)
 - added search path for system-tools lib (gpiod)
 
