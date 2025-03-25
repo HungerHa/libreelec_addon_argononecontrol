@@ -78,7 +78,7 @@ Search for "Argon ONE control" within the LibreELEC add-on area and install the 
 In the following installation instructions, the term "ZIP file" is used for simplicity.
 Because there seems to be room for misinterpretation and to avoid future confusion: It doesn't mean the code download button from GitHub, to download the whole source code repository content!
 
-Please use one of the ready to install add-on archives with the name pattern libreelec_argondevice_x.x.x.zip from the [releases](https://github.com/HungerHa/libreelec_addon_argononecontrol/releases).
+Please use one of the ready to install add-on archives with the name pattern libreelec_argononecontrol_x.x.x.zip from the [releases](https://github.com/HungerHa/libreelec_addon_argononecontrol/releases).
 
 The installation process will try to add 3 configuration lines to the config.txt to enable the needed modules for I2C, IR and UART. This part is not bullet proofed, because it looks only for the first line. It skips the needed modification if the line "dtparam=i2c=on" is already there. Therefore it could be better to make a backup of ```/flash/config.txt``` before to see the different.
 
