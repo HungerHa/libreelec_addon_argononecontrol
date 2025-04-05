@@ -1,5 +1,5 @@
 v1.1.8 (2025-04-05)
-- workaround to prevent that a second reboot is required with LE10 after initial add-on installation
+- bugfix: prevent that a second reboot is required with LE 10 / 11 after initial add-on installation
 - removed orphaned Addon class call to prevent potential memory leak
 
 v1.1.7 (2025-03-25)
