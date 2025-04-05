@@ -11,7 +11,13 @@ if os.path.exists('/storage/.kodi/addons/virtual.system-tools/lib'):
     sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib')
 if os.path.exists('/storage/.kodi/addons/virtual.system-tools/lib.private'):
     sys.path.append('/storage/.kodi/addons/virtual.system-tools/lib.private')
-import smbus
+# Workaround for add-on installation from scratch at LibreELEC 10
+# 'ImportError: libi2c.so.0: cannot open shared object file: No such file or directory'
+# is thrown, if system-tools package wasn't already installed before last KODI start
+try:
+    import smbus
+except ImportError:
+    pass
 
 # I2C Addresses
 ADDR_ARGONONEFAN=0x1a
