@@ -1,10 +1,10 @@
 # Argon ONE Control add-on (formerly known as: ArgonForty Device Configuration)
 
-Installs services to manage ArgonForty devices such as power button, fan speed and Argon REMOTE.
+Provides a GUI and installs a service to manage Argon ONE case features including the power button, fan speed, and the Argon IR remote.
 
 This will also enable I2C, IR receiver and UART.
 
-**Important:** Starting with version 1.1.6 the add-on has been renamed to "Argon ONE Control". The add-on ID has been changed as well. This was a prerequisite for the integration of this add-on into the LibreELEC add-on repo. For better user experience if beginning from scratch, its now possible to install it from there directly. To distinguish my fork of the add-on from the official, currently outdated version 0.0.1 of Argon40, I have also changed the name of the add-on. Unfortunately, as a one-off event, this change requires the removal of an existing version in advance so as not to collide with running background processes.
+**Important:** Starting with version 1.1.6 the add-on has been renamed to "Argon ONE Control". The add-on ID has been changed as well. This was a prerequisite for the integration of this add-on into the LibreELEC add-ons repo. For better user experience if beginning from scratch, its now possible to install it from there directly, please see "Quick installation" below. To distinguish my fork of the add-on from the official, currently outdated version 0.0.1 of Argon40, I have also changed the name of the add-on. Unfortunately, as a one-off event, this change requires the removal of an existing version with the old add-on ID in advance so as not to collide with running background processes.
 
 ## What it does
 
@@ -19,9 +19,9 @@ This will also enable I2C, IR receiver and UART.
 
 For full support of the power button commands with a RPi5, please use LE12.
 
-If someone is using LE10 and it really doesn't work, they can try the outdated version v.0.0.4: [LibreELEC Thread](https://forum.libreelec.tv/thread/27360-rpi4b-argon-one-case-shutdown/?postID=182477#post182477)
+If someone is using LE10 and it really doesn't work, they can try the outdated version v0.0.4: [LibreELEC Thread](https://forum.libreelec.tv/thread/27360-rpi4b-argon-one-case-shutdown/?postID=182477#post182477)
 
-### Known issues
+## Known issues
 
 There is a limitation in the Argon ONE case firmware.
 
@@ -67,11 +67,25 @@ In the worst case scenario, to prevent the add-on from changing the IR configura
 touch /storage/.config/argon40_rc.lock
 ```
 
-## Quick installation (not implemented yet)
+## Q&A
 
-Search for "Argon ONE control" within the LibreELEC add-on area and install the add-on. All requirements will be downloaded and installed automatically. If you install this add-on the first time, a reboot is required afterwards to activate all interfaces like I2C, UART and IR. Due to the versioning of the automatically created LibreELEC add-ons, a package revision number starting with 0 is also added - for example 1.1.6.**0**. The first 3 digits correspond to the version of the add-on.
+* I have "ArgonForty Device Configuration" add-on already installed. Should I remove all installed versions of that before switching to "Argon ONE Control" add-on? Yes, its the recommended way.
+* Can I damage the LE installation if I switch back to an version before 1.1.6? No, but don't forget to remove "Argon ONE Control" first.
+* Will I permanently damage my system if I accidentally install both add-on versions at the same time / or forget to remove them beforehand? No, but it could result in non-functional fan control or some other misbehaviour. Solution: After one of the add-ons has been removed, followed by a reboot, all things should be fine again.
+* Are the versions from GitHub and from the LibreELEC add-ons repo exchangeable? Yes.
+* What are the difference between the GitHub version and from LE repo? Only the version metadata, nothing else. Functionality is the same, as long the first 3 digits are identical. Same source code.
+* Are there restrictions if I install the version from GitHub manually? Yes, but not a deal breaker. The add-on will not automatically updated/changed to the version from LibreELEC repo. But the add-on update will be anounced there as well and you can switch to the repo version if you chose there "Install all updates" and not only use "Install auto updates only".
+* Will the add-on updated to latest version automatically? Yes, if the current installed add-on version is one of the versions from LE add-ons repo.
+* Will future versions be available on GitHub and in the LE repository at the same time? No, or only approximately, because of the required workflow. With LE's approval workflow and subsequent build process, the GitHub package will always be available first.
+* How can I determine whether I am using the version from the LE repository? Look at the add-on information via the context menu in the KODI Add-ons section, where ‘LibreELEC Add-ons’ should be displayed as ‘Origin’. The LE add-ons version also contains the fourth digit with the LE package revision.
+* Where can I find the add-on version information? Navigate to the KODI Add-ons section and select the add-on, but don't press OK. Use the context menu and go to "Information". There you can find the current installed version and also the switch to available versions in the LE add-ons repository is possible there.
+* Will I lose my customised settings if I update/downgrade the add-on? Normally not. But if you switch between versions with different add-on IDs, yes.
 
-**ATTENTION:** If you have already installed a version older than 1.1.6, it is necessary to remove the older version first. If you have customised the settings to your personal requirements, these will unfortunately be lost in this way. This is a one time event and neccessary because of the required change of the add-on id. The simultaneous installation of both add-on versions will otherwise lead to malfunctions or non-functioning add-ons!
+## Quick installation (2025-03-28: currently LE13 only - backport to LE12 is pending)
+
+Search for "Argon ONE control" within the LibreELEC add-on section below "Program add-ons" and install the add-on. All requirements will be downloaded and installed automatically. If you install this add-on the first time, a reboot is required afterwards to activate all interfaces like I2C, UART and IR. Due to the versioning of the automatically created LibreELEC add-ons, a LE package revision number starting with 0 is also added - for example 1.1.6.**0**. The first 3 digits correspond to the version of the add-on.
+
+**ATTENTION:** If you have already installed a version older than 1.1.6, it is necessary to remove the older version first. If you have customised the settings to your personal requirements, these will unfortunately be lost in this way. This is a one time event and neccessary because of the required change of the add-on ID. The technically possible simultaneous installation of both add-on versions (due to the different IDs) will otherwise lead to malfunctions or non-functioning add-ons! Versions equal or newer than 1.1.6 can be installed via LibreELEC repo or from the GitHub release packages.
 
 ## Manual installation
 
