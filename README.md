@@ -1,6 +1,6 @@
 # Argon ONE Control add-on (formerly known as: ArgonForty Device Configuration)
 
-Installs services to manage ArgonForty devices such as power button, fan speed and Argon REMOTE.
+Provides a GUI and installs a service to manage Argon ONE case features including the power button, fan speed, and the Argon IR remote.
 
 This will also enable I2C, IR receiver and UART.
 
@@ -8,7 +8,7 @@ This will also enable I2C, IR receiver and UART.
 
 ## What it does
 
-- supports LibreELEC 11 / 12 / 13
+- supports LibreELEC 10 / 11 / 12 / 13
 - supports Argon ONE V1/2 (RPi4)
 - supports Argon ONE V3 (RPi5)
 - probably also supports Argon Fan HAT, but untested (feedback is welcome)
@@ -19,7 +19,7 @@ This will also enable I2C, IR receiver and UART.
 
 For full support of the power button commands with a RPi5, please use LE12.
 
-It might also work with LE10 (RPi4) but is untested. If someone is using LE10 and it doesn't work, they can try version v.0.0.4: [LibreELEC Thread](https://forum.libreelec.tv/thread/27360-rpi4b-argon-one-case-shutdown/?postID=182477#post182477)
+If someone is using LE10 and it really doesn't work, they can try the outdated version v0.0.4: [LibreELEC Thread](https://forum.libreelec.tv/thread/27360-rpi4b-argon-one-case-shutdown/?postID=182477#post182477)
 
 ## Known issues
 
