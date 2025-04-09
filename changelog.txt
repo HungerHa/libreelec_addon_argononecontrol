@@ -1,3 +1,7 @@
+v1.1.9 (2025-04-09)
+- compatibility: some early MCU firmware versions could hang off after register support check
+- added menu option to disable register support detection for ONE V1/Fan HAT
+
 v1.1.8 (2025-04-05)
 - bugfix: prevent that a second reboot is required with LE 10 / 11 after initial add-on installation
 - removed orphaned Addon class call to prevent potential memory leak

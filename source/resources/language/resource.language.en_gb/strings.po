@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-03-23 12:54+0000\n"
+"PO-Revision-Date: 2025-04-09 19:29+0000\n"
 "Last-Translator: Kodi Translation Team\n"
 "Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,11 @@ msgctxt "#32104"
 msgid "Fan disabled"
 msgstr ""
 
-#empty string with id 32105
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-switch: fan control without register support
+msgctxt "#32105"
+msgid "Activate compatibility mode for ONE V1"
+msgstr ""
 
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: CPU temperature °F
@@ -135,7 +139,13 @@ msgctxt "#32203"
 msgid "Use the double tap to shut down (instead of reboot)"
 msgstr ""
 
-# empty strings from id 32204 to 32299
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-switch: disable register support for ONE V1
+msgctxt "#32204"
+msgid "Deactivates support for ONE V3. Required for some early firmware versions of the ONE V1/Fan HAT. Important: Disconnect the power supply from the case once if the fan control already no longer responds."
+msgstr ""
+
+# empty strings from id 32205 to 32299
 
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-category: Remote control
