@@ -317,12 +317,13 @@ def load_config():
     newgpuconfig = []
     newpmicconfig = []
 
+    cmdset_legacy = ADDON.getSettingBool('cmdset_legacy')
     fanspeed_disable = ADDON.getSettingBool('fanspeed_disable')
     if fanspeed_disable:
-        return [['90=100'], newgpuconfig, newhddconfig, newpmicconfig]
+        return [['90=100'], newgpuconfig, newhddconfig, newpmicconfig, cmdset_legacy]
     fanspeed_alwayson = ADDON.getSettingBool('fanspeed_alwayson')
     if fanspeed_alwayson:
-        return [['1=100'], newgpuconfig, newhddconfig, newpmicconfig]
+        return [['1=100'], newgpuconfig, newhddconfig, newpmicconfig, cmdset_legacy]
     fanspeed_gpu = ADDON.getSettingBool('fanspeed_gpu')
     fanspeed_hdd = ADDON.getSettingBool('fanspeed_hdd')
     fanspeed_pmic = ADDON.getSettingBool('fanspeed_pmic')
@@ -362,7 +363,7 @@ def load_config():
     if len(newpmicconfig) > 0:
         newpmicconfig.sort(reverse=True)
 
-    return [ newconfig, newgpuconfig, newhddconfig, newpmicconfig ]
+    return [ newconfig, newgpuconfig, newhddconfig, newpmicconfig, cmdset_legacy ]
 
 
 def temp_check(abort_flag):
@@ -375,8 +376,8 @@ def temp_check(abort_flag):
     """
     global fansettingupdate
 
-    argonregsupport = argonregister_checksupport(bus)
-
+    cmdset_detect = True
+    argonregsupport = True
     fanconfig = ['65=100', '60=55', '55=10']
     fanhddconfig = ['50=100', '40=55', '30=30']
 
@@ -402,6 +403,20 @@ def temp_check(abort_flag):
             fanpmicconfig = tmpconfig[3]
         else:
             fanpmicconfig = []
+
+        # Force the old I2C message style without register support to
+        # prevent the MCU from hanging on early firmware revisions.
+        cmdset_legacy = tmpconfig[4]
+        if cmdset_legacy:
+            cmdset_detect = True
+            argonregsupport = False
+            xbmc.log(msg='Argon ONE Control: legacy command set only', level=xbmc.LOGDEBUG)
+        else:
+            if cmdset_detect:
+                xbmc.log(msg='Argon ONE Control: command set detection', level=xbmc.LOGDEBUG)
+                argonregsupport = argonregister_checksupport(bus)
+                cmdset_detect = False
+            xbmc.log(msg='Argon ONE Control: command set with register support : ' + str(argonregsupport), level=xbmc.LOGDEBUG)
 
         fansettingupdate = False
         while not fansettingupdate:

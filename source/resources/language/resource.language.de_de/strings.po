@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\n"
 "POT-Creation-Date: 2024-05-21 16:09+0000\n"
-"PO-Revision-Date: 2025-03-23 12:52+0000\n"
+"PO-Revision-Date: 2025-04-09 19:28+0000\n"
 "Last-Translator: HungerHa\n"
 "Language-Team: German <https://github.com/HungerHa/libreelec_addon_argononecontrol>\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,11 @@ msgctxt "#32104"
 msgid "Fan disabled"
 msgstr "Lüfter deaktivieren"
 
-#empty string with id 32105
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-switch: fan control without register support
+msgctxt "#32105"
+msgid "Activate compatibility mode for ONE V1"
+msgstr "Aktivieren des Kompatibilitätsmodus für ONE V1"
 
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: CPU temperature °F
@@ -135,7 +139,13 @@ msgctxt "#32203"
 msgid "Use the double tap to shut down (instead of reboot)"
 msgstr "Benutze das Doppeltippen zum Herunterfahren (statt Neustart)"
 
-# empty strings from id 32204 to 32299
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-switch: disable register support for ONE V1
+msgctxt "#32204"
+msgid "Deactivates support for ONE V3. Required for some early firmware versions of the ONE V1/Fan HAT. Important: Disconnect the power supply from the case once if the fan control already no longer responds."
+msgstr "Deaktiviert die Unterstützung für ONE V3. Erforderlich für einige frühe Firmware-Versionen des ONE V1/Fan HAT. Wichtig: Das Gehäuse einmalig stromlos machen (Netzteil ausstecken), falls die Lüftersteuerung bereits nicht mehr reagiert."
+
+# empty strings from id 32205 to 32299
 
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-category: Remote control

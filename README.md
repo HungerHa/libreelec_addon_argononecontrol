@@ -44,6 +44,15 @@ The PRs for system tools have been applied and manual installation is no longer 
 
 *The safety way*: If the power menu of KODI is used to shutdown, the power cut is initiated just at the end (+10 seconds).
 
+### Argon ONE V1 / Fan HAT with early MCU firmware versions
+
+There are some reports on the Argon40 forum that the fan control scripts they provide no longer work with the Argon ONE V1 cases since the new command set with register support was added for the Argon ONE V3 cases. I cannot verify this, and there is no feedback on whether this is really the case and switching off the register detection definitely helps. A compatibility mode was therefore added in version 1.1.9, which explicitly deactivates the detection of register support. If you are one of the early adopters with a V1 case (with micro HDMI outputs at the back of the case) and the fan control or the shutdown process already isn't working right:
+
+* Enable "Activate compatibility mode for ONE V1"
+* Shutdown KODI/LibreELEC
+* Make sure that the case is powerless (unplug PSU) for some seconds
+* Start LibreELEC with compatibility mode enabled
+
 ### Workaround after improperly shutdown
 
 Situation: Remote control power button pressed → 10 seconds timer starts -> shutdown is initiated → red LED turns off, but it seems that it doesn't respond to the power button on the remote to get it on again.

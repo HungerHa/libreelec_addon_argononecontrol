@@ -43,6 +43,11 @@
 						<dependency type="enable" setting="fanspeed_alwayson">false</dependency>
 					</dependencies>
 				</setting>
+				<setting id="cmdset_legacy" type="boolean" label="32105" help="32204">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
 			</group>
 		</category>
 		<category id="cputemp" label="32409" help="">

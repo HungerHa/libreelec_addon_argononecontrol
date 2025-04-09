@@ -57,16 +57,19 @@ def argonregister_checksupport(busobj):
     except:
         return False
 
+
 def argonregister_getbyte(busobj, address):
     if busobj is None:
         return 0
     return busobj.read_byte_data(ADDR_ARGONONEREG, address)
+
 
 def argonregister_setbyte(busobj, address, bytevalue):
     if busobj is None:
         return
     busobj.write_byte_data(ADDR_ARGONONEREG,address,bytevalue)
     time.sleep(1)
+
 
 def argonregister_setfanspeed(busobj, newspeed, regsupport=None):
     if busobj is None:
@@ -87,14 +90,21 @@ def argonregister_setfanspeed(busobj, newspeed, regsupport=None):
         busobj.write_byte(ADDR_ARGONONEFAN,newspeed)
         time.sleep(1)
 
-def argonregister_signalpoweroff(busobj):
+
+def argonregister_signalpoweroff(busobj, regsupport=None):
     if busobj is None:
         return
 
-    if argonregister_checksupport(busobj):
+    usereg = False
+    if regsupport is None:
+        usereg=argonregister_checksupport(busobj)
+    else:
+        usereg=regsupport
+    if usereg:
         argonregister_setbyte(busobj, ADDR_ARGONONEREG_CTRL, 1)
     else:
         busobj.write_byte(ADDR_ARGONONEFAN,0xFF)
+
 
 def argonregister_setircode(busobj, vallist):
     if busobj is None:
