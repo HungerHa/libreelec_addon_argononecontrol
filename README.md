@@ -90,7 +90,7 @@ touch /storage/.config/argon40_rc.lock
 * Where can I find the add-on version information? Navigate to the KODI Add-ons section and select the add-on, but don't press OK. Use the context menu and go to "Information". There you can find the current installed version and also the switch to available versions in the LE add-ons repository is possible there.
 * Will I lose my customised settings if I update/downgrade the add-on? Normally not. But if you switch between versions with different add-on IDs, yes.
 
-## Quick installation (2025-03-28: currently LE13 only - backport to LE12 is pending)
+## Quick installation (available for LE12 / LE13)
 
 Search for "Argon ONE control" within the LibreELEC add-on section below "Program add-ons" and install the add-on. All requirements will be downloaded and installed automatically. If you install this add-on the first time, a reboot is required afterwards to activate all interfaces like I2C, UART and IR. Due to the versioning of the automatically created LibreELEC add-ons, a LE package revision number starting with 0 is also added - for example 1.1.6.**0**. The first 3 digits correspond to the version of the add-on.
 
