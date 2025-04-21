@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\n"
 "POT-Creation-Date: 2024-05-21 16:09+0000\n"
-"PO-Revision-Date: 2025-04-09 19:28+0000\n"
+"PO-Revision-Date: 2025-04-21 11:29+0000\n"
 "Last-Translator: HungerHa\n"
 "Language-Team: German <https://github.com/HungerHa/libreelec_addon_argononecontrol>\n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de_de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: addons/service.argononecontrol/addon.xml
+msgctxt "Addon Summary"
+msgid "Argon ONE case features"
+msgstr "Argon ONE-Gehäusefunktionen"
+
+#: addons/service.argononecontrol/addon.xml
+msgctxt "Addon Description"
+msgid "Support for RPi4/5 Argon ONE case features including the power button, fan speed, and the Argon IR remote. One-time restart required."
+msgstr "Unterstützung für RPi4/5 Argon ONE-Gehäusefunktionen, einschließlich des Netzschalters, der Lüftergeschwindigkeit und der Argon IR-Fernbedienung. Einmaliger Neustart erforderlich."
 
 msgctxt "#32000"
 msgid "Debug"
