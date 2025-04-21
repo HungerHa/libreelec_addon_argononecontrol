@@ -5,16 +5,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Addons\n"
-"Report-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\n"
+"Report-Msgid-Bugs-To: https://github.com/HungerHa/"
+"libreelec_addon_argononecontrol/issues/\n"
 "POT-Creation-Date: 2024-05-19 21:00+0000\n"
-"PO-Revision-Date: 2025-04-09 19:31+0000\n"
-"Last-Translator: dga4130-renato\n"
-"Language-Team: Italian <https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/4>\n"
+"PO-Revision-Date: 2025-04-21 07:28+0000\n"
+"Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
+"Language-Team: Italian <https://kodi.weblate.cloud/projects/"
+"kodi-add-ons-services/service-argononecontrol/it_it/>\n"
+"Language: it_it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it_it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11\n"
 
 msgctxt "#32000"
 msgid "Debug"
@@ -29,194 +32,191 @@ msgid "Enabled"
 msgstr "Abilitato"
 
 # empty strings from id 32004 to 32099
-
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-category: Fan
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32100"
 msgid "Fan control"
 msgstr "Controllo ventola"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: CPU temperature °C
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32101"
 msgid "CPU temperature (Celsius)"
 msgstr "Temperatura CPU (Celsius)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: fan speed (dutycycle)
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32102"
 msgid "Fan speed (Percent)"
 msgstr "Velocità ventola (percentuale)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: force fan speed to 100 percent
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32103"
 msgid "Fan always on"
 msgstr "Ventola sempre accesa"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: enable/disable fan control global
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32104"
 msgid "Fan disabled"
 msgstr "Ventola disabilitata"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: fan control without register support
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32105"
 msgid "Activate compatibility mode for ONE V1"
-msgstr "Attivare la modalità di compatibilità per ONE V1"
+msgstr "Attiva modalità di compatibilità per ONE V1"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: CPU temperature °F
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32106"
 msgid "CPU temperature (Fahrenheit)"
 msgstr "Temperatura CPU (Fahrenheit)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: switch to enable observing of SSD/NVMe temperature
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32107"
 msgid "Include SSD/NVMe temperature for fan control"
-msgstr "Include la temperatura SSD/NVMe per il controllo della ventola"
+msgstr "Includi temperatura SSD/NVMe per il controllo della ventola"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: SSD/NVMe temperature °C
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32108"
 msgid "SSD/NVMe temperature (Celsius)"
 msgstr "Temperatura SSD/NVMe (Celsius)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: SSD/NVMe temperature °F
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32109"
 msgid "SSD/NVMe temperature (Fahrenheit)"
 msgstr "Temperatura SSD/NVMe (Fahrenheit)"
 
+#. label-group: threshold 1
 #: addons/service.argononecontrol/resources/settings.xml
 #, threshold group labels
-#. label-group: threshold 1
 msgctxt "#32110"
 msgid "Temperature threshold 1"
 msgstr "Soglia temperatura 1"
 
 # empty strings from id 32111 to 32119
-
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-group: threshold 2
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32120"
 msgid "Temperature threshold 2"
 msgstr "Soglia temperatura 2"
 
 # empty strings from id 32121 to 32129
-
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-group: threshold 3
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32130"
 msgid "Temperature threshold 3"
 msgstr "Soglia temperatura 3"
 
 # empty strings from id 32131 to 32199
-
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-category: Power button
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32200"
 msgid "Power button"
 msgstr "Pulsante di accensione"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: for switch on/off the power button monitoring
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32201"
 msgid "Handle power button events"
-msgstr "Gestione eventi del pulsante di accensione"
+msgstr "Gestisci eventi del pulsante di accensione"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label: debug info a line below of the switch
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32202"
 msgid "Also handles the remote control power off command"
-msgstr "Gestisce anche il comando di spegnimento del telecomando"
+msgstr "Gestisci anche il comando di spegnimento del telecomando"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: to switch the reassignment of the double tap on and off
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32203"
 msgid "Use the double tap to shut down (instead of reboot)"
-msgstr "Usare il doppio tocco per spegnere (invece di riavviare)"
+msgstr "Usa il doppio tocco per spegnere (invece di riavviare)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: disable register support for ONE V1
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32204"
 msgid "Deactivates support for ONE V3. Required for some early firmware versions of the ONE V1/Fan HAT. Important: Disconnect the power supply from the case once if the fan control already no longer responds."
-msgstr "Disattiva il supporto per ONE V3. Richiesto per alcune prime versioni del firmware di ONE V1/Fan HAT. Importante: Se il controllo della ventola non risponde più, scollegare una volta l'alimentatore dal case."
+msgstr ""
+"Disattiva il supporto per ONE V3. Richiesto per alcune prime versioni del "
+"firmware di ONE V1/Fan HAT. Importante: se il controllo della ventola non "
+"risponde più, scollega una volta l'alimentatore dal case."
 
 # empty strings from id 32205 to 32299
-
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-category: Remote control
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32300"
 msgid "Argon Remote"
 msgstr "Telecomando Argon"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label:
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32301"
 msgid "Setup Argon remote control"
 msgstr "Configura telecomando Argon"
 
 # empty strings from id 32302 to 32399
-
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-category: SSD/NVMe
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32400"
 msgid "SSD/NVMe fan curve"
 msgstr "Curva ventola SSD/NVMe"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-category: GPU
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32401"
 msgid "GPU fan curve"
 msgstr "Curva ventola GPU"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: GPU temperature °C
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32402"
 msgid "GPU temperature (Celsius)"
 msgstr "Temperatura GPU (Celsius)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: GPU temperature °F
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32403"
 msgid "GPU temperature (Fahrenheit)"
 msgstr "Temperatura GPU (Fahrenheit)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-category: PMIC
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32404"
 msgid "PMIC fan curve"
-msgstr "Curva ventilatore PMIC"
+msgstr "Curva ventola PMIC"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: PMIC temperature °C
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32405"
 msgid "PMIC temperature (Celsius)"
 msgstr "Temperatura PMIC (Celsius)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-slider: PMIC temperature °F
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32406"
 msgid "PMIC temperature (Fahrenheit)"
 msgstr "Temperatura PMIC (Fahrenheit)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: switch to enable observing of GPU temperature
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32407"
 msgid "Include GPU temperature for fan control"
 msgstr "Includi temperatura GPU per il controllo ventola"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: switch to enable observing of PMIC temperature
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32408"
 msgid "Include PMIC temperature for fan control"
-msgstr "Include temperatura PMIC per il controllo ventola"
+msgstr "Includi temperatura PMIC per il controllo ventola"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-category: CPU
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32409"
 msgid "CPU fan curve"
 msgstr "Curva ventola CPU"
