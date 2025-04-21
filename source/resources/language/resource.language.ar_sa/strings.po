@@ -18,6 +18,16 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 
+#: addons/service.argononecontrol/addon.xml
+msgctxt "Addon Summary"
+msgid "Argon ONE case features"
+msgstr ""
+
+#: addons/service.argononecontrol/addon.xml
+msgctxt "Addon Description"
+msgid "Support for RPi4/5 Argon ONE case features including the power button, fan speed, and the Argon IR remote. One-time restart required."
+msgstr ""
+
 msgctxt "#32000"
 msgid "Debug"
 msgstr ""
