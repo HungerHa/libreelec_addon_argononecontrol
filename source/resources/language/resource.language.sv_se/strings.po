@@ -31,16 +31,6 @@ msgstr ""
 "Stöd för RPi4/5 Argon ONE-lådans funktioner, inklusive strömknappen, "
 "fläkthastigheten och Argon IR-fjärrkontrollen. Omstart krävs en gång."
 
-#: addons/service.argononecontrol/addon.xml
-msgctxt "Addon Summary"
-msgid "Argon ONE case features"
-msgstr ""
-
-#: addons/service.argononecontrol/addon.xml
-msgctxt "Addon Description"
-msgid "Support for RPi4/5 Argon ONE case features including the power button, fan speed, and the Argon IR remote. One-time restart required."
-msgstr ""
-
 msgctxt "#32000"
 msgid "Debug"
 msgstr "Felsök"
