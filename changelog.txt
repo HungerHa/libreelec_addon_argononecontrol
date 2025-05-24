@@ -1,3 +1,6 @@
+v1.1.12 (2025-05-24)
+- new GUI languages: Korean, Chinese (Simplified Han script)
+
 v1.1.11 (2025-04-23)
 - multi language support via KODI Weblate added
 - new GUI languages: Polish, Spanish, Swedish
