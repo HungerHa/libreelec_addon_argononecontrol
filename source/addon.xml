@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="service.argononecontrol" name="Argon ONE Control" version="1.1.11" provider-name="HungerHa">
+<addon id="service.argononecontrol" name="Argon ONE Control" version="1.1.12" provider-name="HungerHa">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="virtual.rpi-tools" version="9.80.11"/>
@@ -14,14 +14,20 @@
         <summary lang="en_GB">Argon ONE case features</summary>
         <summary lang="de_DE">Argon ONE-Gehäusefunktionen</summary>
         <summary lang="it_IT">Caratteristiche del case Argon ONE</summary>
+        <summary lang="ko_kr">Argon ONE 케이스 기능</summary>
+        <summary lang="nl_nl">Argon ONE systeemkast opties</summary>
         <summary lang="pl_PL">Cechy obudowy Argon ONE</summary>
         <summary lang="sv_SE">Argon ONE-lådans funktioner</summary>
+        <summary lang="zk_Hans">Argon ONE 机箱功能特点</summary>
         <description lang="es_ES">Soporte a las características de la caja para RPi4/5 Argon ONE como el botón de encendido, velocidad del ventilador y el Mando Argon IR. Requiere reinicio.</description>
         <description lang="en_GB">Support for RPi4/5 Argon ONE case features including the power button, fan speed, and the Argon IR remote. One-time restart required.</description>
         <description lang="de_DE">Unterstützung für RPi4/5 Argon ONE-Gehäusefunktionen, einschließlich des Netzschalters, der Lüftergeschwindigkeit und der Argon IR-Fernbedienung. Einmaliger Neustart erforderlich.</description>
         <description lang="it_IT">Supporto per le funzionalità del case Argon ONE RPi4/5, tra cui il pulsante di accensione, la velocità della ventola e il telecomando Argon IR. Richiede un solo riavvio.</description>
+        <description lang="ko_kr">전원 버튼, 팬 속도, Argon IR 리모컨 등 RPi4/5 Argon ONE 케이스 기능을 지원합니다. 재시작은 한 번 필요합니다.</description>
+        <description lang="nl_nl">Ondersteuning voor RPi4/5 Argon ONE systemkast inclusief de aan/uit schakelaar, ventilator snelheid en de Argon IR afstandbediening. Eenmalige systeem herstart vereist.</description>
         <description lang="pl_PL">Obsługa funkcji obudowy RPi4/5 Argon ONE, w tym przycisku zasilania, prędkości wentylatora i pilota IR Argon. Wymagane jednorazowe ponowne uruchomienie.</description>
         <description lang="sv_SE">Stöd för RPi4/5 Argon ONE-lådans funktioner, inklusive strömknappen, fläkthastigheten och Argon IR-fjärrkontrollen. Omstart krävs en gång.</description>
+        <description lang="zk_Hans">支持 RPi4/5 Argon ONE 机箱功能，包括电源按钮、风扇速度和 Argon IR 遥控器。需要重新启动一次。</description>
         <language></language>
         <platform>linux</platform>
         <license>MIT</license>
@@ -29,7 +35,10 @@
         <website>https://github.com/HungerHa/libreelec_addon_argononecontrol/</website>
         <email></email>
         <source>https://github.com/HungerHa/libreelec_addon_argononecontrol/</source>
-        <news>v1.1.11 (2025-04-23)
+        <news>v1.1.12 (2025-05-24)
+- new GUI languages: Korean, Chinese (Simplified Han script)
+
+v1.1.11 (2025-04-23)
 - multi language support via KODI Weblate added
 - new GUI languages: Polish, Spanish, Swedish
 
