@@ -11,11 +11,11 @@ This will also enable I2C, IR receiver and UART.
 - supports LibreELEC 10 / 11 / 12 / 13
 - supports Argon ONE V1/2 (RPi4)
 - supports Argon ONE V3 (RPi5)
-- probably also supports Argon Fan HAT, but untested (feedback is welcome)
+- probably also supports Argon Fan HAT, Argon ONE (RPi3) but untested (feedback is welcome)
 - enables IR receiver (V2/V3, or if self added to V1 pcb)
 - enables Argon REMOTE support (rc_maps + keymap)
 - fan control with fan curves CPU, SSD/NVMe, GPU and PMIC
-- graceful shutdown (power button commands: Reboot , Shutdown ...)
+- graceful shutdown (power button commands: Reboot, Shutdown ...)
 
 For full support of the power button commands with a RPi5, please use LE12.
 
