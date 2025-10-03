@@ -60,6 +60,7 @@ power_button_mon = Event()
 powerbutton_remap = False
 pulse_signal = False
 addon_count = 0
+fanspeed_hdd = False
 
 class SettingMonitor(xbmc.Monitor):
     """Detect Settings Change"""
@@ -161,7 +162,7 @@ def shutdown_check(abort_flag, power_button):
         else:
             # common
             gpiochip = '/dev/gpiochip0'
-        
+
         # run the async executor (select.poll) in a thread to demonstrate a graceful exit.
         done_fd = os.eventfd(0)
 
@@ -301,6 +302,7 @@ def load_config():
     """
     ADDON = xbmcaddon.Addon()
 
+    global fanspeed_hdd
     global power_button_mon
     global powerbutton_remap
     powerbutton = ADDON.getSettingBool('powerbutton')
@@ -375,6 +377,7 @@ def temp_check(abort_flag):
     Location of config file varies based on OS
     """
     global fansettingupdate
+    global fanspeed_hdd
 
     cmdset_detect = True
     argonregsupport = True
@@ -429,8 +432,12 @@ def temp_check(abort_flag):
             xbmc.log(msg='Argon ONE Control: current GPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
             gpuspeed = get_fanspeed(val, fangpuconfig)
             # Speed based on SSD/NVMe Temp
-            val = argonsysinfo_getmaxhddtemp()
-            xbmc.log(msg='Argon ONE Control: current SSD/NVMe temperature : ' + str(val), level=xbmc.LOGDEBUG)
+            if fanspeed_hdd:
+                val = argonsysinfo_getmaxhddtemp()
+                xbmc.log(msg='Argon ONE Control: current SSD/NVMe temperature : ' + str(val), level=xbmc.LOGDEBUG)
+            else:
+                val = 0
+                xbmc.log(msg='Argon ONE Control: SSD/NVMe temperature ignored.', level=xbmc.LOGDEBUG)
             hddspeed = get_fanspeed(val, fanhddconfig)
             # Speed based on PMIC Temp
             val = argonsysinfo_getpmictemp()
