@@ -2,8 +2,8 @@
 # Copyright (C) 2025-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="argononecontrol"
-PKG_VERSION="1.1.10"
-PKG_SHA256="0f57f2110d05e29c43e69c80b68cccd2d34d15733a311c11882a4b0631a43d81"
+PKG_VERSION="1.1.12"
+PKG_SHA256="c68b194b4fd3dce6968883282a302fccd705560ce88af243654d505147c61d2c"
 PKG_REV="0"
 PKG_ARCH="arm aarch64"
 PKG_LICENSE="MIT"
