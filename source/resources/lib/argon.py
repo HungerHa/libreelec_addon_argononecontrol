@@ -61,6 +61,7 @@ powerbutton_remap = False
 pulse_signal = False
 addon_count = 0
 fanspeed_hdd = False
+fanspeed_kernel = False
 
 class SettingMonitor(xbmc.Monitor):
     """Detect Settings Change"""
@@ -305,9 +306,11 @@ def load_config():
     global fanspeed_hdd
     global power_button_mon
     global powerbutton_remap
+    global fanspeed_kernel
+    fanspeed_kernel = ADDON.getSettingBool('fanspeed_kernel')
     powerbutton = ADDON.getSettingBool('powerbutton')
     powerbutton_remap = ADDON.getSettingBool('powerbutton_remap')
-    if powerbutton:
+    if powerbutton and not fanspeed_kernel:
         if not power_button_mon.is_set():
             xbmc.log(msg='Argon ONE Control: power button monitoring has been enabled', level=xbmc.LOGDEBUG)
         power_button_mon.set()
@@ -407,77 +410,81 @@ def temp_check(abort_flag):
         else:
             fanpmicconfig = []
 
-        # Force the old I2C message style without register support to
-        # prevent the MCU from hanging on early firmware revisions.
-        cmdset_legacy = tmpconfig[4]
-        if cmdset_legacy:
-            cmdset_detect = True
-            argonregsupport = False
-            xbmc.log(msg='Argon ONE Control: legacy command set only', level=xbmc.LOGDEBUG)
-        else:
-            if cmdset_detect:
-                xbmc.log(msg='Argon ONE Control: command set detection', level=xbmc.LOGDEBUG)
-                argonregsupport = argonregister_checksupport(bus)
-                cmdset_detect = False
-            xbmc.log(msg='Argon ONE Control: command set with register support : ' + str(argonregsupport), level=xbmc.LOGDEBUG)
+        if not fanspeed_kernel:
+            # Force the old I2C message style without register support to
+            # prevent the MCU from hanging on early firmware revisions.
+            cmdset_legacy = tmpconfig[4]
+            if cmdset_legacy:
+                cmdset_detect = True
+                argonregsupport = False
+                xbmc.log(msg='Argon ONE Control: legacy command set only', level=xbmc.LOGDEBUG)
+            else:
+                if cmdset_detect:
+                    xbmc.log(msg='Argon ONE Control: command set detection', level=xbmc.LOGDEBUG)
+                    argonregsupport = argonregister_checksupport(bus)
+                    cmdset_detect = False
+                xbmc.log(msg='Argon ONE Control: command set with register support : ' + str(argonregsupport), level=xbmc.LOGDEBUG)
 
         fansettingupdate = False
-        while not fansettingupdate:
-            # Speed based on CPU Temp
-            val = argonsysinfo_getcputemp()
-            xbmc.log(msg='Argon ONE Control: current CPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
-            newspeed = get_fanspeed(val, fanconfig)
-            # Speed based on GPU Temp
-            val = argonsysinfo_getgputemp()
-            xbmc.log(msg='Argon ONE Control: current GPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
-            gpuspeed = get_fanspeed(val, fangpuconfig)
-            # Speed based on SSD/NVMe Temp
-            if fanspeed_hdd:
-                val = argonsysinfo_getmaxhddtemp()
-                xbmc.log(msg='Argon ONE Control: current SSD/NVMe temperature : ' + str(val), level=xbmc.LOGDEBUG)
-            else:
-                val = 0
-                xbmc.log(msg='Argon ONE Control: SSD/NVMe temperature ignored.', level=xbmc.LOGDEBUG)
-            hddspeed = get_fanspeed(val, fanhddconfig)
-            # Speed based on PMIC Temp
-            val = argonsysinfo_getpmictemp()
-            xbmc.log(msg='Argon ONE Control: current PMIC temperature : ' + str(val), level=xbmc.LOGDEBUG)
-            pmicspeed = get_fanspeed(val, fanpmicconfig)
-            xbmc.log(msg='Argon ONE Control: CPU fan speed value : ' + str(newspeed), level=xbmc.LOGDEBUG)
-            xbmc.log(msg='Argon ONE Control: GPU fan speed value : ' + str(gpuspeed), level=xbmc.LOGDEBUG)
-            xbmc.log(msg='Argon ONE Control: SSD/NVMe fan speed value : ' + str(hddspeed), level=xbmc.LOGDEBUG)
-            xbmc.log(msg='Argon ONE Control: PMIC fan speed value : ' + str(pmicspeed), level=xbmc.LOGDEBUG)
+        if fanspeed_kernel:
+            thread_sleep(60, abort_flag)
+        else:
+            while not fansettingupdate:
+                # Speed based on CPU Temp
+                val = argonsysinfo_getcputemp()
+                xbmc.log(msg='Argon ONE Control: current CPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
+                newspeed = get_fanspeed(val, fanconfig)
+                # Speed based on GPU Temp
+                val = argonsysinfo_getgputemp()
+                xbmc.log(msg='Argon ONE Control: current GPU temperature : ' + str(val), level=xbmc.LOGDEBUG)
+                gpuspeed = get_fanspeed(val, fangpuconfig)
+                # Speed based on SSD/NVMe Temp
+                if fanspeed_hdd:
+                    val = argonsysinfo_getmaxhddtemp()
+                    xbmc.log(msg='Argon ONE Control: current SSD/NVMe temperature : ' + str(val), level=xbmc.LOGDEBUG)
+                else:
+                    val = 0
+                    xbmc.log(msg='Argon ONE Control: SSD/NVMe temperature ignored.', level=xbmc.LOGDEBUG)
+                hddspeed = get_fanspeed(val, fanhddconfig)
+                # Speed based on PMIC Temp
+                val = argonsysinfo_getpmictemp()
+                xbmc.log(msg='Argon ONE Control: current PMIC temperature : ' + str(val), level=xbmc.LOGDEBUG)
+                pmicspeed = get_fanspeed(val, fanpmicconfig)
+                xbmc.log(msg='Argon ONE Control: CPU fan speed value : ' + str(newspeed), level=xbmc.LOGDEBUG)
+                xbmc.log(msg='Argon ONE Control: GPU fan speed value : ' + str(gpuspeed), level=xbmc.LOGDEBUG)
+                xbmc.log(msg='Argon ONE Control: SSD/NVMe fan speed value : ' + str(hddspeed), level=xbmc.LOGDEBUG)
+                xbmc.log(msg='Argon ONE Control: PMIC fan speed value : ' + str(pmicspeed), level=xbmc.LOGDEBUG)
 
-            # Use faster fan speed
-            if gpuspeed > newspeed:
-                newspeed = gpuspeed
-            if hddspeed > newspeed:
-                newspeed = hddspeed
-            if pmicspeed > newspeed:
-                newspeed = pmicspeed
+                # Use faster fan speed
+                if gpuspeed > newspeed:
+                    newspeed = gpuspeed
+                if hddspeed > newspeed:
+                    newspeed = hddspeed
+                if pmicspeed > newspeed:
+                    newspeed = pmicspeed
 
-            if newspeed == prevspeed:
-                thread_sleep(30, abort_flag)
+                if newspeed == prevspeed:
+                    thread_sleep(30, abort_flag)
+                    if abort_flag.is_set():
+                        break
+                    continue
+                elif newspeed < prevspeed:
+                    thread_sleep(30, abort_flag)
+                try:
+                    argonregister_setfanspeed(bus, newspeed, argonregsupport)
+                    thread_sleep(30, abort_flag)
+                    prevspeed = newspeed
+                except IOError:
+                    temp = ''
+                    thread_sleep(60, abort_flag)
                 if abort_flag.is_set():
                     break
-                continue
-            elif newspeed < prevspeed:
-                thread_sleep(30, abort_flag)
-            try:
-                argonregister_setfanspeed(bus, newspeed, argonregsupport)
-                thread_sleep(30, abort_flag)
-                prevspeed = newspeed
-            except IOError:
-                temp = ''
-                thread_sleep(60, abort_flag)
-            if abort_flag.is_set():
-                break
         if abort_flag.is_set():
             break
 
 
 def checksetup():
-    """Used to enabled i2c and UART"""
+    """Used to enable I2C and UART"""
     configfile = '/flash/config.txt'
 
     # Add argon remote control
@@ -487,7 +494,7 @@ def checksetup():
         mergercmapsfile()
         removelircfile()
 
-    # Check if i2c exists
+    # Check if I2C line exists
     isenabled = False
     with open(configfile, 'r') as fp:
         for curline in fp:
@@ -504,9 +511,165 @@ def checksetup():
 
     os.system("mount -o remount,rw /flash")
     with open(configfile, 'a') as fp:
+        fp.write('\n')
+        fp.write('# Argon ONE Control: fan control, power button events, IR support for ONE V1/2/3\n')
         fp.write('dtparam=i2c=on\n')
         fp.write('enable_uart=1\n')
         fp.write('dtoverlay=gpio-ir,gpio_pin=23\n')
+    os.system('mount -o remount,ro /flash')
+
+
+def setup_rpi5_cooling_fan_overlay():
+    """
+    Used to modify cooling_fan overlay values in config.txt
+    https://github.com/raspberrypi/rpi-firmware/blob/master/overlays/README
+    https://github.com/raspberrypi/rpi-firmware/blob/master/bcm2712-rpi-5-b.dtb
+    https://github.com/raspberrypi/linux/blob/rpi-6.18.y/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+    """
+    ADDON = xbmcaddon.Addon()
+
+    configfile = '/flash/config.txt'
+    tmpconfigfile = '/tmp/config.new'
+
+    # Check if values already set or changed
+    xbmc.log(msg='Argon ONE Control: Check kernel fan overlay values', level=xbmc.LOGDEBUG)
+    isconfigured = False
+    haschanged = False
+    with open(configfile, 'r') as lines, open(tmpconfigfile, 'w') as newconfig:
+        for curline in lines:
+            if not curline:
+                continue
+            tmpline = curline.strip()
+            if not tmpline:
+                newconfig.write(curline)
+                continue
+            if tmpline.startswith('dtparam=cooling_fan='):
+                isconfigured = True
+                if ADDON.getSettingBool('fanspeed_disable'):
+                    if tmpline == 'dtparam=cooling_fan=on':
+                        tmpline = 'dtparam=cooling_fan=off'
+                        haschanged = True
+                elif tmpline == 'dtparam=cooling_fan=off':
+                    tmpline = 'dtparam=cooling_fan=on'
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp0='):
+                if ADDON.getSettingBool('fanspeed_alwayson'):
+                    if tmpline != 'dtparam=fan_temp0=0':
+                        tmpline = 'dtparam=fan_temp0=0'
+                        haschanged = True
+                elif tmpline != 'dtparam=fan_temp0=' + str(int(ADDON.getSetting('cputemp_a')) * 1000):
+                    tmpline = 'dtparam=fan_temp0=' + str(int(ADDON.getSetting('cputemp_a')) * 1000)
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp0_hyst='):
+                if tmpline != 'dtparam=fan_temp0_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_a')) * 1000):
+                    tmpline = 'dtparam=fan_temp0_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_a')) * 1000)
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp0_speed='):
+                if ADDON.getSettingBool('fanspeed_alwayson'):
+                    if tmpline != 'dtparam=fan_temp0_speed=128':
+                        tmpline = 'dtparam=fan_temp0_speed=128'
+                        haschanged = True
+                elif tmpline != 'dtparam=fan_temp0_speed=' + str(round(float(ADDON.getSetting('fanspeed_a')) * 255/100)):
+                    tmpline = 'dtparam=fan_temp0_speed=' + str(round(float(ADDON.getSetting('fanspeed_a')) * 255/100))
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp1='):
+                if tmpline != 'dtparam=fan_temp1=' + str(int(ADDON.getSetting('cputemp_b')) * 1000):
+                    tmpline = 'dtparam=fan_temp1=' + str(int(ADDON.getSetting('cputemp_b')) * 1000)
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp1_hyst='):
+                if tmpline != 'dtparam=fan_temp1_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_b')) * 1000):
+                    tmpline = 'dtparam=fan_temp1_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_b')) * 1000)
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp1_speed='):
+                if ADDON.getSettingBool('fanspeed_alwayson'):
+                    if tmpline != 'dtparam=fan_temp1_speed=128':
+                        tmpline = 'dtparam=fan_temp1_speed=128'
+                        haschanged = True
+                elif tmpline != 'dtparam=fan_temp1_speed=' + str(round(float(ADDON.getSetting('fanspeed_b')) * 255/100)):
+                    tmpline = 'dtparam=fan_temp1_speed=' + str(round(float(ADDON.getSetting('fanspeed_b')) * 255/100))
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp2='):
+                if tmpline != 'dtparam=fan_temp2=' + str(int(ADDON.getSetting('cputemp_c')) * 1000):
+                    tmpline = 'dtparam=fan_temp2=' + str(int(ADDON.getSetting('cputemp_c')) * 1000)
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp2_hyst='):
+                if tmpline != 'dtparam=fan_temp2_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_c')) * 1000):
+                    tmpline = 'dtparam=fan_temp2_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_c')) * 1000)
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp2_speed='):
+                if ADDON.getSettingBool('fanspeed_alwayson'):
+                    if tmpline != 'dtparam=fan_temp2_speed=128':
+                        tmpline = 'dtparam=fan_temp2_speed=128'
+                        haschanged = True
+                elif tmpline != 'dtparam=fan_temp2_speed=' + str(round(float(ADDON.getSetting('fanspeed_c')) * 255/100)):
+                    tmpline = 'dtparam=fan_temp2_speed=' + str(round(float(ADDON.getSetting('fanspeed_c')) * 255/100))
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp3='):
+                if tmpline != 'dtparam=fan_temp3=' + str(int(ADDON.getSetting('cputemp_d')) * 1000):
+                    tmpline = 'dtparam=fan_temp3=' + str(int(ADDON.getSetting('cputemp_d')) * 1000)
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp3_hyst='):
+                if tmpline != 'dtparam=fan_temp3_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_d')) * 1000):
+                    tmpline = 'dtparam=fan_temp3_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_d')) * 1000)
+                    haschanged = True
+            if tmpline.startswith('dtparam=fan_temp3_speed='):
+                if ADDON.getSettingBool('fanspeed_alwayson'):
+                    if tmpline != 'dtparam=fan_temp3_speed=128':
+                        tmpline = 'dtparam=fan_temp3_speed=128'
+                        haschanged = True
+                elif tmpline != 'dtparam=fan_temp3_speed=' + str(round(float(ADDON.getSetting('fanspeed_d')) * 255/100)):
+                    tmpline = 'dtparam=fan_temp3_speed=' + str(round(float(ADDON.getSetting('fanspeed_d')) * 255/100))
+                    haschanged = True
+            newconfig.write(tmpline +'\n')
+
+    # Do not change config.txt file if values are unchanged
+    if isconfigured and not haschanged:
+        xbmc.log(msg='Argon ONE Control: Kernel fan overlay values already set', level=xbmc.LOGDEBUG)
+        os.system("rm " + tmpconfigfile)
+        return()
+    elif not isconfigured:
+        # Append initial fan overlay values to config.txt
+        xbmc.log(msg='Argon ONE Control: Append kernel fan overlay values to config.txt', level=xbmc.LOGDEBUG)
+        with open(configfile, 'a') as fp:
+            fp.write('\n')
+            fp.write('# Argon ONE Control: RPi5 fan overlay settings\n')
+            if ADDON.getSettingBool('fanspeed_disable'):
+                fp.write('dtparam=cooling_fan=off\n')
+            else:
+                fp.write('dtparam=cooling_fan=on\n')
+            if ADDON.getSettingBool('fanspeed_alwayson'):
+                fp.write('dtparam=fan_temp0=0')
+            else:
+                fp.write('dtparam=fan_temp0=' + str(int(ADDON.getSetting('cputemp_a')) * 1000) + '\n')
+            fp.write('dtparam=fan_temp0_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_a')) * 1000) + '\n')
+            if ADDON.getSettingBool('fanspeed_alwayson'):
+                fp.write('dtparam=fan_temp0_speed=128')
+            else:
+                fp.write('dtparam=fan_temp0_speed=' + str(round(float(ADDON.getSetting('fanspeed_a')) * 255/100)) + '\n')
+            fp.write('dtparam=fan_temp1=' + str(int(ADDON.getSetting('cputemp_b')) * 1000) + '\n')
+            fp.write('dtparam=fan_temp1_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_b')) * 1000) + '\n')
+            if ADDON.getSettingBool('fanspeed_alwayson'):
+                fp.write('dtparam=fan_temp1_speed=128')
+            else:
+                fp.write('dtparam=fan_temp1_speed=' + str(round(float(ADDON.getSetting('fanspeed_b')) * 255/100)) + '\n')
+            fp.write('dtparam=fan_temp2=' + str(int(ADDON.getSetting('cputemp_c')) * 1000) + '\n')
+            fp.write('dtparam=fan_temp2_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_c')) * 1000) + '\n')
+            if ADDON.getSettingBool('fanspeed_alwayson'):
+                fp.write('dtparam=fan_temp2_speed=128')
+            else:
+                fp.write('dtparam=fan_temp2_speed=' + str(round(float(ADDON.getSetting('fanspeed_c')) * 255/100)) + '\n')
+            fp.write('dtparam=fan_temp3=' + str(int(ADDON.getSetting('cputemp_d')) * 1000) + '\n')
+            fp.write('dtparam=fan_temp3_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_d')) * 1000) + '\n')
+            if ADDON.getSettingBool('fanspeed_alwayson'):
+                fp.write('dtparam=fan_temp3_speed=128')
+            else:
+                fp.write('dtparam=fan_temp3_speed=' + str(round(float(ADDON.getSetting('fanspeed_d')) * 255/100)) + '\n')
+        return()
+
+    # Apply changed overlay values to config.txt
+    xbmc.log(msg='Argon ONE Control: Set kernel fan overlay values', level=xbmc.LOGDEBUG)
+    os.system("mount -o remount,rw /flash")
+    os.system("mv " + tmpconfigfile + " " + configfile)
     os.system('mount -o remount,ro /flash')
 
 
@@ -613,7 +776,8 @@ def cleanup():
     # Turn off Fan
     # (2024-02-29) disabled, because throws TimeoutException during shutdown with remote control
     # argonregister_setfanspeed(bus, 0)
-    pass
+    if fanspeed_kernel:
+        setup_rpi5_cooling_fan_overlay()
     # GPIO
     # gpiozero automatically restores the pin settings at the end of the script
 

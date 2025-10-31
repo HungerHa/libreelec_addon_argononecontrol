@@ -29,7 +29,8 @@ def run():
     xbmc.log(msg='Argon ONE Control: fan control thread started', level=xbmc.LOGDEBUG)
 
     powerbutton = ADDON.getSettingBool('powerbutton')
-    if powerbutton:
+    fanspeed_kernel = ADDON.getSettingBool('fanspeed_kernel')
+    if powerbutton and not fanspeed_kernel:
         power_button.set()
     t2 = Thread(target = thread_powerbutton, args=(abort_flag, power_button,))
     t2.start()

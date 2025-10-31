@@ -1,3 +1,6 @@
+v1.2.0 (2025-10-05)
+- added ONE V5 support via kernel fan overlay (experimental)
+
 v1.1.13 (2025-09-15)
 - new GUI language: Bosnian (Bosnia and Herzegovina)
 - prevent HDD spin-up if HDD/SSD temperature curve is disabled
