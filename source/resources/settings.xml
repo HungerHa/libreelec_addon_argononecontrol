@@ -54,8 +54,16 @@
 						<dependency type="enable" setting="fanspeed_kernel">false</dependency>
 					</dependencies>
 				</setting>
+				<setting id="rp1_detection" type="boolean" label="32207" help="32208">
+					<level>1</level>
+					<default>true</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="enable" setting="fanspeed_kernel">false</dependency>
+					</dependencies>
+				</setting>
 				<setting id="fanspeed_kernel" type="boolean" label="32205" help="32206">
-					<level>0</level>
+					<level>2</level>
 					<default>false</default>
 					<control type="toggle"/>
 				</setting>
@@ -1202,9 +1210,6 @@
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
-					<dependencies>
-						<dependency type="enable" setting="fanspeed_kernel">false</dependency>
-					</dependencies>
 				</setting>
 				<setting id="powerbutton_remap" type="boolean" label="32203" help="">
 					<level>1</level>

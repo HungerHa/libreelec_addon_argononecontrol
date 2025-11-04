@@ -19,6 +19,7 @@
 
 import importlib.util
 import os
+import re
 import sys
 from shutil import copyfile
 from threading import Event
@@ -49,8 +50,12 @@ import xbmcaddon
 
 from resources.lib.argonregister import *
 from resources.lib.argonsysinfo import *
+from resources.lib import systemfan
 
 SHUTDOWN_PIN = 4
+PWM_FAN_PERIOD = 41566 # default 41566 (~ 24.058 kHz) from cooling_fan overlay
+PWM_FAN_CHANNEL = '3' # default RP1 PWM1_CHAN3
+PWM_FAN_CH_POLARITY = 'inversed' # default 'inversed' for RPi5 fan
 
 # Initialize I2C Bus
 bus = argonregister_initializebusobj()
@@ -62,6 +67,8 @@ pulse_signal = False
 addon_count = 0
 fanspeed_hdd = False
 fanspeed_kernel = False
+rp1_detection = True
+rp1_fanctrl = False
 
 class SettingMonitor(xbmc.Monitor):
     """Detect Settings Change"""
@@ -295,6 +302,59 @@ def get_fanspeed(tempval, configlist):
     return 0
 
 
+def is_pitwo():
+    """
+    Detect if the current PCB is a RPi2
+    """
+    try:
+        with open("/proc/cpuinfo", "r") as cpuinfo:
+            for line in cpuinfo.readlines():
+                revision = re.search(r'^Revision\s*:\s*[ 123][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]04[0-9a-fA-F]$', line)
+                if revision is not None:
+                    # print(revision.group(0))
+                    # print('RPi2 identified')
+                    return True
+        # print('no RPi2 found')
+        return False
+    except IOError:
+        # print('no RPi2 found')
+        return False
+
+
+def is_pifour():
+    """
+    Detect if the current PCB is a RPi4
+    """
+    try:
+        with open("/proc/cpuinfo", "r") as cpuinfo:
+            for line in cpuinfo.readlines():
+                revision = re.search(r'^Revision\s*:\s*[ 123][0-9a-fA-F][0-9a-fA-F]3[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]$', line)
+                if revision is not None:
+                    # print(revision.group(0))
+                    # print('RPi4 identified')
+                    return True
+        # print('no RPi4 found')
+        return False
+    except IOError:
+        # print('no RPi4 found')
+        return False
+
+
+def is_pifive():
+    """
+    Detect if the current PCB is a RPi5
+    """
+    try:
+        with open("/proc/cpuinfo", "r") as cpuinfo:
+            for line in cpuinfo.readlines():
+                revision = re.search(r'^Revision\s*:\s*[ 123][0-9a-fA-F][0-9a-fA-F]4[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]$', line)
+                if revision is not None:
+                    return True
+        return False
+    except IOError:
+        return False
+
+
 def load_config():
     """
     This function retrieves the fanspeed configuration list from a file, arranged by temperature.
@@ -307,10 +367,12 @@ def load_config():
     global power_button_mon
     global powerbutton_remap
     global fanspeed_kernel
+    global rp1_detection
+
     fanspeed_kernel = ADDON.getSettingBool('fanspeed_kernel')
     powerbutton = ADDON.getSettingBool('powerbutton')
     powerbutton_remap = ADDON.getSettingBool('powerbutton_remap')
-    if powerbutton and not fanspeed_kernel:
+    if powerbutton:
         if not power_button_mon.is_set():
             xbmc.log(msg='Argon ONE Control: power button monitoring has been enabled', level=xbmc.LOGDEBUG)
         power_button_mon.set()
@@ -332,6 +394,7 @@ def load_config():
     fanspeed_gpu = ADDON.getSettingBool('fanspeed_gpu')
     fanspeed_hdd = ADDON.getSettingBool('fanspeed_hdd')
     fanspeed_pmic = ADDON.getSettingBool('fanspeed_pmic')
+    rp1_detection = ADDON.getSettingBool('rp1_detection')
     temperature_unit = xbmc.getInfoLabel('System.TemperatureUnits')
 
     configtype = ['a', 'b', 'c']
@@ -381,6 +444,7 @@ def temp_check(abort_flag):
     """
     global fansettingupdate
     global fanspeed_hdd
+    global pwmchip
 
     cmdset_detect = True
     argonregsupport = True
@@ -471,7 +535,10 @@ def temp_check(abort_flag):
                 elif newspeed < prevspeed:
                     thread_sleep(30, abort_flag)
                 try:
-                    argonregister_setfanspeed(bus, newspeed, argonregsupport)
+                    if rp1_fanctrl and rp1_detection:
+                        systemfan.set_pwm_duty(pwmchip=pwmchip, channel=PWM_FAN_CHANNEL, dutycycle=newspeed)
+                    else:
+                        argonregister_setfanspeed(bus, newspeed, argonregsupport)
                     thread_sleep(30, abort_flag)
                     prevspeed = newspeed
                 except IOError:
@@ -791,6 +858,9 @@ def cleanup():
     # argonregister_setfanspeed(bus, 0)
     if fanspeed_kernel:
         setup_rpi5_cooling_fan_overlay()
+    if rp1_fanctrl:
+        systemfan.disable_pwm(pwmchip, PWM_FAN_CHANNEL)
+        systemfan.unexport_pwm_channel(pwmchip, PWM_FAN_CHANNEL)
     # GPIO
     # gpiozero automatically restores the pin settings at the end of the script
 
@@ -814,8 +884,42 @@ else:
         removelircfile()
     copyshutdownscript()
 
+    fanspeed_kernel = __addon__.getSettingBool('fanspeed_kernel')
+    powerbutton = __addon__.getSettingBool('powerbutton')
+    rp1_detection = __addon__.getSettingBool('rp1_detection')
+    if rp1_detection and not fanspeed_kernel:
+        # # Debug mode: Load PWM overlay to make pwmchipN available
+        # xbmc.log(msg='Argon ONE Control: Check for overlay', level=xbmc.LOGDEBUG)
+        # if not os.path.isdir('/sys/class/pwm/pwmchip0'):
+        #     os.system("dtoverlay pwm")
+        #     time.sleep(0.1)
+
+        # Detect cooling_fan/PWM overlay
+        if os.path.isdir('/sys/class/pwm/pwmchip0'):
+            xbmc.log(msg='Argon ONE Control: PWM overlay loaded', level=xbmc.LOGDEBUG)
+            # Execute only if RPi5
+            if is_pifive():
+                xbmc.log(msg='Argon ONE Control: RPi5 detected', level=xbmc.LOGDEBUG)
+                xbmc.log(msg='Argon ONE Control: Unload PWM_FAN module', level=xbmc.LOGDEBUG)
+                systemfan.disable_kernel_fan_driver()
+                # Search for RP1 PWM1 register address
+                pwmchip = systemfan.determine_pwmchip(address='1f0009c000.pwm')
+                if pwmchip is not None:
+                    # Configure FAN_PWM output
+                    xbmc.log(msg='Argon ONE Control: Configure RP1 PWM1_CHAN3 output @' + pwmchip, level=xbmc.LOGDEBUG)
+                    systemfan.export_pwm_channel(pwmchip, PWM_FAN_CHANNEL)
+                    systemfan.set_pwm_period(pwmchip, PWM_FAN_CHANNEL, PWM_FAN_PERIOD)
+                    systemfan.set_pwm_polarity(pwmchip, PWM_FAN_CHANNEL, PWM_FAN_CH_POLARITY)
+                    systemfan.enable_pwm(pwmchip, PWM_FAN_CHANNEL)
+                    rp1_fanctrl = True
+
     # Send message to GUI about add-on start
-    msg_line = "Fan control/power button event monitoring has started."
+    if rp1_fanctrl:
+        msg_line = "ONE V5 / NEO 5 / Active Cooler detected."
+    elif fanspeed_kernel:
+        msg_line = "ONE V5 / NEO 5 / Active Cooler control via cooling_fan overlay."
+    else:
+        msg_line = "Fan control/power button event monitoring has started."
     msg_time = 5000 #in miliseconds
     xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__, msg_line, msg_time, __icon__))
     addon_count = addon_count + 1

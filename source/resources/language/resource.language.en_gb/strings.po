@@ -160,7 +160,7 @@ msgstr ""
 #: addons/service.argononecontrol/resources/settings.xml
 #. label: debug info a line below of the switch
 msgctxt "#32202"
-msgid "Also handles the remote control power off command"
+msgid "Also handles the remote control power off command. It is recommended to disable this option if it is not a ONE V1/2/3 case, such as a ONE V5 or NEO 5, in order to free up GPIOs."
 msgstr ""
 
 #: addons/service.argononecontrol/resources/settings.xml
@@ -178,16 +178,28 @@ msgstr ""
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: switch to cooling_fan overlay of RPi5
 msgctxt "#32205"
-msgid "Activate support for ONE V5/NEO 5 (experimental)"
+msgid "Force support for ONE V5/NEO 5/Active Cooler via cooling_fan overlay (experimental)"
 msgstr ""
 
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: explanation of the deactivation of support for ONE V1/V2/V3
 msgctxt "#32206"
-msgid "GUI support for kernel provided fan control via config.txt. Disables Argon ONE V1/2/3 fan control!"
+msgid "GUI support for kernel provided fan control via config.txt. Disables Argon ONE V1/2/3 fan control! With this method, a restart is required after changes to the fan/temperature settings for the changes to take effect."
 msgstr ""
 
-# empty strings from id 32205 to 32299
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-switch: enable RP1 detection of RPi5
+msgctxt "#32207"
+msgid "Activate system fan detection for ONE V5/NEO 5/Active Cooler (experimental)"
+msgstr ""
+
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-switch: explanation of the automatic deactivation of fan support for ONE V1/V2/V3
+msgctxt "#32208"
+msgid "Try to detect the RPi5 system fan on add-on startup. Disables Argon ONE V1/V2/V3 fan control automatically if system fan found. Activation requires a restart of the add-on."
+msgstr ""
+
+# empty strings from id 32209 to 32299
 
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-category: Remote control
