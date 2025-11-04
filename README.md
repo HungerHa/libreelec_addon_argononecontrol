@@ -1,6 +1,7 @@
 # Argon ONE Control add-on (formerly known as: ArgonForty Device Configuration)
 
-Provides a GUI and installs a service to manage Argon ONE V1/2/3 case features including the power button, fan speed, and the Argon IR remote. **Please note:** The Argon ONE V5 and NEO 5 are  cases without an additional microcontroller for fan control or power switch events. Therefore, this add-on is optional here, for example, if a graphical user interface for the kernel fan control settings (cooling_fan overlay) or an alternative fan control is desired.
+Provides a GUI and installs a service to manage Argon ONE V1/2/3 case features including the power button, fan speed, and the Argon IR remote.  
+**Please note:** The Argon ONE V5 and NEO 5 are cases without an additional microcontroller for fan control or power switch events. Therefore, this add-on is optional here, for example, if a graphical user interface for the kernel fan control settings (cooling_fan overlay) or an alternative fan control is desired.
 
 This will also enable I2C, IR receiver and UART.
 
@@ -80,12 +81,12 @@ touch /storage/.config/argon40_rc.lock
 ## Q&A
 
 * Do I need this add-on for an ONE V5 case? In short: No.
-* If this add-on is not needed with ONE V5, why is it supported as an option? Over the course of this add-on's history, it was renamed “Argon ONE Control,” which implied to some that it was compatible with any Argon case named ONE and was unnecessarily installed on the V5. Originally, I wanted to decline support for V5, as newer kernel versions support its fan control by default because it uses the official RPi5 fan connector. To give the add-on with the ONE V5 a purpose, version 1.2.0 and higher offers a graphical user interface for the kernel fan overlay and, in addition, a replacement for it that behaves identically to the ONE V1/V2/V3.
+* If this add-on is not needed with ONE V5, why is it supported as an option? Over the course of this add-on's history, it was renamed “Argon ONE Control,” which implied to some that it was compatible with any Argon case named ONE and was unnecessarily installed on the V5. Originally, I wanted to decline support for V5, as newer kernel versions support its fan control by default because it uses the official RPi5 fan connector. To give the add-on with the ONE V5 a purpose, version 1.2.0 and higher offers a graphical user interface for the kernel fan overlay and, in addition, a replacement for it that behaves identically to the ONE V1/2/3.
 * Are additional features of ONE V5 such as OLED etc. supported? Currently not. Fan control only.
 * Can I use this add-on with an RPi5 without using an Argon40 case? Yes, if the RPi5 fan connector is populated with a working fan. However, keep in mind that if you are already satisfied with the fan control provided by the kernel, you will be installing additional software and its associated footprint without any additional benefit to you.
 * If I don't have ONE V1/2/3, is there anything I need to be aware of? Not really, but you could disable monitoring of the power button to minimize the CPU usage of the background service.
 * I played around a bit with the “Force support for ONE V5...” setting, but I have a ONE V3 and now I feel like the fan control is no longer working. Please check the config.txt file and remove all lines in the “cooling_fan” section, as these lines cause the fan to be expected at the RPi5 fan connector and not connected to the MCU of the ONE V3. Alternatively disable both "V5" switches and restart KODI.
-* I have "ArgonForty Device Configuration" add-on already installed. Should I remove all installed versions of that before switching to "Argon ONE Control" add-on? Yes, its the recommended way.
+* I have "ArgonForty Device Configuration" add-on already installed. Should I remove all installed versions of that before switching to "Argon ONE Control" add-on? Yes, that is the recommended procedure.
 * Can I damage the LE installation if I switch back to an version before 1.1.6? No, but don't forget to remove "Argon ONE Control" first.
 * Will I permanently damage my system if I accidentally install both add-on versions at the same time / or forget to remove them beforehand? No, but it could result in non-functional fan control or some other misbehaviour. Solution: After one of the add-ons has been removed, followed by a reboot, all things should be fine again.
 * Are the versions from GitHub and from the LibreELEC add-ons repo exchangeable? Yes.
