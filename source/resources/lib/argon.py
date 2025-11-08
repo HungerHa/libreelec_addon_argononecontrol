@@ -311,13 +311,9 @@ def is_pitwo():
             for line in cpuinfo.readlines():
                 revision = re.search(r'^Revision\s*:\s*[ 123][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]04[0-9a-fA-F]$', line)
                 if revision is not None:
-                    # print(revision.group(0))
-                    # print('RPi2 identified')
                     return True
-        # print('no RPi2 found')
         return False
     except IOError:
-        # print('no RPi2 found')
         return False
 
 
@@ -330,13 +326,9 @@ def is_pifour():
             for line in cpuinfo.readlines():
                 revision = re.search(r'^Revision\s*:\s*[ 123][0-9a-fA-F][0-9a-fA-F]3[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]$', line)
                 if revision is not None:
-                    # print(revision.group(0))
-                    # print('RPi4 identified')
                     return True
-        # print('no RPi4 found')
         return False
     except IOError:
-        # print('no RPi4 found')
         return False
 
 
@@ -703,7 +695,7 @@ def setup_rpi5_cooling_fan_overlay():
         with open(configfile, 'a') as fp:
             fp.write('\n')
             fp.write('# Argon ONE Control: RPi5 fan overlay settings\n')
-            # 2025/11/02: Droped because disabling the cooling_fan overlay
+            # 2025/11/02: Dropped because disabling the cooling_fan overlay
             #             could cause the fan to run continuously at full speed.
             # if ADDON.getSettingBool('fanspeed_disable'):
             #     fp.write('dtparam=cooling_fan=off\n')

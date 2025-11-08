@@ -8,7 +8,6 @@
 import os
 import glob
 
-BIN_PATH = '/storage/.kodi/addons/virtual.system-tools/bin/'
 PWM_SYSFS = "/sys/class/pwm/"
 
 

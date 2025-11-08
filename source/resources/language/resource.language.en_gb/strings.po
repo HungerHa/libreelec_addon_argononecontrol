@@ -178,25 +178,25 @@ msgstr ""
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: switch to cooling_fan overlay of RPi5
 msgctxt "#32205"
-msgid "Force support for ONE V5/NEO 5/Active Cooler via cooling_fan overlay (experimental)"
+msgid "Force support for ONE V5/NEO 5/Active Cooler via cooling_fan overlay"
 msgstr ""
 
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: explanation of the deactivation of support for ONE V1/V2/V3
 msgctxt "#32206"
-msgid "GUI support for kernel provided fan control via config.txt. Disables Argon ONE V1/2/3 fan control! With this method, a restart is required after changes to the fan/temperature settings for the changes to take effect."
+msgid "If enabled, uses the generic RPi5 fan control at the kernel level with the parameters in the config.txt file. Disables the integrated fan control of the Argon ONE V1/2/3! Advantage: Works independently of Kodi. Disadvantage: With this method, a restart is required after each change to the fan/temperature settings in the GUI for the changes to take effect."
 msgstr ""
 
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: enable RP1 detection of RPi5
 msgctxt "#32207"
-msgid "Activate system fan detection for ONE V5/NEO 5/Active Cooler (experimental)"
+msgid "Activate RPi5 system fan detection for ONE V5/NEO 5/Active Cooler"
 msgstr ""
 
 #: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: explanation of the automatic deactivation of fan support for ONE V1/V2/V3
 msgctxt "#32208"
-msgid "Try to detect the RPi5 system fan on add-on startup. Disables Argon ONE V1/V2/V3 fan control automatically if system fan found. Activation requires a restart of the add-on."
+msgid "Try to detect the RPi5 system fan during the add-on startup. Disables Argon ONE V1/V2/V3 fan control automatically if system fan found. Activation requires a restart of the add-on."
 msgstr ""
 
 # empty strings from id 32209 to 32299
