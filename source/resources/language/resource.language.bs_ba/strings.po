@@ -164,7 +164,7 @@ msgstr "Obrada događaja dugmeta za napajanje"
 #: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32202"
 msgid "Also handles the remote control power off command. It is recommended to disable this option if it is not a ONE V1/2/3 case, such as a ONE V5 or NEO 5, in order to free up GPIOs."
-msgstr "Također obrađuje naredbu za isključivanje daljinskog upravljača"
+msgstr ""
 
 #. label-switch: to switch the reassignment of the double tap on and off
 #: addons/service.argononecontrol/resources/settings.xml
