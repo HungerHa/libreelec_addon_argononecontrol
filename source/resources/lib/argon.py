@@ -627,13 +627,19 @@ def setup_rpi5_cooling_fan_overlay():
                     tmpline = 'dtparam=fan_temp0_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_a')) * 1000)
                     haschanged = True
             if tmpline.startswith('dtparam=fan_temp0_speed='):
-                if ADDON.getSettingBool('fanspeed_alwayson'):
-                    if tmpline != 'dtparam=fan_temp0_speed=128':
-                        tmpline = 'dtparam=fan_temp0_speed=128'
+                # Stop the fan
+                if ADDON.getSettingBool('fanspeed_disable'):
+                    if tmpline != 'dtparam=fan_temp0_speed=0':
+                        tmpline = 'dtparam=fan_temp0_speed=0'
                         haschanged = True
-                elif tmpline != 'dtparam=fan_temp0_speed=' + str(round(float(ADDON.getSetting('fanspeed_a')) * 255/100)):
-                    tmpline = 'dtparam=fan_temp0_speed=' + str(round(float(ADDON.getSetting('fanspeed_a')) * 255/100))
-                    haschanged = True
+                else:
+                    if ADDON.getSettingBool('fanspeed_alwayson'):
+                        if tmpline != 'dtparam=fan_temp0_speed=128':
+                            tmpline = 'dtparam=fan_temp0_speed=128'
+                            haschanged = True
+                    elif tmpline != 'dtparam=fan_temp0_speed=' + str(round(float(ADDON.getSetting('fanspeed_a')) * 255/100)):
+                        tmpline = 'dtparam=fan_temp0_speed=' + str(round(float(ADDON.getSetting('fanspeed_a')) * 255/100))
+                        haschanged = True
             if tmpline.startswith('dtparam=fan_temp1='):
                 if tmpline != 'dtparam=fan_temp1=' + str(int(ADDON.getSetting('cputemp_b')) * 1000):
                     tmpline = 'dtparam=fan_temp1=' + str(int(ADDON.getSetting('cputemp_b')) * 1000)
@@ -643,13 +649,19 @@ def setup_rpi5_cooling_fan_overlay():
                     tmpline = 'dtparam=fan_temp1_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_b')) * 1000)
                     haschanged = True
             if tmpline.startswith('dtparam=fan_temp1_speed='):
-                if ADDON.getSettingBool('fanspeed_alwayson'):
-                    if tmpline != 'dtparam=fan_temp1_speed=128':
-                        tmpline = 'dtparam=fan_temp1_speed=128'
+                # Stop the fan
+                if ADDON.getSettingBool('fanspeed_disable'):
+                    if tmpline != 'dtparam=fan_temp1_speed=0':
+                        tmpline = 'dtparam=fan_temp1_speed=0'
                         haschanged = True
-                elif tmpline != 'dtparam=fan_temp1_speed=' + str(round(float(ADDON.getSetting('fanspeed_b')) * 255/100)):
-                    tmpline = 'dtparam=fan_temp1_speed=' + str(round(float(ADDON.getSetting('fanspeed_b')) * 255/100))
-                    haschanged = True
+                else:
+                    if ADDON.getSettingBool('fanspeed_alwayson'):
+                        if tmpline != 'dtparam=fan_temp1_speed=128':
+                            tmpline = 'dtparam=fan_temp1_speed=128'
+                            haschanged = True
+                    elif tmpline != 'dtparam=fan_temp1_speed=' + str(round(float(ADDON.getSetting('fanspeed_b')) * 255/100)):
+                        tmpline = 'dtparam=fan_temp1_speed=' + str(round(float(ADDON.getSetting('fanspeed_b')) * 255/100))
+                        haschanged = True
             if tmpline.startswith('dtparam=fan_temp2='):
                 if tmpline != 'dtparam=fan_temp2=' + str(int(ADDON.getSetting('cputemp_c')) * 1000):
                     tmpline = 'dtparam=fan_temp2=' + str(int(ADDON.getSetting('cputemp_c')) * 1000)
@@ -659,13 +671,19 @@ def setup_rpi5_cooling_fan_overlay():
                     tmpline = 'dtparam=fan_temp2_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_c')) * 1000)
                     haschanged = True
             if tmpline.startswith('dtparam=fan_temp2_speed='):
-                if ADDON.getSettingBool('fanspeed_alwayson'):
-                    if tmpline != 'dtparam=fan_temp2_speed=128':
-                        tmpline = 'dtparam=fan_temp2_speed=128'
+                # Stop the fan
+                if ADDON.getSettingBool('fanspeed_disable'):
+                    if tmpline != 'dtparam=fan_temp2_speed=0':
+                        tmpline = 'dtparam=fan_temp2_speed=0'
                         haschanged = True
-                elif tmpline != 'dtparam=fan_temp2_speed=' + str(round(float(ADDON.getSetting('fanspeed_c')) * 255/100)):
-                    tmpline = 'dtparam=fan_temp2_speed=' + str(round(float(ADDON.getSetting('fanspeed_c')) * 255/100))
-                    haschanged = True
+                else:
+                    if ADDON.getSettingBool('fanspeed_alwayson'):
+                        if tmpline != 'dtparam=fan_temp2_speed=128':
+                            tmpline = 'dtparam=fan_temp2_speed=128'
+                            haschanged = True
+                    elif tmpline != 'dtparam=fan_temp2_speed=' + str(round(float(ADDON.getSetting('fanspeed_c')) * 255/100)):
+                        tmpline = 'dtparam=fan_temp2_speed=' + str(round(float(ADDON.getSetting('fanspeed_c')) * 255/100))
+                        haschanged = True
             if tmpline.startswith('dtparam=fan_temp3='):
                 if tmpline != 'dtparam=fan_temp3=' + str(int(ADDON.getSetting('cputemp_d')) * 1000):
                     tmpline = 'dtparam=fan_temp3=' + str(int(ADDON.getSetting('cputemp_d')) * 1000)
@@ -675,13 +693,19 @@ def setup_rpi5_cooling_fan_overlay():
                     tmpline = 'dtparam=fan_temp3_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_d')) * 1000)
                     haschanged = True
             if tmpline.startswith('dtparam=fan_temp3_speed='):
-                if ADDON.getSettingBool('fanspeed_alwayson'):
-                    if tmpline != 'dtparam=fan_temp3_speed=128':
-                        tmpline = 'dtparam=fan_temp3_speed=128'
+                # Stop the fan
+                if ADDON.getSettingBool('fanspeed_disable'):
+                    if tmpline != 'dtparam=fan_temp3_speed=0':
+                        tmpline = 'dtparam=fan_temp3_speed=0'
                         haschanged = True
-                elif tmpline != 'dtparam=fan_temp3_speed=' + str(round(float(ADDON.getSetting('fanspeed_d')) * 255/100)):
-                    tmpline = 'dtparam=fan_temp3_speed=' + str(round(float(ADDON.getSetting('fanspeed_d')) * 255/100))
-                    haschanged = True
+                else:
+                    if ADDON.getSettingBool('fanspeed_alwayson'):
+                        if tmpline != 'dtparam=fan_temp3_speed=128':
+                            tmpline = 'dtparam=fan_temp3_speed=128'
+                            haschanged = True
+                    elif tmpline != 'dtparam=fan_temp3_speed=' + str(round(float(ADDON.getSetting('fanspeed_d')) * 255/100)):
+                        tmpline = 'dtparam=fan_temp3_speed=' + str(round(float(ADDON.getSetting('fanspeed_d')) * 255/100))
+                        haschanged = True
             newconfig.write(tmpline +'\n')
 
     # Do not change config.txt file if values are unchanged
@@ -692,7 +716,7 @@ def setup_rpi5_cooling_fan_overlay():
     elif not isconfigured:
         # Append initial fan overlay values to config.txt
         xbmc.log(msg='Argon ONE Control: Append kernel fan overlay values to config.txt', level=xbmc.LOGDEBUG)
-        with open(configfile, 'a') as fp:
+        with open(tmpconfigfile, 'a') as fp:
             fp.write('\n')
             fp.write('# Argon ONE Control: RPi5 fan overlay settings\n')
             # 2025/11/02: Dropped because disabling the cooling_fan overlay
@@ -706,37 +730,44 @@ def setup_rpi5_cooling_fan_overlay():
             else:
                 fp.write('dtparam=fan_temp0=' + str(int(ADDON.getSetting('cputemp_a')) * 1000) + '\n')
             fp.write('dtparam=fan_temp0_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_a')) * 1000) + '\n')
-            if ADDON.getSettingBool('fanspeed_alwayson'):
-                fp.write('dtparam=fan_temp0_speed=128')
-            elif ADDON.getSettingBool('fanspeed_disable'):
+            # Stop the fan
+            if ADDON.getSettingBool('fanspeed_disable'):
                 fp.write('dtparam=fan_temp0_speed=0')
             else:
-                fp.write('dtparam=fan_temp0_speed=' + str(round(float(ADDON.getSetting('fanspeed_a')) * 255/100)) + '\n')
+                if ADDON.getSettingBool('fanspeed_alwayson'):
+                    fp.write('dtparam=fan_temp0_speed=128')
+                else:
+                    fp.write('dtparam=fan_temp0_speed=' + str(round(float(ADDON.getSetting('fanspeed_a')) * 255/100)) + '\n')
             fp.write('dtparam=fan_temp1=' + str(int(ADDON.getSetting('cputemp_b')) * 1000) + '\n')
             fp.write('dtparam=fan_temp1_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_b')) * 1000) + '\n')
-            if ADDON.getSettingBool('fanspeed_alwayson'):
-                fp.write('dtparam=fan_temp1_speed=128')
-            elif ADDON.getSettingBool('fanspeed_disable'):
+            # Stop the fan
+            if ADDON.getSettingBool('fanspeed_disable'):
                 fp.write('dtparam=fan_temp1_speed=0')
             else:
-                fp.write('dtparam=fan_temp1_speed=' + str(round(float(ADDON.getSetting('fanspeed_b')) * 255/100)) + '\n')
+                if ADDON.getSettingBool('fanspeed_alwayson'):
+                    fp.write('dtparam=fan_temp1_speed=128')
+                else:
+                    fp.write('dtparam=fan_temp1_speed=' + str(round(float(ADDON.getSetting('fanspeed_b')) * 255/100)) + '\n')
             fp.write('dtparam=fan_temp2=' + str(int(ADDON.getSetting('cputemp_c')) * 1000) + '\n')
             fp.write('dtparam=fan_temp2_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_c')) * 1000) + '\n')
-            if ADDON.getSettingBool('fanspeed_alwayson'):
-                fp.write('dtparam=fan_temp2_speed=128')
-            elif ADDON.getSettingBool('fanspeed_disable'):
+            # Stop the fan
+            if ADDON.getSettingBool('fanspeed_disable'):
                 fp.write('dtparam=fan_temp2_speed=0')
             else:
-                fp.write('dtparam=fan_temp2_speed=' + str(round(float(ADDON.getSetting('fanspeed_c')) * 255/100)) + '\n')
+                if ADDON.getSettingBool('fanspeed_alwayson'):
+                    fp.write('dtparam=fan_temp2_speed=128')
+                else:
+                    fp.write('dtparam=fan_temp2_speed=' + str(round(float(ADDON.getSetting('fanspeed_c')) * 255/100)) + '\n')
             fp.write('dtparam=fan_temp3=' + str(int(ADDON.getSetting('cputemp_d')) * 1000) + '\n')
             fp.write('dtparam=fan_temp3_hyst=' + str(int(ADDON.getSetting('cputemp_hyst_d')) * 1000) + '\n')
-            if ADDON.getSettingBool('fanspeed_alwayson'):
-                fp.write('dtparam=fan_temp3_speed=128')
-            elif ADDON.getSettingBool('fanspeed_disable'):
+            # Stop the fan
+            if ADDON.getSettingBool('fanspeed_disable'):
                 fp.write('dtparam=fan_temp3_speed=0')
             else:
-                fp.write('dtparam=fan_temp3_speed=' + str(round(float(ADDON.getSetting('fanspeed_d')) * 255/100)) + '\n')
-        return()
+                if ADDON.getSettingBool('fanspeed_alwayson'):
+                    fp.write('dtparam=fan_temp3_speed=128')
+                else:
+                    fp.write('dtparam=fan_temp3_speed=' + str(round(float(ADDON.getSetting('fanspeed_d')) * 255/100)) + '\n')
 
     # Apply changed overlay values to config.txt
     xbmc.log(msg='Argon ONE Control: Set kernel fan overlay values', level=xbmc.LOGDEBUG)
@@ -843,16 +874,38 @@ def getFileHash(fname):
         return 0
 
 
+def cleanupfiles():
+    """
+    Removes add-on artifacts
+    """
+    xbmc.log(msg='Argon ONE Control: Cleanup remaining add-on files', level=xbmc.LOGINFO)
+    artifacts = ['/storage/.config/rc_keymaps/argon40.toml', '/storage/.config/shutdown.sh']
+    for dstfile in artifacts:
+        if os.path.isfile(dstfile):
+            try:
+                os.remove(dstfile)
+            except:
+                break
+
+
 def cleanup():
     """Cleanup"""
     # Turn off Fan
     # (2024-02-29) disabled, because throws TimeoutException during shutdown with remote control
     # argonregister_setfanspeed(bus, 0)
-    if fanspeed_kernel:
-        setup_rpi5_cooling_fan_overlay()
-    if rp1_fanctrl:
-        systemfan.disable_pwm(pwmchip, PWM_FAN_CHANNEL)
-        systemfan.unexport_pwm_channel(pwmchip, PWM_FAN_CHANNEL)
+    try:
+        if rp1_fanctrl:
+            systemfan.disable_pwm(pwmchip, PWM_FAN_CHANNEL)
+            systemfan.unexport_pwm_channel(pwmchip, PWM_FAN_CHANNEL)
+        # Checks indirectly whether the add-on should be removed.
+        # Raises a RuntimeError if it has been deactivated/uninstalled.
+        if fanspeed_kernel:
+            setup_rpi5_cooling_fan_overlay()
+    except RuntimeError as e:
+        pass
+        # if "Unknown addon id 'service.argononecontrol'." == e.args[0]:
+        #     xbmc.log(msg='Argon ONE Control: Goodbye!', level=xbmc.LOGINFO)
+        #     cleanupfiles()
     # GPIO
     # gpiozero automatically restores the pin settings at the end of the script
 
