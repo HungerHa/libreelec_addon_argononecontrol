@@ -716,7 +716,7 @@ def setup_rpi5_cooling_fan_overlay():
     elif not isconfigured:
         # Append initial fan overlay values to config.txt
         xbmc.log(msg='Argon ONE Control: Append kernel fan overlay values to config.txt', level=xbmc.LOGDEBUG)
-        with open(configfile, 'a') as fp:
+        with open(tmpconfigfile, 'a') as fp:
             fp.write('\n')
             fp.write('# Argon ONE Control: RPi5 fan overlay settings\n')
             # 2025/11/02: Dropped because disabling the cooling_fan overlay
@@ -768,7 +768,6 @@ def setup_rpi5_cooling_fan_overlay():
                     fp.write('dtparam=fan_temp3_speed=128')
                 else:
                     fp.write('dtparam=fan_temp3_speed=' + str(round(float(ADDON.getSetting('fanspeed_d')) * 255/100)) + '\n')
-        return()
 
     # Apply changed overlay values to config.txt
     xbmc.log(msg='Argon ONE Control: Set kernel fan overlay values', level=xbmc.LOGDEBUG)
