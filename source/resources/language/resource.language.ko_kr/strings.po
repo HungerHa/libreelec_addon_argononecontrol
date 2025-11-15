@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/HungerHa/"
 "libreelec_addon_argononecontrol/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-04-24 22:07+0000\n"
+"PO-Revision-Date: 2025-11-09 11:30+0000\n"
 "Last-Translator: Minho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://kodi.weblate.cloud/projects/"
 "kodi-add-ons-services/service-argononecontrol/ko_kr/>\n"
@@ -111,7 +111,27 @@ msgctxt "#32110"
 msgid "Temperature threshold 1"
 msgstr "임계 온도 1"
 
-# empty strings from id 32111 to 32119
+#: addons/service.argononecontrol/resources/settings.xml
+#, threshold group labels
+#. label-group: hysteresis
+msgctxt "#32111"
+msgid "Hysteresis (Celsius)"
+msgstr ""
+
+#: addons/service.argononecontrol/resources/settings.xml
+#, threshold group labels
+#. label-group: hysteresis °F
+msgctxt "#32112"
+msgid "Hysteresis (thousandth Fahrenheit)"
+msgstr ""
+
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-group: threshold 4
+msgctxt "#32113"
+msgid "Temperature threshold 4"
+msgstr ""
+
+# empty strings from id 32114 to 32119
 #. label-group: threshold 2
 #: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32120"
@@ -141,8 +161,8 @@ msgstr "전원 버튼 이벤트 처리"
 #. label: debug info a line below of the switch
 #: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32202"
-msgid "Also handles the remote control power off command"
-msgstr "원격 제어 전원 끄기 명령도 처리합니다"
+msgid "Also handles the remote control power off command. It is recommended to disable this option if it is not a ONE V1/2/3 case, such as a ONE V5 or NEO 5, in order to free up GPIOs."
+msgstr ""
 
 #. label-switch: to switch the reassignment of the double tap on and off
 #: addons/service.argononecontrol/resources/settings.xml
@@ -159,7 +179,31 @@ msgstr ""
 "필요합니다. 중요: 팬 제어가 더 이상 작동하지 않으면, 케이스에서 전원 공급 "
 "장치를 한 번 분리하세요."
 
-# empty strings from id 32205 to 32299
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-switch: switch to cooling_fan overlay of RPi5
+msgctxt "#32205"
+msgid "Force support for ONE V5/NEO 5/Active Cooler via cooling_fan overlay"
+msgstr ""
+
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-switch: explanation of the deactivation of support for ONE V1/V2/V3
+msgctxt "#32206"
+msgid "If enabled, uses the generic RPi5 fan control at the kernel level with the parameters in the config.txt file. Disables the integrated fan control of the Argon ONE V1/2/3! Advantage: Works independently of Kodi. Disadvantage: With this method, a restart is required after each change to the fan/temperature settings in the GUI for the changes to take effect."
+msgstr ""
+
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-switch: enable RP1 detection of RPi5
+msgctxt "#32207"
+msgid "Activate RPi5 system fan detection for ONE V5/NEO 5/Active Cooler"
+msgstr ""
+
+#: addons/service.argononecontrol/resources/settings.xml
+#. label-switch: explanation of the automatic deactivation of fan support for ONE V1/V2/V3
+msgctxt "#32208"
+msgid "Try to detect the RPi5 system fan during the add-on startup. Disables Argon ONE V1/V2/V3 fan control automatically if system fan found. Activation requires a restart of the add-on."
+msgstr ""
+
+# empty strings from id 32209 to 32299
 #. label-category: Remote control
 #: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32300"

@@ -1,3 +1,11 @@
+v1.2.0 (2025-11-09)
+- added ONE V5/generic RPi5 fan control support:
+  via sysfs PWM interface and alternatively via cooling_fan overlay
+
+v1.1.13 (2025-09-15)
+- new GUI language: Bosnian (Bosnia and Herzegovina)
+- prevent HDD spin-up if HDD/SSD temperature curve is disabled
+
 v1.1.12 (2025-05-24)
 - new GUI languages: Korean, Chinese (Simplified Han script)
 
