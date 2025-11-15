@@ -106,20 +106,17 @@ msgstr "SSD/NVMe 온도 (화씨)"
 
 #. label-group: threshold 1
 #: addons/service.argononecontrol/resources/settings.xml
-#, threshold group labels
 msgctxt "#32110"
 msgid "Temperature threshold 1"
 msgstr "임계 온도 1"
 
 #: addons/service.argononecontrol/resources/settings.xml
-#, threshold group labels
 #. label-group: hysteresis
 msgctxt "#32111"
 msgid "Hysteresis (Celsius)"
 msgstr ""
 
 #: addons/service.argononecontrol/resources/settings.xml
-#, threshold group labels
 #. label-group: hysteresis °F
 msgctxt "#32112"
 msgid "Hysteresis (thousandth Fahrenheit)"

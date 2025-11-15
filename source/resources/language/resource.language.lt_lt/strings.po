@@ -104,7 +104,6 @@ msgstr ""
 
 #. label-group: threshold 1
 #: addons/service.argononecontrol/resources/settings.xml
-#, threshold group labels
 msgctxt "#32110"
 msgid "Temperature threshold 1"
 msgstr ""
