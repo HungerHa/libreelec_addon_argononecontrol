@@ -101,21 +101,18 @@ msgid "SSD/NVMe temperature (Fahrenheit)"
 msgstr "SSD/NVMe-Temperatur (Fahrenheit)"
 
 #: addons/service.argononecontrol/resources/settings.xml
-#, threshold group labels
 #. label-group: threshold 1
 msgctxt "#32110"
 msgid "Temperature threshold 1"
 msgstr "Temperatur-Schwellwert 1"
 
 #: addons/service.argononecontrol/resources/settings.xml
-#, threshold group labels
 #. label-group: hysteresis
 msgctxt "#32111"
 msgid "Hysteresis (Celsius)"
 msgstr "Hysterese (Celsius)"
 
 #: addons/service.argononecontrol/resources/settings.xml
-#, threshold group labels
 #. label-group: hysteresis °F
 msgctxt "#32112"
 msgid "Hysteresis (thousandth Fahrenheit)"
