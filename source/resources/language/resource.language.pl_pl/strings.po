@@ -3,22 +3,7 @@
 # Addon id: service.argononecontrol
 # Addon Provider: HungerHa
 msgid ""
-msgstr ""
-"Project-Id-Version: KODI Addons\n"
-"Report-Msgid-Bugs-To: https://github.com/HungerHa/"
-"libreelec_addon_argononecontrol/issues/\n"
-"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-11-09 11:34+0000\n"
-"Last-Translator: Marek Adamski <fevbew@wp.pl>\n"
-"Language-Team: Polish <https://kodi.weblate.cloud/projects/"
-"kodi-add-ons-services/service-argononecontrol/pl_pl/>\n"
-"Language: pl_pl\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.11\n"
+msgstr "Project-Id-Version: KODI Addons\nReport-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\nPOT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\nPO-Revision-Date: 2025-12-06 21:45+0000\nLast-Translator: Marek Adamski <fevbew@wp.pl>\nLanguage-Team: Polish <https://kodi.weblate.cloud/projects/kodi-add-ons-services/service-argononecontrol/pl_pl/>\nLanguage: pl_pl\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\nX-Generator: Weblate 5.14.3\n"
 
 #: addons/service.argononecontrol/addon.xml
 msgctxt "Addon Summary"
@@ -112,23 +97,23 @@ msgctxt "#32110"
 msgid "Temperature threshold 1"
 msgstr "Próg temperatury 1"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-group: hysteresis
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32111"
 msgid "Hysteresis (Celsius)"
-msgstr ""
+msgstr "Histereza (w stopniach Celsjusza)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-group: hysteresis °F
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32112"
 msgid "Hysteresis (thousandth Fahrenheit)"
-msgstr ""
+msgstr "Histereza (w tysięcznych częściach Fahrenheita)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-group: threshold 4
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32113"
 msgid "Temperature threshold 4"
-msgstr ""
+msgstr "Próg temperatury 4"
 
 # empty strings from id 32114 to 32119
 #. label-group: threshold 2
@@ -161,7 +146,7 @@ msgstr "Obsługuj zdarzenia związane z przyciskiem zasilania"
 #: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32202"
 msgid "Also handles the remote control power off command. It is recommended to disable this option if it is not a ONE V1/2/3 case, such as a ONE V5 or NEO 5, in order to free up GPIOs."
-msgstr ""
+msgstr "Obsługuje również polecenie zdalnego wyłączania zasilania. Zaleca się wyłączenie tej opcji, jeśli nie jest to obudowa ONE V1/2/3, np. ONE V5 lub NEO 5, aby zwolnić miejsce na GPIO."
 
 #. label-switch: to switch the reassignment of the double tap on and off
 #: addons/service.argononecontrol/resources/settings.xml
@@ -178,29 +163,29 @@ msgstr ""
 "oprogramowania układowego ONE V1/Fan HAT. Ważne: odłącz zasilanie od "
 "obudowy, jeśli sterowanie wentylatorem już nie odpowiada."
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: switch to cooling_fan overlay of RPi5
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32205"
 msgid "Force support for ONE V5/NEO 5/Active Cooler via cooling_fan overlay"
-msgstr ""
+msgstr "Wymuś obsługę ONE V5/NEO 5/Active Cooler poprzez nakładkę cooling_fan"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: explanation of the deactivation of support for ONE V1/V2/V3
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32206"
 msgid "If enabled, uses the generic RPi5 fan control at the kernel level with the parameters in the config.txt file. Disables the integrated fan control of the Argon ONE V1/2/3! Advantage: Works independently of Kodi. Disadvantage: With this method, a restart is required after each change to the fan/temperature settings in the GUI for the changes to take effect."
-msgstr ""
+msgstr "Po włączeniu używana jest ogólna kontrola wentylatora RPi5 na poziomie jądra z parametrami w pliku config.txt. Wyłącza zintegrowane sterowanie wentylatorem Argon ONE V1/2/3! Zaleta: działa niezależnie od Kodi. Wada: w przypadku tej metody, po każdej zmianie ustawień wentylatora/temperatury w interfejsie graficznym wymagany jest restart, aby zmiany zostały wprowadzone."
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: enable RP1 detection of RPi5
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32207"
 msgid "Activate RPi5 system fan detection for ONE V5/NEO 5/Active Cooler"
-msgstr ""
+msgstr "Aktywuj wykrywanie systemowego wentylatora RPi5 dla ONE V5/NEO 5/Active Cooler"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: explanation of the automatic deactivation of fan support for ONE V1/V2/V3
+#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32208"
 msgid "Try to detect the RPi5 system fan during the add-on startup. Disables Argon ONE V1/V2/V3 fan control automatically if system fan found. Activation requires a restart of the add-on."
-msgstr ""
+msgstr "Spróbuj wykryć wentylator systemowy RPi5 podczas uruchamiania dodatku. Automatycznie wyłącza sterowanie wentylatorem Argon ONE V1/V2/V3 po wykryciu wentylatora systemowego. Aktywacja wymaga ponownego uruchomienia dodatku."
 
 # empty strings from id 32209 to 32299
 #. label-category: Remote control
