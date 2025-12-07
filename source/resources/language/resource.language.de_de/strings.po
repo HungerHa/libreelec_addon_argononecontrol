@@ -3,7 +3,19 @@
 # Addon id: service.argononecontrol
 # Addon Provider: HungerHa
 msgid ""
-msgstr "Project-Id-Version: KODI Addons\nReport-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\nPOT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\nPO-Revision-Date: 2025-12-07 09:45+0000\nLast-Translator: Kai Sommerfeld <ksooo@users.noreply.kodi.weblate.cloud>\nLanguage-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-services/service-argononecontrol/de_de/>\nLanguage: de_de\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.14.3\n"
+msgstr ""
+"Project-Id-Version: KODI Addons\n"
+"Report-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2025-12-07 13:09+0000\n"
+"Last-Translator: Kai Sommerfeld <ksooo@users.noreply.kodi.weblate.cloud>\n"
+"Language-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-services/service-argononecontrol/de_de/>\n"
+"Language: de_de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14.3\n"
 
 msgctxt "Addon Summary"
 msgid "Argon ONE case features"
@@ -44,7 +56,7 @@ msgstr "Lüftergeschwindigkeit (Prozent)"
 #. label-switch: force fan speed to 100 percent
 msgctxt "#32103"
 msgid "Fan always on"
-msgstr "Lüfter dauerhaft aktiv"
+msgstr "Lüfter dauerhaft einschalten"
 
 #. label-switch: enable/disable fan control global
 msgctxt "#32104"
@@ -54,7 +66,7 @@ msgstr "Lüfter deaktivieren"
 #. label-switch: fan control without register support
 msgctxt "#32105"
 msgid "Activate compatibility mode for ONE V1"
-msgstr "Aktivieren des Kompatibilitätsmodus für ONE V1"
+msgstr "Kompatibilitätsmodus für ONE V1 aktivieren"
 
 #. label-slider: CPU temperature °F
 msgctxt "#32106"
@@ -64,22 +76,22 @@ msgstr "CPU-Temperatur (Fahrenheit)"
 #. label-switch: switch to enable observing of SSD/NVMe temperature
 msgctxt "#32107"
 msgid "Include SSD/NVMe temperature for fan control"
-msgstr "Beziehe SSD/NVMe-Temperatur in Lüfterregelung ein"
+msgstr "SSD-/NVMe-Temperatur in Lüfterregelung einbeziehen"
 
 #. label-slider: SSD/NVMe temperature °C
 msgctxt "#32108"
 msgid "SSD/NVMe temperature (Celsius)"
-msgstr "SSD/NVMe-Temperatur (Celsius)"
+msgstr "SSD/-NVMe-Temperatur (Celsius)"
 
 #. label-slider: SSD/NVMe temperature °F
 msgctxt "#32109"
 msgid "SSD/NVMe temperature (Fahrenheit)"
-msgstr "SSD/NVMe-Temperatur (Fahrenheit)"
+msgstr "SSD-/NVMe-Temperatur (Fahrenheit)"
 
 #. label-group: threshold 1
 msgctxt "#32110"
 msgid "Temperature threshold 1"
-msgstr "Temperatur-Schwellwert 1"
+msgstr "Temperaturschwellwert 1"
 
 #. label-group: hysteresis
 msgctxt "#32111"
@@ -94,19 +106,19 @@ msgstr "Hysterese (tausendstel Fahrenheit)"
 #. label-group: threshold 4
 msgctxt "#32113"
 msgid "Temperature threshold 4"
-msgstr "Temperatur-Schwellwert 4"
+msgstr "Temperaturschwellwert 4"
 
 # empty strings from id 32114 to 32119
 #. label-group: threshold 2
 msgctxt "#32120"
 msgid "Temperature threshold 2"
-msgstr "Temperatur-Schwellwert 2"
+msgstr "Temperaturschwellwert 2"
 
 # empty strings from id 32121 to 32129
 #. label-group: threshold 3
 msgctxt "#32130"
 msgid "Temperature threshold 3"
-msgstr "Temperatur-Schwellwert 3"
+msgstr "Temperaturschwellwert 3"
 
 # empty strings from id 32131 to 32199
 #. label-category: Power button
@@ -117,17 +129,17 @@ msgstr "Power-Taste"
 #. label-switch: for switch on/off the power button monitoring
 msgctxt "#32201"
 msgid "Handle power button events"
-msgstr "Reagiere auf Power-Taste-Ereignisse"
+msgstr "Auf Ereignisse der Power-Taste reagieren"
 
 #. label: debug info a line below of the switch
 msgctxt "#32202"
 msgid "Also handles the remote control power off command. It is recommended to disable this option if it is not a ONE V1/2/3 case, such as a ONE V5 or NEO 5, in order to free up GPIOs."
-msgstr "Reagiert auch auf den Ausschaltbefehl der Fernbedienung. Es wird empfohlen diese Option zu deaktivieren, wenn es sich nicht um ein ONE V1/2/3-Gehäuse handelt, wie z.B. ONE V5 oder NEO 5, um GPIOs freizugeben."
+msgstr "Reagiert auch auf den Ausschaltbefehl der Fernbedienung. Es wird empfohlen, diese Option zu deaktivieren, wenn es sich nicht um ein ONE V1/2/3-Gehäuse handelt, wie z.B. ONE V5 oder NEO 5, um GPIOs freizugeben."
 
 #. label-switch: to switch the reassignment of the double tap on and off
 msgctxt "#32203"
 msgid "Use the double tap to shut down (instead of reboot)"
-msgstr "Benutze das Doppeltippen zum Herunterfahren (statt Neustart)"
+msgstr "Doppeltippen zum Herunterfahren (statt Neustart) verwenden"
 
 #. label-switch: disable register support for ONE V1
 msgctxt "#32204"
@@ -137,7 +149,7 @@ msgstr "Deaktiviert die Unterstützung für ONE V3. Erforderlich für einige fr�
 #. label-switch: switch to cooling_fan overlay of RPi5
 msgctxt "#32205"
 msgid "Force support for ONE V5/NEO 5/Active Cooler via cooling_fan overlay"
-msgstr "Erzwinge die Unterstützung für ONE V5/NEO 5/Active Cooler via cooling_fan Overlay"
+msgstr "Unterstützung für ONE V5/NEO 5/Active Cooler via cooling_fan Overlay erzwingen"
 
 #. label-switch: explanation of the deactivation of support for ONE V1/V2/V3
 msgctxt "#32206"
@@ -147,7 +159,7 @@ msgstr "Wenn aktiviert, wird die generische RPi5-Lüftersteuerung auf Kernel-Ebe
 #. label-switch: enable RP1 detection of RPi5
 msgctxt "#32207"
 msgid "Activate RPi5 system fan detection for ONE V5/NEO 5/Active Cooler"
-msgstr "Aktiviere die RPi5-Systemlüftererkennung für ONE V5/NEO 5/Active Cooler."
+msgstr "RPi5-Systemlüftererkennung für ONE V5/NEO 5/Active Cooler aktivieren."
 
 #. label-switch: explanation of the automatic deactivation of fan support for ONE V1/V2/V3
 msgctxt "#32208"
@@ -158,18 +170,18 @@ msgstr "Versucht den RPi5-Systemlüfter während des Starts des Add-ons zu erken
 #. label-category: Remote control
 msgctxt "#32300"
 msgid "Argon Remote"
-msgstr "Argon Fernbedienung"
+msgstr "Argon-Fernbedienung"
 
 #. label:
 msgctxt "#32301"
 msgid "Setup Argon remote control"
-msgstr "Argon Fernbedienung einrichten"
+msgstr "Argon-Fernbedienung einrichten"
 
 # empty strings from id 32302 to 32399
 #. label-category: SSD/NVMe
 msgctxt "#32400"
 msgid "SSD/NVMe fan curve"
-msgstr "SSD/NVMe-Lüfterkurve"
+msgstr "SSD-/NVMe-Lüfterkurve"
 
 #. label-category: GPU
 msgctxt "#32401"
@@ -204,12 +216,12 @@ msgstr "PMIC-Temperatur (Fahrenheit)"
 #. label-switch: switch to enable observing of GPU temperature
 msgctxt "#32407"
 msgid "Include GPU temperature for fan control"
-msgstr "Beziehe GPU-Temperatur in Lüfterregelung ein"
+msgstr "GPU-Temperatur in Lüfterregelung einbeziehen"
 
 #. label-switch: switch to enable observing of PMIC temperature
 msgctxt "#32408"
 msgid "Include PMIC temperature for fan control"
-msgstr "Beziehe PMIC-Temperatur in Lüfterregelung ein"
+msgstr "PMIC-Temperatur in Lüfterregelung einbeziehen"
 
 #. label-category: CPU
 msgctxt "#32409"
