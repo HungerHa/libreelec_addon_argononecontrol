@@ -3,7 +3,7 @@
 # Addon id: service.argononecontrol
 # Addon Provider: HungerHa
 msgid ""
-msgstr "Project-Id-Version: KODI Addons\nReport-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\nPOT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\nPO-Revision-Date: 2025-12-07 09:44+0000\nLast-Translator: Kai Sommerfeld <ksooo@users.noreply.kodi.weblate.cloud>\nLanguage-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-services/service-argononecontrol/de_de/>\nLanguage: de_de\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.14.3\n"
+msgstr "Project-Id-Version: KODI Addons\nReport-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\nPOT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\nPO-Revision-Date: 2025-12-07 09:45+0000\nLast-Translator: Kai Sommerfeld <ksooo@users.noreply.kodi.weblate.cloud>\nLanguage-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-services/service-argononecontrol/de_de/>\nLanguage: de_de\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.14.3\n"
 
 msgctxt "Addon Summary"
 msgid "Argon ONE case features"
