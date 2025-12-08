@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-12-07 13:09+0000\n"
-"Last-Translator: Kai Sommerfeld <ksooo@users.noreply.kodi.weblate.cloud>\n"
+"PO-Revision-Date: 2025-12-09 10:13+0000\n"
+"Last-Translator: HungerHa <hungerha@users.noreply.kodi.weblate.cloud>\n"
 "Language-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-services/service-argononecontrol/de_de/>\n"
 "Language: de_de\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr "SSD-/NVMe-Temperatur in Lüfterregelung einbeziehen"
 #. label-slider: SSD/NVMe temperature °C
 msgctxt "#32108"
 msgid "SSD/NVMe temperature (Celsius)"
-msgstr "SSD/-NVMe-Temperatur (Celsius)"
+msgstr "SSD-/NVMe-Temperatur (Celsius)"
 
 #. label-slider: SSD/NVMe temperature °F
 msgctxt "#32109"
@@ -159,7 +159,7 @@ msgstr "Wenn aktiviert, wird die generische RPi5-Lüftersteuerung auf Kernel-Ebe
 #. label-switch: enable RP1 detection of RPi5
 msgctxt "#32207"
 msgid "Activate RPi5 system fan detection for ONE V5/NEO 5/Active Cooler"
-msgstr "RPi5-Systemlüftererkennung für ONE V5/NEO 5/Active Cooler aktivieren."
+msgstr "RPi5-Systemlüftererkennung für ONE V5/NEO 5/Active Cooler aktivieren"
 
 #. label-switch: explanation of the automatic deactivation of fan support for ONE V1/V2/V3
 msgctxt "#32208"
