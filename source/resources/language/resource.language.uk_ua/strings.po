@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-12-06 21:45+0000\n"
-"Last-Translator: Roman Miroshnychenko <romanvm@kodi.tv>\n"
+"PO-Revision-Date: 2025-12-10 11:13+0000\n"
+"Last-Translator: Pavlo Marianov <acid@jack.kyiv.ua>\n"
 "Language-Team: Ukrainian <https://kodi.weblate.cloud/projects/kodi-add-ons-services/service-argononecontrol/uk_ua/>\n"
 "Language: uk_ua\n"
 "MIME-Version: 1.0\n"
@@ -96,17 +96,17 @@ msgstr "Поріг температури 1"
 #. label-group: hysteresis
 msgctxt "#32111"
 msgid "Hysteresis (Celsius)"
-msgstr ""
+msgstr "Гістерезис (°C)"
 
 #. label-group: hysteresis °F
 msgctxt "#32112"
 msgid "Hysteresis (thousandth Fahrenheit)"
-msgstr ""
+msgstr "Гістерезис (тисячні від °F)"
 
 #. label-group: threshold 4
 msgctxt "#32113"
 msgid "Temperature threshold 4"
-msgstr ""
+msgstr "Поріг температури 4"
 
 # empty strings from id 32111 to 32119
 #. label-group: threshold 2
@@ -134,7 +134,7 @@ msgstr "Обробка подій кнопки ввімкнення"
 #. label: debug info a line below of the switch
 msgctxt "#32202"
 msgid "Also handles the remote control power off command. It is recommended to disable this option if it is not a ONE V1/2/3 case, such as a ONE V5 or NEO 5, in order to free up GPIOs."
-msgstr ""
+msgstr "Також обробляє команду вимкнення живлення з пульта ДК. Для корпусів не ONE V1/2/3, наприклад ONE V5 або NEO 5, краще вимкнути цей параметр, щоб звільнити GPIO."
 
 #. label-switch: to switch the reassignment of the double tap on and off
 msgctxt "#32203"
@@ -149,22 +149,22 @@ msgstr "Вимкнення підтримки ONE V3. Необхідно для 
 #. label-switch: switch to cooling_fan overlay of RPi5
 msgctxt "#32205"
 msgid "Force support for ONE V5/NEO 5/Active Cooler via cooling_fan overlay"
-msgstr ""
+msgstr "Примусова підтримка для ONE V5/NEO 5/Active Cooler через оверлей cooling_fan"
 
 #. label-switch: explanation of the deactivation of support for ONE V1/V2/V3
 msgctxt "#32206"
 msgid "If enabled, uses the generic RPi5 fan control at the kernel level with the parameters in the config.txt file. Disables the integrated fan control of the Argon ONE V1/2/3! Advantage: Works independently of Kodi. Disadvantage: With this method, a restart is required after each change to the fan/temperature settings in the GUI for the changes to take effect."
-msgstr ""
+msgstr "Якщо увімкнено, використовується загальне керування вентилятором RPi5 на рівні ядра з параметрами у файлі config.txt. Вимикає вбудоване керування вентилятором Argon ONE V1/2/3! Перевага: працює незалежно від Kodi. Недолік: для цього методу потрібен перезапуск після кожної зміни налаштувань вентилятора/температури в графічному інтерфейсі користувача, щоб зміни набули чинності."
 
 #. label-switch: enable RP1 detection of RPi5
 msgctxt "#32207"
 msgid "Activate RPi5 system fan detection for ONE V5/NEO 5/Active Cooler"
-msgstr ""
+msgstr "Виявляти системний вентилятор RPi5 для ONE V5/NEO 5/Active Cooler"
 
 #. label-switch: explanation of the automatic deactivation of fan support for ONE V1/V2/V3
 msgctxt "#32208"
 msgid "Try to detect the RPi5 system fan during the add-on startup. Disables Argon ONE V1/V2/V3 fan control automatically if system fan found. Activation requires a restart of the add-on."
-msgstr ""
+msgstr "Пробувати виявляти системний вентилятор RPi5 під час запуску додатку. Якщо системний вентилятор знайдень, автоматично вимикає керування вентилятором Argon ONE V1/V2/V3. Для активації потрібно перезапустити надбудову."
 
 # empty strings from id 32205 to 32299
 #. label-category: Remote control
