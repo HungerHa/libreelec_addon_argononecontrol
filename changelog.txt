@@ -1,3 +1,7 @@
+v1.2.1 (2025-12-12)
+- new GUI language: Ukrainian
+- updated GUI languages: German, Italian, Polish, Swedish
+
 v1.2.0 (2025-11-09)
 - added ONE V5/generic RPi5 fan control support:
   via sysfs PWM interface and alternatively via cooling_fan overlay
