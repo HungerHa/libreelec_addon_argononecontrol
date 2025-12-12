@@ -3,21 +3,15 @@
 # Addon id: service.argononecontrol
 # Addon Provider: HungerHa
 msgid ""
-msgstr ""
-"Project-Id-Version: KODI Addons\n"
-"Report-Msgid-Bugs-To: https://github.com/HungerHa/"
-"libreelec_addon_argononecontrol/issues/\n"
-"POT-Creation-Date: 2024-05-19 21:00+0000\n"
-"PO-Revision-Date: 2025-11-09 11:28+0000\n"
-"Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
-"Language-Team: Italian <https://kodi.weblate.cloud/projects/"
-"kodi-add-ons-services/service-argononecontrol/it_it/>\n"
-"Language: it_it\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11\n"
+msgstr "Project-Id-Version: KODI Addons\nReport-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\nPOT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\nPO-Revision-Date: 2025-12-07 09:44+0000\nLast-Translator: Massimo Pissarello <mapi68@gmail.com>\nLanguage-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-services/service-argononecontrol/it_it/>\nLanguage: it_it\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.14.3\n"
+
+msgctxt "Addon Summary"
+msgid "Argon ONE case features"
+msgstr "Caratteristiche del case Argon ONE"
+
+msgctxt "Addon Description"
+msgid "Support for RPi4/5 Argon ONE case features including the power button, fan speed, and the Argon IR remote. One-time restart required."
+msgstr "Supporto per le funzionalità del case Argon ONE RPi4/5, tra cui il pulsante di accensione, la velocità della ventola e il telecomando Argon IR. Richiede un solo riavvio."
 
 msgctxt "#32000"
 msgid "Debug"
@@ -33,249 +27,191 @@ msgstr "Abilitato"
 
 # empty strings from id 32004 to 32099
 #. label-category: Fan
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32100"
 msgid "Fan control"
 msgstr "Controllo ventola"
 
 #. label-slider: CPU temperature °C
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32101"
 msgid "CPU temperature (Celsius)"
 msgstr "Temperatura CPU (Celsius)"
 
 #. label-slider: fan speed (dutycycle)
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32102"
 msgid "Fan speed (Percent)"
 msgstr "Velocità ventola (percentuale)"
 
 #. label-switch: force fan speed to 100 percent
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32103"
 msgid "Fan always on"
 msgstr "Ventola sempre accesa"
 
 #. label-switch: enable/disable fan control global
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32104"
 msgid "Fan disabled"
 msgstr "Ventola disabilitata"
 
 #. label-switch: fan control without register support
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32105"
 msgid "Activate compatibility mode for ONE V1"
 msgstr "Attiva modalità di compatibilità per ONE V1"
 
 #. label-slider: CPU temperature °F
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32106"
 msgid "CPU temperature (Fahrenheit)"
 msgstr "Temperatura CPU (Fahrenheit)"
 
 #. label-switch: switch to enable observing of SSD/NVMe temperature
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32107"
 msgid "Include SSD/NVMe temperature for fan control"
 msgstr "Includi temperatura SSD/NVMe per il controllo della ventola"
 
 #. label-slider: SSD/NVMe temperature °C
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32108"
 msgid "SSD/NVMe temperature (Celsius)"
 msgstr "Temperatura SSD/NVMe (Celsius)"
 
 #. label-slider: SSD/NVMe temperature °F
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32109"
 msgid "SSD/NVMe temperature (Fahrenheit)"
 msgstr "Temperatura SSD/NVMe (Fahrenheit)"
 
 #. label-group: threshold 1
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32110"
 msgid "Temperature threshold 1"
 msgstr "Soglia temperatura 1"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-group: hysteresis
 msgctxt "#32111"
 msgid "Hysteresis (Celsius)"
-msgstr ""
+msgstr "Isteresi (Celsius)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-group: hysteresis °F
 msgctxt "#32112"
 msgid "Hysteresis (thousandth Fahrenheit)"
-msgstr ""
+msgstr "Isteresi (millesimi di Fahrenheit)"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-group: threshold 4
 msgctxt "#32113"
 msgid "Temperature threshold 4"
-msgstr ""
+msgstr "Soglia temperatura 4"
 
 # empty strings from id 32114 to 32119
 #. label-group: threshold 2
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32120"
 msgid "Temperature threshold 2"
 msgstr "Soglia temperatura 2"
 
 # empty strings from id 32121 to 32129
 #. label-group: threshold 3
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32130"
 msgid "Temperature threshold 3"
 msgstr "Soglia temperatura 3"
 
 # empty strings from id 32131 to 32199
 #. label-category: Power button
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32200"
 msgid "Power button"
 msgstr "Pulsante di accensione"
 
 #. label-switch: for switch on/off the power button monitoring
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32201"
 msgid "Handle power button events"
 msgstr "Gestisci eventi del pulsante di accensione"
 
 #. label: debug info a line below of the switch
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32202"
 msgid "Also handles the remote control power off command. It is recommended to disable this option if it is not a ONE V1/2/3 case, such as a ONE V5 or NEO 5, in order to free up GPIOs."
-msgstr ""
+msgstr "Gestisce anche il comando di spegnimento remoto. Si consiglia di disabilitare questa opzione se non si tratta di un modello ONE V1/2/3, come ONE V5 o NEO 5, per liberare GPIO."
 
 #. label-switch: to switch the reassignment of the double tap on and off
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32203"
 msgid "Use the double tap to shut down (instead of reboot)"
 msgstr "Usa il doppio tocco per spegnere (invece di riavviare)"
 
 #. label-switch: disable register support for ONE V1
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32204"
-msgid ""
-"Deactivates support for ONE V3. Required for some early firmware versions of "
-"the ONE V1/Fan HAT. Important: Disconnect the power supply from the case "
-"once if the fan control already no longer responds."
-msgstr ""
-"Disattiva il supporto per ONE V3. Richiesto per alcune prime versioni del "
-"firmware di ONE V1/Fan HAT. Importante: se il controllo della ventola non "
-"risponde più, scollega una volta l'alimentatore dal case."
+msgid "Deactivates support for ONE V3. Required for some early firmware versions of the ONE V1/Fan HAT. Important: Disconnect the power supply from the case once if the fan control already no longer responds."
+msgstr "Disattiva il supporto per ONE V3. Richiesto per alcune prime versioni del firmware di ONE V1/Fan HAT. Importante: se il controllo della ventola non risponde più, scollega una volta l'alimentatore dal case."
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: switch to cooling_fan overlay of RPi5
 msgctxt "#32205"
 msgid "Force support for ONE V5/NEO 5/Active Cooler via cooling_fan overlay"
-msgstr ""
+msgstr "Forza supporto per ONE V5/NEO 5/Active Cooler tramite l'overlay cooling_fan"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: explanation of the deactivation of support for ONE V1/V2/V3
 msgctxt "#32206"
 msgid "If enabled, uses the generic RPi5 fan control at the kernel level with the parameters in the config.txt file. Disables the integrated fan control of the Argon ONE V1/2/3! Advantage: Works independently of Kodi. Disadvantage: With this method, a restart is required after each change to the fan/temperature settings in the GUI for the changes to take effect."
-msgstr ""
+msgstr "Se abilitato, usa il controllo generico della ventola del RPi5 a livello del kernel con i parametri presenti nel file config.txt. Disabilita il controllo integrato della ventola di Argon ONE V1/2/3! Vantaggio: funziona indipendentemente da Kodi. Svantaggio: con questo metodo, è necessario un riavvio dopo ogni modifica delle impostazioni di ventola/temperatura nell'interfaccia grafica affinché le modifiche abbiano effetto."
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: enable RP1 detection of RPi5
 msgctxt "#32207"
 msgid "Activate RPi5 system fan detection for ONE V5/NEO 5/Active Cooler"
-msgstr ""
+msgstr "Attiva rilevamento della ventola di sistema RPi5 per ONE V5/NEO 5/Active Cooler"
 
-#: addons/service.argononecontrol/resources/settings.xml
 #. label-switch: explanation of the automatic deactivation of fan support for ONE V1/V2/V3
 msgctxt "#32208"
 msgid "Try to detect the RPi5 system fan during the add-on startup. Disables Argon ONE V1/V2/V3 fan control automatically if system fan found. Activation requires a restart of the add-on."
-msgstr ""
+msgstr "Prova a rilevare la ventola di sistema RPi5 durante l'avvio dell'add-on. Disabilita automaticamente il controllo della ventola di Argon ONE V1/V2/V3 se rileva una ventola di sistema. L'attivazione richiede il riavvio dell'add-on."
 
 # empty strings from id 32209 to 32299
 #. label-category: Remote control
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32300"
 msgid "Argon Remote"
 msgstr "Telecomando Argon"
 
 #. label:
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32301"
 msgid "Setup Argon remote control"
 msgstr "Configura telecomando Argon"
 
 # empty strings from id 32302 to 32399
 #. label-category: SSD/NVMe
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32400"
 msgid "SSD/NVMe fan curve"
 msgstr "Curva ventola SSD/NVMe"
 
 #. label-category: GPU
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32401"
 msgid "GPU fan curve"
 msgstr "Curva ventola GPU"
 
 #. label-slider: GPU temperature °C
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32402"
 msgid "GPU temperature (Celsius)"
 msgstr "Temperatura GPU (Celsius)"
 
 #. label-slider: GPU temperature °F
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32403"
 msgid "GPU temperature (Fahrenheit)"
 msgstr "Temperatura GPU (Fahrenheit)"
 
 #. label-category: PMIC
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32404"
 msgid "PMIC fan curve"
 msgstr "Curva ventola PMIC"
 
 #. label-slider: PMIC temperature °C
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32405"
 msgid "PMIC temperature (Celsius)"
 msgstr "Temperatura PMIC (Celsius)"
 
 #. label-slider: PMIC temperature °F
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32406"
 msgid "PMIC temperature (Fahrenheit)"
 msgstr "Temperatura PMIC (Fahrenheit)"
 
 #. label-switch: switch to enable observing of GPU temperature
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32407"
 msgid "Include GPU temperature for fan control"
 msgstr "Includi temperatura GPU per il controllo ventola"
 
 #. label-switch: switch to enable observing of PMIC temperature
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32408"
 msgid "Include PMIC temperature for fan control"
 msgstr "Includi temperatura PMIC per il controllo ventola"
 
 #. label-category: CPU
-#: addons/service.argononecontrol/resources/settings.xml
 msgctxt "#32409"
 msgid "CPU fan curve"
 msgstr "Curva ventola CPU"
-
-#: addons/service.argononecontrol/addon.xml
-msgctxt "Addon Summary"
-msgid "Argon ONE case features"
-msgstr "Caratteristiche del case Argon ONE"
-
-#: addons/service.argononecontrol/addon.xml
-msgctxt "Addon Description"
-msgid ""
-"Support for RPi4/5 Argon ONE case features including the power button, fan "
-"speed, and the Argon IR remote. One-time restart required."
-msgstr ""
-"Supporto per le funzionalità del case Argon ONE RPi4/5, tra cui il pulsante "
-"di accensione, la velocità della ventola e il telecomando Argon IR. Richiede "
-"un solo riavvio."
