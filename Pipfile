@@ -9,6 +9,9 @@ name = "pypi"
 gpiod = "2.2.2"
 gpiozero = "2.0.1"
 lgpio = "0.2.2"
+polint = "0.5"
+Kodistubs = "*"
+smbus = "*"
 
 [requires]
 python_version = "3.12"
