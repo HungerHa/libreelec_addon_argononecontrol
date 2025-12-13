@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: https://github.com/HungerHa/libreelec_addon_argononecontrol/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-11-09 11:26+0000\n"
+"PO-Revision-Date: 2025-12-13 11:13+0000\n"
 "Last-Translator: Alfonso Cachero <alfonso.cachero@gmail.com>\n"
 "Language-Team: Spanish (Spain) <https://kodi.weblate.cloud/projects/kodi-add-ons-services/service-argononecontrol/es_es/>\n"
 "Language: es_es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11\n"
+"X-Generator: Weblate 5.14.3\n"
 
 msgctxt "Addon Summary"
 msgid "Argon ONE case features"
@@ -96,17 +96,17 @@ msgstr "Umbral de temperatura 1"
 #. label-group: hysteresis
 msgctxt "#32111"
 msgid "Hysteresis (Celsius)"
-msgstr ""
+msgstr "Hysteresis (Celsius)"
 
 #. label-group: hysteresis °F
 msgctxt "#32112"
 msgid "Hysteresis (thousandth Fahrenheit)"
-msgstr ""
+msgstr "Hysteresis (milésimas Fahrenheit)"
 
 #. label-group: threshold 4
 msgctxt "#32113"
 msgid "Temperature threshold 4"
-msgstr ""
+msgstr "Umbral de temperatura 4"
 
 # empty strings from id 32114 to 32119
 #. label-group: threshold 2
@@ -134,7 +134,7 @@ msgstr "Manejar eventos de botón de encendido"
 #. label: debug info a line below of the switch
 msgctxt "#32202"
 msgid "Also handles the remote control power off command. It is recommended to disable this option if it is not a ONE V1/2/3 case, such as a ONE V5 or NEO 5, in order to free up GPIOs."
-msgstr ""
+msgstr "También maneja el comando de apagado del mando a distancia. Es recomendable desactivar esta opción si no es la caja ONE V1/2/3, como la ONE V5 o la NEO 5, para liberar los GPIOs."
 
 #. label-switch: to switch the reassignment of the double tap on and off
 msgctxt "#32203"
@@ -149,22 +149,22 @@ msgstr "Desactiva el soporte para ONE V3. Requiere de alguna versión reciente d
 #. label-switch: switch to cooling_fan overlay of RPi5
 msgctxt "#32205"
 msgid "Force support for ONE V5/NEO 5/Active Cooler via cooling_fan overlay"
-msgstr ""
+msgstr "Forzar soporte para ONE V5/NEO 5/Active Cooler por medio de la capa cooling_fan"
 
 #. label-switch: explanation of the deactivation of support for ONE V1/V2/V3
 msgctxt "#32206"
 msgid "If enabled, uses the generic RPi5 fan control at the kernel level with the parameters in the config.txt file. Disables the integrated fan control of the Argon ONE V1/2/3! Advantage: Works independently of Kodi. Disadvantage: With this method, a restart is required after each change to the fan/temperature settings in the GUI for the changes to take effect."
-msgstr ""
+msgstr "Si se activa, usa el control genérico del ventilador de RPI5 a nivel de kernel con los parámetros de config.txt. ¡Desactiva el control integrado de Argon ONE V1/2/3! Ventaja: Funciona independientemente de Kodi. Desventaja: Con este método, se requiere un reinicio despues de cualquier cambio en los ajustes del ventilador/temperatura en la interfaz para que los cambios hagan efecto."
 
 #. label-switch: enable RP1 detection of RPi5
 msgctxt "#32207"
 msgid "Activate RPi5 system fan detection for ONE V5/NEO 5/Active Cooler"
-msgstr ""
+msgstr "Activar detección del ventilador del sistema RPi5 para ONE V5/NEO 5/Active Cooler"
 
 #. label-switch: explanation of the automatic deactivation of fan support for ONE V1/V2/V3
 msgctxt "#32208"
 msgid "Try to detect the RPi5 system fan during the add-on startup. Disables Argon ONE V1/V2/V3 fan control automatically if system fan found. Activation requires a restart of the add-on."
-msgstr ""
+msgstr "Intenta detectar el sistema de ventilacion de RPi5 al arrancar el Addon. Desactiva el control automático del ventilador Argon ONE V1/2/3 si se encuentra. La activación requiere reinicio del Addon."
 
 # empty strings from id 32209 to 32299
 #. label-category: Remote control
