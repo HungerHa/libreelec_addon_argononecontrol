@@ -1,3 +1,6 @@
+v1.2.2 (2025-12-13)
+- updated GUI language: Spanish (Spain)
+
 v1.2.1 (2025-12-12)
 - new GUI language: Ukrainian
 - updated GUI languages: German, Italian, Polish, Swedish
