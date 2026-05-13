@@ -16,7 +16,7 @@ if [ -d ${archive_dir} ]; then
     cp source/default.py ${package_dir}
     cp source/main.py ${package_dir}
     cp source/LICENSE ${package_dir}
-    cp -r source/resources ${package_dir}
+    cp -rP source/resources ${package_dir}
     if [ -f ${archive_dir}/${archive_name} ]; then
         echo "Add-on archive for this version already exists."
     else

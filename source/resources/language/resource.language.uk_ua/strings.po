@@ -31,11 +31,11 @@ msgstr "Відлагодження"
 
 msgctxt "#32001"
 msgid "Disabled"
-msgstr "Вимкн."
+msgstr "Вимкн"
 
 msgctxt "#32002"
 msgid "Enabled"
-msgstr "Увімкн."
+msgstr "Увімкн"
 
 # empty strings from id 32004 to 32099
 #. label-category: Fan
