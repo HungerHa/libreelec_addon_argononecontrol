@@ -1,3 +1,7 @@
+v1.2.4 (2026-10-03)
+- new GUI language: Czech
+- updated GUI language: Ukrainian
+
 v1.2.3 (2026-05-13)
 - new GUI language: Russian
 - updated GUI language: Chinese (Simplified Han script)

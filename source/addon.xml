@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="service.argononecontrol" name="Argon ONE Control" version="1.2.3" provider-name="HungerHa">
+<addon id="service.argononecontrol" name="Argon ONE Control" version="1.2.4" provider-name="HungerHa">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="virtual.rpi-tools" version="9.80.11"/>
@@ -11,6 +11,7 @@
     <extension point="xbmc.service" library="main.py" start="startup"/>
     <extension point="xbmc.addon.metadata">
         <summary lang="bs_BA">Karakteristike kućišta Argon ONE</summary>
+        <summary lang="cs_CZ">Funkce Argon ONE</summary>
         <summary lang="de_DE">Argon ONE-Gehäusefunktionen</summary>
         <summary lang="es_ES">Características de caja Argon ONE</summary>
         <summary lang="en_GB">Argon ONE case features</summary>
@@ -23,6 +24,7 @@
         <summary lang="uk_UA">Функції корпусу Argon ONE</summary>
         <summary lang="zh_CN">Argon ONE 机箱功能特点</summary>
         <description lang="bs_BA">Podrška za funkcije kućišta RPi4/5 Argon ONE, uključujući dugme za napajanje, brzinu ventilatora i Argon IR daljinski upravljač. Potrebno je jednokratno ponovno pokretanje.</description>
+        <description lang="cs_CZ">Podpora funkcí Argon ONE pro RPi4/5, včetně napájecího tlačítka, otáček ventilátoru a infračerveného ovladače Argon. Je vyžadován jednorázový restart.</description>
         <description lang="de_DE">Unterstützung für RPi4/5 Argon ONE-Gehäusefunktionen, einschließlich des Netzschalters, der Lüftergeschwindigkeit und der Argon IR-Fernbedienung. Einmaliger Neustart erforderlich.</description>
         <description lang="es_ES">Soporte a las características de la caja para RPi4/5 Argon ONE como el botón de encendido, velocidad del ventilador y el Mando Argon IR. Requiere reinicio.</description>
         <description lang="en_GB">Support for RPi4/5 Argon ONE case features including the power button, fan speed, and the Argon IR remote. One-time restart required.</description>
@@ -32,7 +34,7 @@
         <description lang="pl_PL">Obsługa funkcji obudowy RPi4/5 Argon ONE, w tym przycisku zasilania, prędkości wentylatora i pilota IR Argon. Wymagane jednorazowe ponowne uruchomienie.</description>
         <description lang="ru_RU">Поддержка функций корпуса Argon ONE для RPi4/5, включая кнопку питания, скорость вентилятора и ИК-пульт Argon. Требуется однократная перезагрузка.</description>
         <description lang="sv_SE">Stöd för RPi4/5 Argon ONE-lådans funktioner, inklusive strömknappen, fläkthastigheten och Argon IR-fjärrkontrollen. Omstart krävs en gång.</description>
-        <description lang="uk_UA">Підтримка функций корпусу RPi4/5 Argon ONE, зокрема кнопки увімкнення, керування швидкістю вентилятора і пульту ДК Argon. Потрібне перезавантаження.</description>
+        <description lang="uk_UA">Підтримка функцій корпусу RPi4/5 Argon ONE, зокрема кнопки увімкнення, керування швидкістю вентилятора і пульту ДК Argon. Потрібне перезавантаження.</description>
         <description lang="zh_CN">支持 RPi4/5 Argon ONE 机箱功能，包括电源按钮、风扇速度和 Argon IR 遥控器。需要重新启动一次。</description>
         <language></language>
         <platform>linux</platform>
@@ -41,7 +43,11 @@
         <website>https://github.com/HungerHa/libreelec_addon_argononecontrol/</website>
         <email></email>
         <source>https://github.com/HungerHa/libreelec_addon_argononecontrol/</source>
-        <news>v1.2.3 (2026-05-13)
+        <news>v1.2.4 (2026-10-03)
+- new GUI language: Czech
+- updated GUI language: Ukrainian
+
+v1.2.3 (2026-05-13)
 - new GUI language: Russian
 - updated GUI language: Chinese (Simplified Han script)
 - missing Ukrainian description strings added
